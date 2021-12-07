@@ -1,16 +1,14 @@
-# flutter_basics_2
+# Cat as a service
 
-A new Flutter project.
+## Идея
+Приложение будет выдавать пользователю случайным образом милых и пушистых котиков, которые он сможет просматривать в ленте, собирать к себе в альбомы, загружать на телефон, делиться ими с друзьями через сторонние приложения, а также искать котиков по тегам, категориям, и просто радоваться жизни.
 
-## Getting Started
+## Экраны и их описание
+Всю необходимую информацию можно узнать по ссылке:
+https://www.figma.com/file/DCOKF9x9GyAApz1ZW4qigd/Cat-as-a-service?node-id=0%3A1
 
-This project is a starting point for a Flutter application.
+## Работа с сетью
+Приложение будет делать запросы в _Cat as a service API_ ([ссылка](https://cataas.com/#/)), откуда будет получать все необходимые данные о котиках (получение данных о фотографии в JSON-формате и последующее получение фотографии по URL). Также планируется внедрить сохранение данных об альбомах и избранных фотографиях для пользователя в Firebase.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Кэш
+Для пользователя будет возможность сохранять альбомы и фотографии на сосбственном устройстве.
