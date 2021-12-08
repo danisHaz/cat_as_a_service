@@ -1,26 +1,27 @@
 import 'dart:developer';
 
 class BottomBarState {
-	BottomBarState._();
+	const BottomBarState._();
 
-	factory BottomBarState.error(Error e) => BottomBarError(e);
-	factory BottomBarState.feedScreen() => BottomBarFeedState();
+	factory BottomBarState.error(Error e) => BottomBarErrorState(e);
+	factory BottomBarState.feedScreen() => const BottomBarFeedState();
 	factory BottomBarState.addCatScreen() => BottomBarAddCatState();
 	factory BottomBarState.albumsScreen() => BottomBarAlbumsState();
 }
 
-class BottomBarError extends BottomBarState {
-	BottomBarError(this._e): super._();
+class BottomBarErrorState extends BottomBarState {
+	BottomBarErrorState(this._e): super._();
 
 	final Error _e;
-
+  Error get err => _e;
+  
 	void printError() {
 		log("err stack trace: ${_e.stackTrace}");
 	}
 }
 
 class BottomBarFeedState extends BottomBarState {
-	BottomBarFeedState(): super._();
+	const BottomBarFeedState(): super._();
 }
 
 

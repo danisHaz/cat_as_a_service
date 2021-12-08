@@ -1,7 +1,8 @@
 {
-    "main_app_bar_title" : "Cat as a service",
-    "app_name" : "Cat as a service",
-    "bottom_bar": {
+    "main_app_bar_title": "Cat as a service",
+    "app_name": "Cat as a service",
+    "bottom_bar":
+    {
         "feed": "Feed",
         "add_a_cat": "Add a cat",
         "albums": "Albums"

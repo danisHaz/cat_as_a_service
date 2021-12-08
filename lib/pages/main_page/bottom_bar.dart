@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_basics_2/blocs/main_bloc.dart';
 import 'package:flutter_basics_2/shared/models/bottom_bar_state.dart';
+import 'package:provider/src/provider.dart';
 
 class BottomBar extends StatefulWidget {
 	
@@ -17,7 +21,7 @@ class BottomBarDataState extends State<BottomBar> {
   int _currentIndex = 0;
   
   int get currentIndex => _currentIndex;
-	void set currentIndex(int index) {
+  set currentIndex(int index) {
 		switch(index) {
 			case 0:
 				_currentState = BottomBarState.feedScreen();
@@ -55,7 +59,10 @@ class BottomBarDataState extends State<BottomBar> {
 					icon: const Icon(Icons.add),
 				),
 			],
-      onTap: _onItemSelected,
+      onTap: (int index) {
+        _onItemSelected(index);
+        context.read<MainCubit>().changeState(_currentState);
+      },
       currentIndex: _currentIndex,
       selectedItemColor: Colors.purple,
 		);

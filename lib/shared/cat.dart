@@ -1,5 +1,5 @@
 class Cat {
-	final int id;
+	final String id;
 	final List<String> tags;
 	final String createdAt;
 	Cat(
