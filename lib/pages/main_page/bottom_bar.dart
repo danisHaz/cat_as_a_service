@@ -44,15 +44,15 @@ class BottomBarDataState extends State<BottomBar> {
 			items: <BottomNavigationBarItem>[
 				BottomNavigationBarItem(
 					label: 'bottom_bar.feed'.tr(),
-					icon: Image.asset("assets/images/feed.png"),
+					icon: const Icon(Icons.dynamic_feed),
 				),
 				BottomNavigationBarItem(
 					label: "bottom_bar.add_a_cat".tr(),
-					icon: Image.asset("assets/images/add.png"),
+					icon: const Icon(Icons.collections),
 				),
 				BottomNavigationBarItem(
 					label: "bottom_bar.albums".tr(),
-					icon: Image.asset("assets/images/albums.png"),
+					icon: const Icon(Icons.add),
 				),
 			],
       onTap: _onItemSelected,
