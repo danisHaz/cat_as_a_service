@@ -11,6 +11,7 @@ class AddAlbumPage extends StatefulWidget {
 
 class _AddAlbumPageState extends State<AddAlbumPage> {
   late final TextEditingController _textController;
+  bool isError = false;
 
   @override
   void initState() {
@@ -25,13 +26,33 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
         title: const Text('Add Album'),
       ),
       body: ListView(
+        padding: EdgeInsets.all(18),
         children: [
-          TextField(
-            autofocus: true,
+          TextFormField(
             controller: _textController,
+            autofocus: true,
+            onChanged: (value) => setState(() {
+              isError = false;
+            }),
+            decoration: InputDecoration(
+              labelText: 'Album name',
+              helperText: ' ',
+              errorText: isError ? "Album name must not be empty" : null,
+              border: OutlineInputBorder(),
+              suffixIcon: isError ? Icon(
+                Icons.error,
+              ) : null,
+            ),
           ),
-          TextButton(
+          // TODO: fix button jump when error message appears
+          ElevatedButton(
             onPressed: () {
+              if(_textController.value.text.isEmpty){
+                setState(() {
+                  isError = true;
+                });
+                return;
+              }
               context.read<AlbumsCubit>().addAlbum(_textController.value.text);
               Navigator.pop(context);
             },

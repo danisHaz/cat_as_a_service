@@ -9,7 +9,6 @@ void main() async {
 	
 	runApp(
 		EasyLocalization(
-      leadpogrommer_albums
 			supportedLocales: const [Locale('en', 'US')],
 			path: 'assets/locales',
 			fallbackLocale: const Locale('en', 'US'),

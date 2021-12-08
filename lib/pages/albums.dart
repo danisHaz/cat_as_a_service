@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter_basics_2/blocs/albums_bloc.dart';
 import 'package:flutter_basics_2/shared/album.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +15,9 @@ class AlbumsPage extends StatelessWidget {
       body: BlocBuilder<AlbumsCubit, AlbumsState>(
         builder: (context, state) {
           return GridView.count(
-            crossAxisCount: 2,
+            padding:
+                EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 2),
+            crossAxisCount: MediaQuery.of(context).size.width ~/ 150,
             children: [
               for (var album in state.albums.values) AlbumPreview(album)
             ],
@@ -24,9 +27,11 @@ class AlbumsPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return const AddAlbumPage();
-          }));
+          Navigator.of(context).push(MaterialPageRoute(
+              fullscreenDialog: true,
+              builder: (context) {
+                return const AddAlbumPage();
+              }));
         },
       ),
     );
@@ -41,20 +46,48 @@ class AlbumPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final imageWidget = album.cats.isNotEmpty
-        ? Image.network('https://cataas.com/cat/${album.cats[0].id}')
-        : const Icon(Icons.wallpaper);
+        ? Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image:
+                    NetworkImage('https://cataas.com/cat/${album.cats[0].id}'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          )
+        : FittedBox(
+            child: const Icon(Icons.wallpaper),
+            fit: BoxFit.contain,
+          );
 
     return Card(
-      child: Column(
-        children: [
-          Flexible(child: imageWidget),
-          Row(
-            children: [
-              Text(album.name),
-              Text(album.cats.length.toString()),
-            ],
-          )
-        ],
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () {
+          print("Album tapped!");
+        },
+        child: Column(
+          children: [
+            Expanded(
+              child: imageWidget,
+            ),
+            // imageWidget,
+            Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                        child: Text(
+                      album.name,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    )),
+                    Text(album.cats.length.toString()),
+                  ],
+                )),
+          ],
+        ),
       ),
     );
   }
