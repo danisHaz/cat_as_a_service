@@ -5,26 +5,26 @@ import 'package:flutter/foundation.dart';
 import '../cat.dart';
 
 class CatJsonData {
-	final int id;
+	final String id;
 	final List<String> tags;
-	final String created_at;
+	final String createdAt;
 	CatJsonData(
 		this.id,
 		this.tags,
-		this.created_at
+		this.createdAt
 	);
 
-	Cat convertToCat() => Cat(id, tags, created_at);
+	Cat convertToCat() => Cat(id, tags, createdAt);
 
   CatJsonData copyWith({
-    int? id,
+    String? id,
     List<String>? tags,
-    String? created_at,
+    String? createdAt,
   }) {
     return CatJsonData(
       id ?? this.id,
       tags ?? this.tags,
-      created_at ?? this.created_at,
+      createdAt ?? this.createdAt,
     );
   }
 
@@ -32,7 +32,7 @@ class CatJsonData {
     return {
       'id': id,
       'tags': tags,
-      'created_at': created_at,
+      'created_at': createdAt,
     };
   }
 
@@ -49,7 +49,7 @@ class CatJsonData {
   factory CatJsonData.fromJson(String source) => CatJsonData.fromMap(json.decode(source));
 
   @override
-  String toString() => 'CatJsonData(id: $id, tags: $tags, created_at: $created_at)';
+  String toString() => 'CatJsonData(id: $id, tags: $tags, created_at: $createdAt)';
 
   @override
   bool operator ==(Object other) {
@@ -58,9 +58,9 @@ class CatJsonData {
     return other is CatJsonData &&
       other.id == id &&
       listEquals(other.tags, tags) &&
-      other.created_at == created_at;
+      other.createdAt == createdAt;
   }
 
   @override
-  int get hashCode => id.hashCode ^ tags.hashCode ^ created_at.hashCode;
+  int get hashCode => id.hashCode ^ tags.hashCode ^ createdAt.hashCode;
 }

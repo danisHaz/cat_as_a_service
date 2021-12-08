@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_basics_2/blocs/albums_bloc.dart';
 import 'package:flutter_basics_2/pages/albums.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,7 +15,7 @@ class MainApp extends StatelessWidget {
 			providers: [
 				BlocProvider(create: (context) => AlbumsCubit())
 			],
-		  child: MaterialApp(
+		  child: const MaterialApp(
 		  	home: AlbumsPage(),
 		  ),
 		);
