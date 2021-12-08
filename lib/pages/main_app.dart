@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
 import 'package:flutter_basics_2/blocs/albums_bloc.dart';
 import 'package:flutter_basics_2/blocs/main_bloc.dart';
 import 'package:flutter_basics_2/pages/albums.dart';
@@ -7,7 +8,6 @@ import 'package:flutter_basics_2/shared/models/bottom_bar_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_basics_2/pages/main_page/bottom_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
-
 
 class MainApp extends StatelessWidget {
 

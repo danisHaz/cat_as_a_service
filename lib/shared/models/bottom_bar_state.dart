@@ -13,9 +13,8 @@ class BottomBarErrorState extends BottomBarState {
 	BottomBarErrorState(this._e): super._();
 
 	final Error _e;
-
   Error get err => _e;
-
+  
 	void printError() {
 		log("err stack trace: ${_e.stackTrace}");
 	}

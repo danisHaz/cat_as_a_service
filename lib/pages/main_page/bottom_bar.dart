@@ -21,8 +21,7 @@ class BottomBarDataState extends State<BottomBar> {
   int _currentIndex = 0;
   
   int get currentIndex => _currentIndex;
-	set currentIndex(int index) {
-    log('$index');
+  set currentIndex(int index) {
 		switch(index) {
 			case 0:
 				_currentState = BottomBarState.feedScreen();
