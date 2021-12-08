@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_basics_2/shared/models/bottom_bar_state.dart';
@@ -13,8 +14,10 @@ class BottomBar extends StatefulWidget {
 class BottomBarDataState extends State<BottomBar> {
 	// Default state is feed screen with scrollable list of cats
 	BottomBarState _currentState = BottomBarState.feedScreen();
-	BottomBarDataState();
-	set _currentIndex(int index) {
+  int _currentIndex = 0;
+  
+  int get currentIndex => _currentIndex;
+	void set currentIndex(int index) {
 		switch(index) {
 			case 0:
 				_currentState = BottomBarState.feedScreen();
@@ -26,32 +29,35 @@ class BottomBarDataState extends State<BottomBar> {
 				_currentState = BottomBarState.albumsScreen();
 				break;
 		}
-		_currentIndex = index;
+    _currentIndex = index;
 	}
 
 	void _onItemSelected(int newIndex) {
 		setState(() {
-			_currentIndex = newIndex;
+			currentIndex = newIndex;
 		});
 	}
 
 	@override
 	Widget build(BuildContext context) {
 		return BottomNavigationBar(
-			items: [
+			items: <BottomNavigationBarItem>[
 				BottomNavigationBarItem(
-					label: "Feed",
+					label: 'bottom_bar.feed'.tr(),
 					icon: Image.asset("assets/images/feed.png"),
 				),
 				BottomNavigationBarItem(
-					label: "Add a cat",
+					label: "bottom_bar.add_a_cat".tr(),
 					icon: Image.asset("assets/images/add.png"),
 				),
 				BottomNavigationBarItem(
-					label: "Albums",
+					label: "bottom_bar.albums".tr(),
 					icon: Image.asset("assets/images/albums.png"),
 				),
-			]
+			],
+      onTap: _onItemSelected,
+      currentIndex: _currentIndex,
+      selectedItemColor: Colors.purple,
 		);
 		
 	}
