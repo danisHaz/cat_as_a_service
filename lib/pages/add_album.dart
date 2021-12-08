@@ -33,7 +33,7 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
           TextButton(
             onPressed: () {
               context.read<AlbumsCubit>().addAlbum(_textController.value.text);
-              Navigator.of(context).pop();
+              Navigator.pop(context);
             },
             child: const Text('Add'),
           )

@@ -11,9 +11,6 @@ class AlbumsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Albums'),
-      ),
       body: BlocBuilder<AlbumsCubit, AlbumsState>(
         builder: (context, state) {
           return GridView.count(
@@ -43,11 +40,8 @@ class AlbumPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var imageWidget = album.cats.isNotEmpty
-        ? Image(
-            image: NetworkImage('https://cataas.com/cat/${album.cats[0].id}'),
-            fit: BoxFit.fill,
-          )
+    final imageWidget = album.cats.isNotEmpty
+        ? Image.network('https://cataas.com/cat/${album.cats[0].id}')
         : const Icon(Icons.wallpaper);
 
     return Card(

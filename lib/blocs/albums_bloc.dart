@@ -32,7 +32,7 @@ class AlbumsCubit extends Cubit<AlbumsState> {
     var newAlbums = Map.of(state.albums);
     newAlbums[state.nextIndex] = Album(state.nextIndex, name, []);
 
-    var albumId = state.nextIndex;
+    final albumId = state.nextIndex;
 
     emit(AlbumsState(albums: newAlbums, nextIndex: state.nextIndex + 1));
 
