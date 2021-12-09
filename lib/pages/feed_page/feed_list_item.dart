@@ -14,12 +14,8 @@ class FeedListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     try {
-      log(BASE_URL + cat.url);
-      final kitty = Image.network(BASE_URL + cat.url);
       return Card(
-        child: Flexible(
-          child: kitty
-        )
+        child: Image.network(BASE_URL + cat.url),
       );
     } catch (e) {
       log("$e");

@@ -30,10 +30,9 @@ class FeedPageState extends State<FeedPage> {
             state.err.print();
             return const FeedErrorPage();
           } else if (state.isLoading) {
-            log("loading");
             return const ProgressBar();
           } else if (state.data != null) {
-            catsList = new List.from(catsList)..addAll(state.data);
+            catsList = List.from(catsList)..addAll(state.data);
 
             return FeedMainPage(
               cats: catsList,
@@ -41,7 +40,14 @@ class FeedPageState extends State<FeedPage> {
             );
           } else if (state.isUpdateRequired ?? false) {
             context.read<FeedCubit>().getListOfCatsAsPage(numberOfCatsInPage: 20);
-            return const Text("qweqqw");
+            return const Center(
+              child: Text(
+                "Updating...",
+                style: TextStyle(
+                  color: Colors.red
+                ),
+              )
+            );
           }
           
           // every state is invalid

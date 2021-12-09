@@ -23,7 +23,6 @@ class FeedCubit extends Cubit<FeedDataState<dynamic>> {
     required int numberOfCatsInPage,
   }) async {
     emit(const FeedDataState(isLoading: true));
-    log("wqewqweqe");
 
     // go to repository and get data
 

@@ -18,21 +18,11 @@ class FeedMainPage extends StatefulWidget {
   }): super(key: key);
 
   @override
-  FeedMainPageState createState() => FeedMainPageState(cats: cats, pageSize: pageSize);
+  FeedMainPageState createState() => FeedMainPageState();
 }
 
 class FeedMainPageState extends State<FeedMainPage> {
-  final List<Cat> cats;
-  final int pageSize;
   final ScrollController _controller = ScrollController();
-  late int _currentCountOfCats;
-
-  FeedMainPageState({
-    required this.cats,
-    required this.pageSize,
-  }): super() {
-    _currentCountOfCats = pageSize;
-  }
 
   @override
   void initState() {
@@ -45,12 +35,12 @@ class FeedMainPageState extends State<FeedMainPage> {
     return ListView.builder(
       itemBuilder: (contex, index) {
         log(index.toString());
-        return index >= cats.length-1 ?
+        return index >= widget.cats.length-1 ?
           const ProgressBar() :
-          FeedListItem(cat: cats[index],);
+          FeedListItem(cat: widget.cats[index],);
       },
       controller: _controller,
-      itemCount: _currentCountOfCats,
+      itemCount: widget.cats.length,
     );
   }
 
@@ -62,12 +52,12 @@ class FeedMainPageState extends State<FeedMainPage> {
     super.dispose();
   }
 
-   void _onScroll() {
+  void _onScroll() {
+    //log(cats.length.toString());
     if (_isBottom) {
       context
         .read<FeedCubit>()
-        .getListOfCatsAsPage(numberOfCatsInPage: pageSize);
-        _currentCountOfCats += pageSize;
+        .getListOfCatsAsPage(numberOfCatsInPage: widget.pageSize);
     }
   }
 
