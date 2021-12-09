@@ -22,10 +22,8 @@ class CatRepository {
         .transform(StreamTransformer.fromHandlers(handleData: (snapshot, sink) {
       final ret = <String, Album>{};
       for (var doc in snapshot.docs) {
-        if (doc.data() != null) {
-          final album = Album.fromJson(doc.data() as Map<String, dynamic>);
-          ret[album.id] = album;
-        }
+        final album = Album.fromJson(doc.data());
+        ret[album.id] = album;
       }
       sink.add(ret);
     }));

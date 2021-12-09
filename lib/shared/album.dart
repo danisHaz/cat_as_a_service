@@ -9,10 +9,10 @@ class Album{
   final String name;
   final List<Cat> cats;
   Album(
-      this.id,
-      this.name,
-      this.cats,
-      );
+    this.id,
+    this.name,
+    this.cats,
+  );
   factory Album.fromJson(Map<String, dynamic> json) => _$AlbumFromJson(json);
   Map<String, dynamic> toJson() => _$AlbumToJson(this);
 }
