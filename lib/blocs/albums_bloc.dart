@@ -1,41 +1,46 @@
+import 'dart:async';
 import 'dart:math';
 
+import 'package:flutter_basics_2/repositories/cat_repository.dart';
 import 'package:flutter_basics_2/shared/album.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AlbumsState {
-  final Map<int, Album> albums;
-  final int nextIndex;
+  final Map<String, Album> albums;
 
   const AlbumsState({
     this.albums = const {},
-    this.nextIndex = 0,
   });
 
   AlbumsState copyWith({
-    Map<int, Album>? albums,
+    Map<String, Album>? albums,
     int? nextIndex,
   }) {
     return AlbumsState(
       albums: albums ?? this.albums,
-      nextIndex: nextIndex ?? this.nextIndex,
     );
   }
 }
 
 class AlbumsCubit extends Cubit<AlbumsState> {
+  late final StreamSubscription<dynamic> _albumsSubscription;
+
   AlbumsCubit([AlbumsState initialState = const AlbumsState()])
-      : super(initialState);
+      : super(initialState){
+    _albumsSubscription = CatRepository().albumsStream().listen((event) {
+      emit(AlbumsState(albums: event));
+    });
+  }
 
-  void addAlbum(String name) {
-    var newAlbums = Map.of(state.albums);
-    newAlbums[state.nextIndex] = Album(state.nextIndex, name, []);
+  @override
+  Future<void> close() {
+    _albumsSubscription.cancel();
+    return super.close();
+  }
 
-    final albumId = state.nextIndex;
-
-    emit(AlbumsState(albums: newAlbums, nextIndex: state.nextIndex + 1));
-
+  void addAlbum(String name) async {
+    final albumId = await CatRepository().addAlbum(name);
     if (Random().nextBool()) {
       addCatToAlbum(albumId,
         const Cat(
@@ -48,13 +53,7 @@ class AlbumsCubit extends Cubit<AlbumsState> {
     }
   }
 
-  void addCatToAlbum(int albumId, Cat cat) {
-    var newAlbums = Map.of(state.albums);
-    var album = newAlbums[albumId]!;
-    var newAlbum = Album(album.id, album.name, List.of(album.cats));
-    newAlbum.cats.add(cat);
-    newAlbums[albumId] = newAlbum;
-
-    emit(state.copyWith(albums: newAlbums));
+  void addCatToAlbum(String albumId, Cat cat) {
+    CatRepository().addCatToAlbum(albumId, cat);
   }
 }
