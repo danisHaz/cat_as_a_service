@@ -1,17 +1,15 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:flutter/widgets.dart';
 
-part 'cat.g.dart';
-
-@JsonSerializable()
+@immutable
 class Cat {
 	final String id;
 	final List<String> tags;
 	final String createdAt;
-	Cat(
-		this.id,
-		this.tags,
-		this.createdAt
-	);
-	factory Cat.fromJson(Map<String, dynamic> json) => _$CatFromJson(json);
-	Map<String, dynamic> toJson() => _$CatToJson(this);
+  final String url;
+	const Cat({
+	  required this.id,
+		required this.tags,
+		required this.createdAt,
+    required this.url
+  });
 }

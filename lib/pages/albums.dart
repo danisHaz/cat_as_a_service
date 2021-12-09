@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_basics_2/blocs/albums_bloc.dart';
 import 'package:flutter_basics_2/shared/album.dart';
+import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'add_album.dart';
@@ -46,20 +47,20 @@ class AlbumPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final imageWidget = album.cats.isNotEmpty
-        ? Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image:
-                    NetworkImage('https://cataas.com/cat/${album.cats[0].id}'),
-                fit: BoxFit.cover,
-              ),
+      ? Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image:
+                  NetworkImage('$BASE_URL/cat/${album.cats[0].id}'),
+              fit: BoxFit.cover,
             ),
-          )
-        : FittedBox(
-            child: const Icon(Icons.wallpaper),
-            fit: BoxFit.contain,
-          );
-
+          ),
+        )
+      : FittedBox(
+          child: const Icon(Icons.wallpaper),
+          fit: BoxFit.contain,
+    );
+    
     return Card(
       clipBehavior: Clip.antiAlias,
       child: InkWell(
