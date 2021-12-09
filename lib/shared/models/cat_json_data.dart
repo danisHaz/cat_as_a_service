@@ -8,23 +8,27 @@ class CatJsonData {
 	final String id;
 	final List<String> tags;
 	final String createdAt;
+  final String url;
 	CatJsonData(
 		this.id,
 		this.tags,
-		this.createdAt
+		this.createdAt,
+    this.url
 	);
 
-	Cat convertToCat() => Cat(id, tags, createdAt);
+	Cat convertToCat() => Cat(id: id, tags: tags, createdAt: createdAt, url: url);
 
   CatJsonData copyWith({
     String? id,
     List<String>? tags,
     String? createdAt,
+    String? url,
   }) {
     return CatJsonData(
       id ?? this.id,
       tags ?? this.tags,
       createdAt ?? this.createdAt,
+      url ?? this.url,
     );
   }
 
@@ -33,6 +37,7 @@ class CatJsonData {
       'id': id,
       'tags': tags,
       'created_at': createdAt,
+      'url': url,
     };
   }
 
@@ -41,6 +46,7 @@ class CatJsonData {
       map['id'],
       List<String>.from(map['tags']),
       map['created_at'],
+      map['url'],
     );
   }
 
@@ -49,7 +55,7 @@ class CatJsonData {
   factory CatJsonData.fromJson(String source) => CatJsonData.fromMap(json.decode(source));
 
   @override
-  String toString() => 'CatJsonData(id: $id, tags: $tags, created_at: $createdAt)';
+  String toString() => 'CatJsonData(id: $id, tags: $tags, created_at: $createdAt, url: $url)';
 
   @override
   bool operator ==(Object other) {
@@ -58,9 +64,9 @@ class CatJsonData {
     return other is CatJsonData &&
       other.id == id &&
       listEquals(other.tags, tags) &&
-      other.createdAt == createdAt;
+      other.createdAt == createdAt && other.url == url;
   }
 
   @override
-  int get hashCode => id.hashCode ^ tags.hashCode ^ createdAt.hashCode;
+  int get hashCode => id.hashCode ^ tags.hashCode ^ createdAt.hashCode ^ url.hashCode;
 }

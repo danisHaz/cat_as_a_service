@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/blocs/albums_bloc.dart';
 import 'package:flutter_basics_2/shared/album.dart';
+import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'add_album.dart';
@@ -41,7 +42,7 @@ class AlbumPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final imageWidget = album.cats.isNotEmpty
-        ? Image.network('https://cataas.com/cat/${album.cats[0].id}')
+        ? Image.network('$BASE_URL/cat/${album.cats[0].id}')
         : const Icon(Icons.wallpaper);
 
     return Card(

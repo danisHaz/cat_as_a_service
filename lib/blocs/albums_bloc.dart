@@ -38,7 +38,13 @@ class AlbumsCubit extends Cubit<AlbumsState> {
 
     if (Random().nextBool()) {
       addCatToAlbum(albumId,
-          Cat('612f9eeed81ee30011e05de9', [], "at the beginning of time"));
+        const Cat(
+          id: "5e2b4b634348da001c78fb7d",
+          createdAt: "2020-01-24T19:54:11.511Z",
+          tags: [],
+          url: "/cat/5e2b4b634348da001c78fb7d"
+        )
+      );
     }
   }
 

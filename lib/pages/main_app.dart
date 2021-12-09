@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:flutter_basics_2/blocs/albums_bloc.dart';
+import 'package:flutter_basics_2/blocs/feed_bloc.dart';
 import 'package:flutter_basics_2/blocs/main_bloc.dart';
 import 'package:flutter_basics_2/pages/albums.dart';
 import 'package:flutter_basics_2/shared/models/bottom_bar_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_basics_2/pages/main_page/bottom_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
+
+import 'feed_page/feed_screen.dart';
 
 class MainApp extends StatelessWidget {
 
@@ -18,7 +21,8 @@ class MainApp extends StatelessWidget {
 		return MultiBlocProvider(
 			providers: [
 				BlocProvider(create: (context) => AlbumsCubit()),
-        BlocProvider(create: (_) => MainCubit())
+        BlocProvider(create: (context) => MainCubit()),
+        BlocProvider(create: (context) => FeedCubit())
 			],
 		  child: MaterialApp(
 				home: Scaffold(
@@ -31,7 +35,7 @@ class MainApp extends StatelessWidget {
               } else if (state is BottomBarAlbumsState) {
                 return AlbumsPage(key: key);
               } else if (state is BottomBarFeedState) {
-                // todo: not implemented
+                return const FeedPage();
               } else if (state is BottomBarErrorState) {
                 state.printError();
                 throw state.err;
