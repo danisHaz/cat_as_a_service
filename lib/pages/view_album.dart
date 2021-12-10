@@ -22,7 +22,7 @@ class ViewAlbumPage extends StatelessWidget {
           ),
           body: GridView.count(
             crossAxisCount: MediaQuery.of(context).size.width ~/ 100,
-            children: [for (var cat in album.cats) CatPreview(cat: cat)],
+            children: [for (var cat in album.cats) CatPreview(cat: cat.toCat())],
           ),
         );
       },

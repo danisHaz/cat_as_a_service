@@ -66,7 +66,7 @@ class CatRepository {
     final snapshot = await _albumsCollection.doc(albumId).get();
     final snapshotData = snapshot.data();
     final album = Album.fromJson(snapshotData as Map<String, dynamic>);
-    album.cats.add(cat);
+    album.cats.add(cat.toCatJsonData());
     await _albumsCollection.doc(albumId).update(album.toJson());
   }
 

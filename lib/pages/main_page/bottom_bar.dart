@@ -50,11 +50,11 @@ class BottomBarDataState extends State<BottomBar> {
 				),
 				BottomNavigationBarItem(
 					label: "bottom_bar.add_a_cat".tr(),
-					icon: const Icon(Icons.collections),
+					icon: const Icon(Icons.add),
 				),
 				BottomNavigationBarItem(
 					label: "bottom_bar.albums".tr(),
-					icon: const Icon(Icons.add),
+					icon: const Icon(Icons.collections),
 				),
 			],
       onTap: (int index) {
