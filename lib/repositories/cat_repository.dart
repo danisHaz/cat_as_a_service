@@ -35,12 +35,12 @@ class CatRepository {
     return id;
   }
 
-  void addCatToAlbum(String albumId, Cat cat)async {
+  Future<void> addCatToAlbum(String albumId, Cat cat)async {
     final snapshot = await _albumsCollection.doc(albumId).get();
     final snapshotData = snapshot.data();
     final album = Album.fromJson(snapshotData as Map<String, dynamic>);
     album.cats.add(cat);
-    _albumsCollection.doc(albumId).update(album.toJson());
+    await _albumsCollection.doc(albumId).update(album.toJson());
   }
 
 
