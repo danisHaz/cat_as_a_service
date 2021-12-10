@@ -44,10 +44,9 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
               ) : null,
             ),
           ),
-          // TODO: fix button jump when error message appears
           ElevatedButton(
             onPressed: () {
-              if(_textController.value.text.isEmpty){
+              if (_textController.value.text.isEmpty) {
                 setState(() {
                   isError = true;
                 });
