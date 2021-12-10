@@ -4,6 +4,7 @@ import 'package:flutter_basics_2/blocs/albums_bloc.dart';
 import 'package:flutter_basics_2/shared/album.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 
 import 'add_album.dart';
 
@@ -56,8 +57,8 @@ class AlbumPreview extends StatelessWidget {
             ),
           ),
         )
-      : FittedBox(
-          child: const Icon(Icons.wallpaper),
+      : const FittedBox(
+          child: Icon(Icons.wallpaper),
           fit: BoxFit.contain,
     );
     
@@ -65,7 +66,7 @@ class AlbumPreview extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () {
-          print("Album tapped!");
+          Logger().d("Album tapped!");
         },
         child: Column(
           children: [

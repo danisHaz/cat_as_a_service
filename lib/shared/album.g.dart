@@ -10,7 +10,7 @@ Album _$AlbumFromJson(Map<String, dynamic> json) => Album(
       json['id'] as String,
       json['name'] as String,
       (json['cats'] as List<dynamic>)
-          .map((e) => Cat.fromJson(e as Map<String, dynamic>))
+          .map((e) => CatJsonData.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

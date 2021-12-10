@@ -42,6 +42,9 @@ dependencies:
   firebase_auth: ^3.3.3
   cloud_firestore: ^3.1.4
   json_annotation: ^4.4.0
+  retrofit: ^3.0.0
+  logger: ^1.1.0
+  dio: ^4.0.4
 
 dev_dependencies:
   flutter_test:
@@ -55,6 +58,7 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   build_runner: ^2.1.5
   json_serializable: ^6.1.1
+  retrofit_generator: ^3.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -26,7 +26,7 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
         title: const Text('Add Album'),
       ),
       body: ListView(
-        padding: EdgeInsets.all(18),
+        padding: const EdgeInsets.all(18),
         children: [
           TextFormField(
             controller: _textController,
@@ -38,8 +38,8 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
               labelText: 'Album name',
               helperText: ' ',
               errorText: isError ? "Album name must not be empty" : null,
-              border: OutlineInputBorder(),
-              suffixIcon: isError ? Icon(
+              border: const OutlineInputBorder(),
+              suffixIcon: isError ? const Icon(
                 Icons.error,
               ) : null,
             ),
