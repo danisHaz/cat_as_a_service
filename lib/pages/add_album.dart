@@ -39,11 +39,9 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
               helperText: ' ',
               errorText: isError ? "Album name must not be empty" : null,
               border: const OutlineInputBorder(),
-              suffixIcon: isError
-                  ? const Icon(
-                      Icons.error,
-                    )
-                  : null,
+              suffixIcon: isError ? const Icon(
+                Icons.error,
+              ) : null,
             ),
           ),
           ElevatedButton(

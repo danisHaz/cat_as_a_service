@@ -1,9 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:flutter_basics_2/shared/models/cat_json_data.dart';
 
-part 'cat.g.dart';
 @immutable
-@JsonSerializable(explicitToJson: true)
 class Cat {
 	final String id;
 	final List<String> tags;
@@ -16,6 +14,6 @@ class Cat {
     required this.url
   });
 
-  factory Cat.fromJson(Map<String, dynamic> json) => _$CatFromJson(json);
-	Map<String, dynamic> toJson() => _$CatToJson(this);
+  CatJsonData toCatJsonData() 
+    => CatJsonData(id, tags, createdAt, url);
 }

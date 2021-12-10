@@ -8,7 +8,7 @@ class FeedErrorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        'feed_error_notify'.tr(),
+        'feed_error_notify'.tr(), 
         style: const TextStyle(color: Colors.black),
       )
     );
