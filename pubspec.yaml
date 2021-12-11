@@ -46,6 +46,8 @@ dependencies:
   retrofit: ^3.0.0
   logger: ^1.1.0
   dio: ^4.0.4
+  flutter_chips_input: ^1.10.0
+  gallery_saver: ^2.3.2
   flare_flutter: ^3.0.2
   pull_to_refresh: ^2.0.0
 

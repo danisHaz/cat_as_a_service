@@ -23,7 +23,12 @@ class CatRepository {
 
   Future<Cat> getRandomCat() async {
     final kitty = await _apiService.getCatJsonData(getJson: true);
-    return kitty.toCat();
+    return kitty;
+  }
+
+  Future<List<String>> getAllTags() async {
+    final tags = await _apiService.getAllTags();
+    return tags;
   }
 
   Future<List<Cat>> getAllCatsByTag({
@@ -37,7 +42,7 @@ class CatRepository {
       limitNumberOfCats: limitNumberOfCats,
     );
 
-    return kitties.map((catJsonData) => catJsonData.toCat()).toList();
+    return kitties;
   }
 
   late final CollectionReference _albumsCollection;
@@ -66,7 +71,7 @@ class CatRepository {
     final snapshot = await _albumsCollection.doc(albumId).get();
     final snapshotData = snapshot.data();
     final album = Album.fromJson(snapshotData as Map<String, dynamic>);
-    album.cats.add(cat.toCatJsonData());
+    album.cats.add(cat);
     await _albumsCollection.doc(albumId).update(album.toJson());
   }
 

@@ -27,7 +27,7 @@ class AlbumsCubit extends Cubit<AlbumsState> {
   late final StreamSubscription<dynamic> _albumsSubscription;
 
   AlbumsCubit([AlbumsState initialState = const AlbumsState()])
-      : super(initialState){
+      : super(initialState) {
     _albumsSubscription = CatRepository().albumsStream().listen((event) {
       emit(AlbumsState(albums: event));
     });
@@ -42,15 +42,13 @@ class AlbumsCubit extends Cubit<AlbumsState> {
   void addAlbum(String name) async {
     final albumId = await CatRepository().addAlbum(name);
     final count = Random().nextInt(6);
-    for (var i = 0;  i < count; i++) {
-      await addCatToAlbum(albumId,
-        const Cat(
-          id: "5e2b4b634348da001c78fb7d",
-          createdAt: "2020-01-24T19:54:11.511Z",
-          tags: [],
-          url: "/cat/5e2b4b634348da001c78fb7d"
-        )
-      );
+    for (var i = 0; i < count; i++) {
+      await addCatToAlbum(
+          albumId,
+          const Cat(
+              id: "5e2b4b634348da001c78fb7d",
+              tags: [],
+              url: "/cat/5e2b4b634348da001c78fb7d"));
     }
   }
 
