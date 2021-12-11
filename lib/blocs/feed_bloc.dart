@@ -29,6 +29,15 @@ class FeedCubit extends Cubit<FeedDataState<dynamic>> {
     _data.cats.addAll(cats);
   }
 
+  Future<void> refreshCats({
+    required int numberOfCatsInPage,
+  }) async {
+    _data.cats.clear();
+    await getListOfCatsAsPage(
+      numberOfCatsInPage: numberOfCatsInPage,
+    );
+  }
+
   Future<void> getListOfCatsAsPage({
     required int numberOfCatsInPage,
   }) async {
