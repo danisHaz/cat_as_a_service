@@ -5,7 +5,9 @@ import 'package:flutter_basics_2/blocs/feed_bloc.dart';
 import 'package:flutter_basics_2/pages/feed_page/feed_list_item.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/widgets/progress_bar.dart';
+import 'package:logger/logger.dart';
 import 'package:provider/src/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class FeedMainPage extends StatefulWidget {
   final List<Cat> cats;
@@ -23,6 +25,8 @@ class FeedMainPage extends StatefulWidget {
 
 class FeedMainPageState extends State<FeedMainPage> {
   final ScrollController _controller = ScrollController();
+  final RefreshController _refreshController 
+    = RefreshController(initialRefresh: false);
 
   @override
   void initState() {
@@ -30,17 +34,34 @@ class FeedMainPageState extends State<FeedMainPage> {
     _controller.addListener(_onScroll);
   }
 
+  void _onRefresh() async {
+    await context.read<FeedCubit>().refreshCats(numberOfCatsInPage: 20);
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    _refreshController.loadComplete();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (contex, index) {
-        log(index.toString());
-        return index >= widget.cats.length-1 ?
-          const ProgressBar() :
-          FeedListItem(cat: widget.cats[index],);
-      },
-      controller: _controller,
-      itemCount: widget.cats.length,
+    return SmartRefresher(
+      enablePullDown: true,
+      header: const WaterDropHeader(),
+      controller: _refreshController,
+      onRefresh: _onRefresh,
+      onLoading: _onLoading,
+      child: ListView.builder(
+        key: const PageStorageKey(0),
+        itemBuilder: (contex, index) {
+          log(index.toString());
+          return index >= widget.cats.length-1 ?
+            const ProgressBar() :
+            FeedListItem(cat: widget.cats[index],);
+        },
+        controller: _controller,
+        itemCount: widget.cats.length,
+      )
     );
   }
 
@@ -50,11 +71,14 @@ class FeedMainPageState extends State<FeedMainPage> {
       ..removeListener(_onScroll)
       ..dispose();
     super.dispose();
+    _refreshController
+      .dispose();
   }
 
   void _onScroll() {
     //log(cats.length.toString());
     if (_isBottom) {
+      Logger().d("kekos");
       context
         .read<FeedCubit>()
         .getListOfCatsAsPage(numberOfCatsInPage: widget.pageSize);
@@ -65,6 +89,8 @@ class FeedMainPageState extends State<FeedMainPage> {
     if (!_controller.hasClients) return false;
     final maxScroll = _controller.position.maxScrollExtent;
     final currentScroll = _controller.offset;
+    // Logger().d(currentScroll);
+    // Logger().d(maxScroll);
     return currentScroll >= (maxScroll * 0.9);
   }
 }
