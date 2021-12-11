@@ -16,23 +16,22 @@ class _ApiService implements ApiService {
   String? baseUrl;
 
   @override
-  Future<CatJsonData> getCatJsonData({getJson = true}) async {
+  Future<Cat> getCatJsonData({getJson = true}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'json': getJson};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<CatJsonData>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/cat',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = CatJsonData.fromJson(_result.data!);
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<Cat>(
+        Options(method: 'GET', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/cat',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = Cat.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<List<CatJsonData>> getAllCatsByTag(
+  Future<List<Cat>> getAllCatsByTag(
       {required formattedTags,
       required numberOfCatsToSkip,
       required limitNumberOfCats}) async {
@@ -44,14 +43,13 @@ class _ApiService implements ApiService {
     };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<List<CatJsonData>>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api/cats',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final _result = await _dio.fetch<List<dynamic>>(_setStreamType<List<Cat>>(
+        Options(method: 'GET', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/api/cats',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
-        .map((dynamic i) => CatJsonData.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) => Cat.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }

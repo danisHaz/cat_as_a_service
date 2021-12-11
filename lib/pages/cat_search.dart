@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/blocs/cat_search_bloc.dart';
+import 'package:flutter_basics_2/pages/cat_editor.dart';
 import 'package:flutter_basics_2/widgets/cat_preview.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chips_input/flutter_chips_input.dart';
@@ -17,7 +18,7 @@ class CatSearchPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ChipsInput(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Search tags"
                   ),
@@ -53,7 +54,7 @@ class CatSearchPage extends StatelessWidget {
                       // onPressed: (){
                       //   state.deleteChip(data);
                       // },
-                      deleteIcon: Icon(Icons.highlight_off),
+                      deleteIcon: const Icon(Icons.highlight_off),
                       onDeleted: () {
                         state.deleteChip(data);
                       },
@@ -76,7 +77,9 @@ class CatSearchPage extends StatelessWidget {
                           if (index == state.cats.length - 1) {
                             context.read<CatSearchBloc>().loadMoreCats(10);
                           }
-                          return CatPreview(cat: state.cats[index]);
+                          return CatPreview(cat: state.cats[index], onTap: (tag){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CatEditorPage(cat: state.cats[index])));
+                          },);
                         },
                         childCount: state.cats.length,
                       ),
