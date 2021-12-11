@@ -13,26 +13,26 @@ class FeedDataState<T> {
   final Error? err;
   final bool isLoading;
   final bool? isUpdateRequired;
-  final T? data;
+  final bool? isSuccessful;
 
   const FeedDataState({
     this.err,
     required this.isLoading,
     this.isUpdateRequired,
-    this.data
+    this.isSuccessful
   });
 
   FeedDataState copyWith({
     Error? err,
     required bool isLoading,
     bool? isUpdateRequired,
-    T? data
+    bool? isSuccessful
   }) {
     return FeedDataState(
       isLoading: isLoading,
       err: err,
       isUpdateRequired: isUpdateRequired,
-      data: data
+      isSuccessful: isSuccessful
     );
   }
 }

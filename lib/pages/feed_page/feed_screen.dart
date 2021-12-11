@@ -17,7 +17,6 @@ class FeedPage extends StatefulWidget {
 }
 
 class FeedPageState extends State<FeedPage> {
-  List<Cat> catsList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +27,13 @@ class FeedPageState extends State<FeedPage> {
             state.err.print();
             return const FeedErrorPage();
           } else if (state.isLoading) {
-            return const ProgressBar();
-          } else if (state.data != null) {
-            catsList = List.from(catsList)..addAll(state.data);
-
             return FeedMainPage(
-              cats: catsList,
+              cats: context.read<FeedCubit>().cats,
+              pageSize: 20
+            );
+          } else if (state.isSuccessful ?? false) {
+            return FeedMainPage(
+              cats: context.read<FeedCubit>().cats,
               pageSize: 20
             );
           } else if (state.isUpdateRequired ?? false) {

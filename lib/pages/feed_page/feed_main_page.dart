@@ -5,6 +5,7 @@ import 'package:flutter_basics_2/blocs/feed_bloc.dart';
 import 'package:flutter_basics_2/pages/feed_page/feed_list_item.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/widgets/progress_bar.dart';
+import 'package:logger/logger.dart';
 import 'package:provider/src/provider.dart';
 
 class FeedMainPage extends StatefulWidget {
@@ -33,6 +34,7 @@ class FeedMainPageState extends State<FeedMainPage> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      key: const PageStorageKey(0),
       itemBuilder: (contex, index) {
         log(index.toString());
         return index >= widget.cats.length-1 ?
@@ -55,6 +57,7 @@ class FeedMainPageState extends State<FeedMainPage> {
   void _onScroll() {
     //log(cats.length.toString());
     if (_isBottom) {
+      Logger().d("kekos");
       context
         .read<FeedCubit>()
         .getListOfCatsAsPage(numberOfCatsInPage: widget.pageSize);
@@ -65,6 +68,8 @@ class FeedMainPageState extends State<FeedMainPage> {
     if (!_controller.hasClients) return false;
     final maxScroll = _controller.position.maxScrollExtent;
     final currentScroll = _controller.offset;
+    // Logger().d(currentScroll);
+    // Logger().d(maxScroll);
     return currentScroll >= (maxScroll * 0.9);
   }
 }
