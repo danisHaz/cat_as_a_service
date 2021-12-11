@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:flutter_basics_2/blocs/albums_bloc.dart';
+import 'package:flutter_basics_2/blocs/cat_search_bloc.dart';
 import 'package:flutter_basics_2/blocs/feed_bloc.dart';
 import 'package:flutter_basics_2/blocs/main_bloc.dart';
 import 'package:flutter_basics_2/pages/albums.dart';
+import 'package:flutter_basics_2/pages/cat_search.dart';
 import 'package:flutter_basics_2/shared/models/bottom_bar_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_basics_2/pages/main_page/bottom_bar.dart';
@@ -23,7 +25,8 @@ class MainApp extends StatelessWidget {
 			providers: [
 				BlocProvider(create: (context) => AlbumsCubit()),
         BlocProvider(create: (context) => MainCubit()),
-        BlocProvider(create: (context) => FeedCubit())
+        BlocProvider(create: (context) => FeedCubit()),
+        BlocProvider(create: (context) => CatSearchBloc()),
 			],
 		  child: MaterialApp(
 				home: Scaffold(
@@ -32,7 +35,7 @@ class MainApp extends StatelessWidget {
           body: BlocBuilder<MainCubit, BottomBarState>(
             builder: (context, state) {
               if (state is BottomBarAddCatState) {
-                // todo: not implemented
+                return CatSearchPage();
               } else if (state is BottomBarAlbumsState) {
                 return AlbumsPage(key: key);
               } else if (state is BottomBarFeedState) {

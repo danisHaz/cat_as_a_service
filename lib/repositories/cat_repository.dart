@@ -26,6 +26,11 @@ class CatRepository {
     return kitty.toCat();
   }
 
+  Future<List<String>> getAllTags() async {
+    final tags = await _apiService.getAllTags();
+    return tags;
+  }
+
   Future<List<Cat>> getAllCatsByTag({
     required List<String> tags,
     int numberOfCatsToSkip = 0,

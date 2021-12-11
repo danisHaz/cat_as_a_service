@@ -1,3 +1,4 @@
+import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../cat.dart';
@@ -10,7 +11,17 @@ class CatJsonData {
 	final List<String> tags;
   final String created_at;
 	String get createdAt => created_at;
-  
+
+	static String _readUrl(Map map, String key){
+		final _map = map as Map<String, dynamic>;
+		if(_map.containsKey(key)){
+			return _map[key];
+		}else{
+			return '/cat/${_map['id']}';
+		}
+	}
+
+	@JsonKey(readValue: _readUrl)
   final String url;
 	CatJsonData(
 		this.id,

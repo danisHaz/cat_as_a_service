@@ -18,7 +18,9 @@ abstract class ApiService {
   Future<List<CatJsonData>> getAllCatsByTag({
     @Query("tags") required String formattedTags,
     @Query("skip") required int numberOfCatsToSkip,
-    @Query("limits") required int limitNumberOfCats
+    @Query("limit") required int limitNumberOfCats
   });
 
+  @GET("/api/tags")
+  Future<List<String>> getAllTags();
 }

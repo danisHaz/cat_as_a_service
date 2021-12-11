@@ -40,7 +40,7 @@ class _ApiService implements ApiService {
     final queryParameters = <String, dynamic>{
       r'tags': formattedTags,
       r'skip': numberOfCatsToSkip,
-      r'limits': limitNumberOfCats
+      r'limit': limitNumberOfCats
     };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -53,6 +53,22 @@ class _ApiService implements ApiService {
     var value = _result.data!
         .map((dynamic i) => CatJsonData.fromJson(i as Map<String, dynamic>))
         .toList();
+    return value;
+  }
+
+  @override
+  Future<List<String>> getAllTags() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<String>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/api/tags',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!.cast<String>();
     return value;
   }
 
