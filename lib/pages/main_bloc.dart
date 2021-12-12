@@ -1,4 +1,4 @@
-import 'package:flutter_basics_2/shared/models/bottom_bar_state.dart';
+import 'package:flutter_basics_2/shared/bottom_bar_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 

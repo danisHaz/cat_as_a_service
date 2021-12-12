@@ -18,6 +18,7 @@ class Cat {
     required this.url
   });
 
+
 	static String _readUrl(Map map, String key){
 		final _map = map as Map<String, dynamic>;
 		if(_map.containsKey(key)){
@@ -64,4 +65,5 @@ class Cat {
 	factory Cat.fromJson(Map<String, dynamic> json) => _$CatFromJson(json);
 
 	Map<String, dynamic> toJson() => _$CatToJson(this);
+
 }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'package:flutter_basics_2/blocs/albums_bloc.dart';
-import 'package:flutter_basics_2/blocs/cat_search_bloc.dart';
-import 'package:flutter_basics_2/blocs/feed_bloc.dart';
-import 'package:flutter_basics_2/blocs/main_bloc.dart';
-import 'package:flutter_basics_2/pages/albums.dart';
-import 'package:flutter_basics_2/pages/cat_search.dart';
-import 'package:flutter_basics_2/shared/models/bottom_bar_state.dart';
+import 'package:flutter_basics_2/pages/album_page/albums_bloc.dart';
+import 'package:flutter_basics_2/pages/add_cat_page/cat_search_bloc.dart';
+import 'package:flutter_basics_2/pages/feed_page/feed_bloc.dart';
+import 'package:flutter_basics_2/pages/main_bloc.dart';
+import 'package:flutter_basics_2/pages/album_page/albums.dart';
+import 'package:flutter_basics_2/pages/add_cat_page/cat_search.dart';
+import 'package:flutter_basics_2/shared/bottom_bar_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_basics_2/pages/main_page/bottom_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -57,36 +57,7 @@ class MainAppState extends State<MainApp> {
 					appBar: AppBar(title: Text(txt)),
 					bottomNavigationBar: BottomBar(key: widget.key),
           body: BlocBuilder<MainCubit, BottomBarState>(
-            builder: (context, state) {
-              return AnimatedSwitcher(
-                duration: const Duration(milliseconds: 400),
-                child: _bottomBarWidget(state),
-                switchOutCurve: const Threshold(0),
-                // layoutBuilder: (currentChild, previousChildren) {
-                //   // if (currentChild == null)
-                //   //   return const Text("eqweqew");
-                    
-                //   var newList = List.of([currentChild!]);
-                //   if (previousChildren.length == 1) {
-                //     newList.addAll(previousChildren);
-                //   }
-
-                //   return Expanded(
-                //     child: Row(
-                //     mainAxisSize: MainAxisSize.min,
-                //     children: newList));
-                // },
-                transitionBuilder: (Widget child, Animation<double> animation) {
-                  transition = SlideTransition(
-                    position: tweens[tweensIndex]
-                    .animate(animation),
-                    child: child,
-                  );
-
-                  return transition!;
-                },
-              );
-            },
+            builder: (context, state) =>_bottomBarWidget(state),
           ),
 				),
 				localizationsDelegates: context.localizationDelegates,

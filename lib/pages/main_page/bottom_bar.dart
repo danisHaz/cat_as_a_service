@@ -1,8 +1,8 @@
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_basics_2/blocs/main_bloc.dart';
-import 'package:flutter_basics_2/shared/models/bottom_bar_state.dart';
+import 'package:flutter_basics_2/pages/main_bloc.dart';
+import 'package:flutter_basics_2/shared/bottom_bar_state.dart';
 import 'package:provider/src/provider.dart';
 
 class BottomBar extends StatefulWidget {

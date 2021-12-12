@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'dart:math';
 
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controls.dart';
@@ -8,6 +8,7 @@ import 'package:flutter_basics_2/pages/base_error_page.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:flutter_basics_2/widgets/progress_bar.dart';
+import 'package:logger/logger.dart';
 
 class FeedListItem extends StatefulWidget {
   final Cat cat;
@@ -27,6 +28,14 @@ class FeedListItemState extends State<FeedListItem> {
   @override
   Widget build(BuildContext context) {
     try {
+      final pic = Image.network(
+        BASE_URL + widget.cat.url,
+        fit: BoxFit.fill,
+        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+          if (loadingProgress == null) return child;
+          return const ProgressBar();
+        },
+      );
       return Card(
         color: const Color.fromARGB(250, 178, 235, 242),
         child: Column(
@@ -50,25 +59,20 @@ class FeedListItemState extends State<FeedListItem> {
             GestureDetector(
               onDoubleTap: _onDoubleTapOnCat,
               child: Stack(
+                alignment: AlignmentDirectional.center,
                 children: [
                   SizedBox(
                     width: double.infinity,
-                    height: 250,
-                    child: Image.network(
-                      BASE_URL + widget.cat.url,
-                      fit: BoxFit.fill,
-                      loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return const ProgressBar();
-                      },
-                    ),
+                    // height: 250,
+                    child: pic,
                   ),
                   SizedBox(
-                    width: double.infinity,
-                    height: 250,
+                    width: 250,
+                    // height: double.infinity,
+                    height: min(220.0, pic.height ?? 220.0),
                     child: SizedBox(
                           width: 80,
-                          height: 80,
+                          height: double.infinity,
                           child: FlareActor(
                             'assets/animations/instagram_like.flr',
                             controller: flareControls,
@@ -83,7 +87,7 @@ class FeedListItemState extends State<FeedListItem> {
         ),
       );
     } catch (e) {
-      log("$e");
+      Logger().d("$e");
       return const BaseErrorPage();
     }
 

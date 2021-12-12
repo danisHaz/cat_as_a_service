@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_basics_2/blocs/feed_bloc.dart';
+import 'package:flutter_basics_2/pages/feed_page/feed_bloc.dart';
 import 'package:flutter_basics_2/pages/base_error_page.dart';
 import 'package:flutter_basics_2/pages/feed_page/feed_data_state.dart';
 import 'package:flutter_basics_2/pages/feed_page/feed_error_page.dart';

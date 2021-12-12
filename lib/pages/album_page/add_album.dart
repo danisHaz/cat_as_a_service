@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_basics_2/blocs/albums_bloc.dart';
+import 'package:flutter_basics_2/pages/album_page/albums_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddAlbumPage extends StatefulWidget {

@@ -5,7 +5,7 @@ import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/shared/cat_decoration.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
 
-import 'cat_save_dialog.dart';
+import 'add_cat_page/cat_save_dialog.dart';
 
 class CatEditorPage extends StatefulWidget {
   final Cat cat;

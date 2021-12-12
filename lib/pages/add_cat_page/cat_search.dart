@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_basics_2/blocs/cat_search_bloc.dart';
+import 'package:flutter_basics_2/pages/add_cat_page/cat_search_bloc.dart';
 import 'package:flutter_basics_2/pages/cat_editor.dart';
 import 'package:flutter_basics_2/widgets/cat_preview.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
