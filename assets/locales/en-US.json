@@ -7,5 +7,6 @@
         "add_a_cat": "Add a cat",
         "albums": "Albums"
     },
-    "error_notify": "Something went wrong..."
+    "error_notify": "Something went wrong...",
+    "favourite_album": "Favourites"
 }

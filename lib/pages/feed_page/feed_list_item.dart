@@ -1,14 +1,18 @@
 import 'dart:math';
 
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_basics_2/pages/album_page/albums_bloc.dart';
 import 'package:flutter_basics_2/pages/base_error_page.dart';
+import 'package:flutter_basics_2/repositories/cat_repository.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:flutter_basics_2/widgets/progress_bar.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/src/provider.dart';
 
 class FeedListItem extends StatefulWidget {
   final Cat cat;
@@ -23,6 +27,12 @@ class FeedListItemState extends State<FeedListItem> {
 
   void _onDoubleTapOnCat() {
     flareControls.play("like");
+    const favouritesTranslated = "Favourites";
+    String? id = context.read<AlbumsCubit>().getAlbumIdByName(favouritesTranslated);
+    if (id == null) {
+      return;
+    }
+    CatRepository().addCatToAlbum(id, widget.cat);
   }
 
   @override

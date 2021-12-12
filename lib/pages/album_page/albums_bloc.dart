@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:flutter/widgets.dart';
 import 'package:flutter_basics_2/repositories/cat_repository.dart';
 import 'package:flutter_basics_2/shared/album.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:logger/logger.dart';
 
 class AlbumsState {
   final Map<String, Album> albums;
@@ -29,6 +32,9 @@ class AlbumsCubit extends Cubit<AlbumsState> {
   AlbumsCubit([AlbumsState initialState = const AlbumsState()])
       : super(initialState) {
     _albumsSubscription = CatRepository().albumsStream().listen((event) {
+      if (event.isEmpty) {
+        addAlbum("favourite_album".tr());
+      }
       emit(AlbumsState(albums: event));
     });
   }
@@ -46,11 +52,21 @@ class AlbumsCubit extends Cubit<AlbumsState> {
       await addCatToAlbum(
           albumId,
           Cat(
-              id: "5e9972961b7a400011744245",
-              created_at: "2020-04-17T09:10:46.837Z",
-              tags: [],
-              url: "/cat/5e9972961b7a400011744245"));
+              id: "61009bfccaacc400184f6b38",
+              created_at: "2021-07-27T23:51:23.991Z",
+              tags: const ["alcoholic"],
+              url: "/cat/61009bfccaacc400184f6b38"));
     }
+  }
+
+  String? getAlbumIdByName(String albumName) {
+    for (var albumEntry in state.albums.entries) {
+      if (albumEntry.value.name == albumName) {
+        return albumEntry.value.id;
+      }
+    }
+
+    return null;
   }
 
   Future<void> addCatToAlbum(String albumId, Cat cat) async {
