@@ -29,7 +29,7 @@ class FeedListItemState extends State<FeedListItem> {
   Widget build(BuildContext context) {
     try {
       final pic = Image.network(
-        BASE_URL + widget.cat.url,
+        BASE_URL + widget.cat.url!,
         fit: BoxFit.fill,
         loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
           if (loadingProgress == null) return child;

@@ -76,7 +76,7 @@ class MainAppState extends State<MainApp> {
         tweensIndex = 1;
       }
       currentPageNumber = 1;
-      return const Text("Not yet implemented", key: Key('1'),);
+      return const CatSearchPage();
     } else if (state is BottomBarAlbumsState) {
       currentPageNumber = 2;
       tweensIndex = 0;

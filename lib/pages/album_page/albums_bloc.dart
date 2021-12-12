@@ -45,10 +45,11 @@ class AlbumsCubit extends Cubit<AlbumsState> {
     for (var i = 0; i < count; i++) {
       await addCatToAlbum(
           albumId,
-          const Cat(
-              id: "5e2b4b634348da001c78fb7d",
+          Cat(
+              id: "5e9972961b7a400011744245",
+              created_at: "2020-04-17T09:10:46.837Z",
               tags: [],
-              url: "/cat/5e2b4b634348da001c78fb7d"));
+              url: "/cat/5e9972961b7a400011744245"));
     }
   }
 

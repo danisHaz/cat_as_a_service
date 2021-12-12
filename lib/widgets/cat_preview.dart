@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
+import 'package:logger/logger.dart';
 
 class CatPreview extends StatelessWidget {
   final Cat cat;
