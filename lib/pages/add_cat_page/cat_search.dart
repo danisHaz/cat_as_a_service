@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/add_cat_page/cat_search_bloc.dart';
 import 'package:flutter_basics_2/pages/cat_editor.dart';
+import 'package:flutter_basics_2/utils/hero_tags.dart';
 import 'package:flutter_basics_2/widgets/cat_preview.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chips_input/flutter_chips_input.dart';
@@ -94,11 +95,13 @@ class CatSearchPageState extends State<CatSearchPage> {
                             context.read<CatSearchBloc>().loadMoreCats(10);
                           }
                           return CatPreview(
+                            heroTag: catHeroTag(cat: state.cats[index]),
                             cat: state.cats[index],
                             onTap: () {
                             Navigator.of(context)
                               .push(MaterialPageRoute(
                                   builder: (context) => CatEditorPage(
+                                    heroTag: catHeroTag(cat: state.cats[index]),
                                     cat: state.cats[index]
                                   )
                                 )

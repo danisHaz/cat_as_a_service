@@ -5,6 +5,7 @@ import 'package:flutter_basics_2/pages/album_page/albums_bloc.dart';
 import 'package:flutter_basics_2/pages/album_page/view_album.dart';
 import 'package:flutter_basics_2/shared/album.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
+import 'package:flutter_basics_2/utils/hero_tags.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -16,6 +17,7 @@ class AlbumsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: AlbumGrid(
@@ -56,6 +58,7 @@ class AlbumGrid extends StatelessWidget {
                   },
                 ));
               },
+
               child: Container(
                 padding: const EdgeInsets.all(2.5),
                 child: DottedBorder(
@@ -110,7 +113,12 @@ class AlbumPreview extends StatelessWidget {
     );
     return Column(
       children: [
-        Expanded(child: imageWidget),
+        Expanded(
+          child: Hero(
+            tag: catHeroTag(album: album, index: 0),
+            child: imageWidget,
+          ),
+        ),
         Padding(
           padding: EdgeInsets.only(top: 8),
           child: Row(

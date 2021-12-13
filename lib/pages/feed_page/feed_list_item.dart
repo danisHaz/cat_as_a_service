@@ -10,6 +10,7 @@ import 'package:flutter_basics_2/pages/view_cat_page/view_cat_state.dart';
 import 'package:flutter_basics_2/repositories/cat_repository.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
+import 'package:flutter_basics_2/utils/hero_tags.dart';
 import 'package:flutter_basics_2/widgets/progress_bar.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/src/provider.dart';
@@ -74,8 +75,14 @@ class FeedListItemState extends State<FeedListItem> {
                 children: [
                   SizedBox(
                     width: double.infinity,
-                    child: CachedNetworkImage(
-                      imageUrl: '$BASE_URL${widget.cat.url}',
+                    child: Hero(
+                      tag: catHeroTag(cat: widget.cat),
+                      child: CachedNetworkImage(
+                        imageUrl: '$BASE_URL${widget.cat.url}',
+                        placeholder:(context, url) {
+                          return const ProgressBar();
+                        },
+                      ),
                     ),
                   ),
                   SizedBox(

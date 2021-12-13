@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/album_page/albums_bloc.dart';
 import 'package:flutter_basics_2/pages/view_cat_page/view_cat.dart';
 import 'package:flutter_basics_2/pages/view_cat_page/view_cat_state.dart';
+import 'package:flutter_basics_2/utils/hero_tags.dart';
 import 'package:flutter_basics_2/widgets/cat_preview.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
@@ -26,6 +27,7 @@ class ViewAlbumPage extends StatelessWidget {
             children: [
               for (var i = 0; i < album.cats.length; i++)
                 CatPreview(
+                  heroTag: catHeroTag(album: album, index: i),
                   cat: album.cats[i],
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
