@@ -37,7 +37,7 @@ class FeedListItemState extends State<FeedListItem> {
   }
 
   CachedNetworkImage _buildPicture() => CachedNetworkImage(
-    imageUrl: BASE_URL + widget.cat.url!,
+    imageUrl: BASE_URL + widget.cat.url,
     fit: BoxFit.fill,
     placeholder: (context, url) {
       return const ProgressBar();

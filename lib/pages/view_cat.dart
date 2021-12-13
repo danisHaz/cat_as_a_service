@@ -56,7 +56,12 @@ class _CatViewPageState extends State<CatViewPage>
           pageController: _pageController,
           builder: (context, index) {
             return PhotoViewGalleryPageOptions(
-              imageProvider: NetworkImage('$BASE_URL${widget.album.cats[index].url}'),
+              imageProvider: CachedNetworkImageProvider(
+                '$BASE_URL${widget.album.cats[index].url}',
+                errorListener: () {
+                  Logger().e("Failed download image in ${widget._name}");
+                },  
+              ),
                heroAttributes: PhotoViewHeroAttributes(tag: widget.album.cats[index].url),
               minScale: PhotoViewComputedScale.contained,
               maxScale: 10.0,

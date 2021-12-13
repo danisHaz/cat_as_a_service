@@ -45,18 +45,7 @@ class AlbumsCubit extends Cubit<AlbumsState> {
     return super.close();
   }
 
-  void addAlbum(String name) async {
-    final albumId = await CatRepository().addAlbum(name);
-    final count = Random().nextInt(6);
-    for (var i = 0; i < count; i++) {
-      await addCatToAlbum(
-          albumId,
-          Cat(
-              id: "61009bfccaacc400184f6b38",
-              tags: const ["alcoholic"],
-              ));
-    }
-  }
+  Future<String> addAlbum(String name) => CatRepository().addAlbum(name);
 
   String? getAlbumIdByName(String albumName) {
     for (var albumEntry in state.albums.entries) {
