@@ -70,15 +70,14 @@ class FeedMainPageState extends State<FeedMainPage> {
     _controller
       ..removeListener(_onScroll)
       ..dispose();
-    super.dispose();
     _refreshController
       .dispose();
+    super.dispose();
   }
 
   void _onScroll() {
     //log(cats.length.toString());
     if (_isBottom) {
-      Logger().d("kekos");
       context
         .read<FeedCubit>()
         .getListOfCatsAsPage(numberOfCatsInPage: widget.pageSize);

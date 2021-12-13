@@ -64,8 +64,8 @@ class CatSearchBloc extends Cubit<CatSearchState>{
     if(state == oldState) {
       print('${state.cats.length} ${cats.length}');
       emit(state.copyWith(cats: state.cats + cats, canLoadMore: cats.isNotEmpty));
-    }else {
-      Logger().w("load more cats finished after state change");
+    } else {
+      Logger().i("load more cats finished after update");
     }
   }
 
