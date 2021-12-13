@@ -10,6 +10,7 @@ import 'package:flutter_basics_2/shared/cat_decoration.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_item.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_popup.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
+import 'package:flutter_basics_2/utils/hero_tags.dart';
 import 'package:flutter_basics_2/widgets/progress_bar.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:share_plus/share_plus.dart';
@@ -19,7 +20,8 @@ import 'add_cat_page/cat_save_dialog.dart';
 
 class CatEditorPage extends StatefulWidget {
   final Cat cat;
-  const CatEditorPage({Key? key, required this.cat}) : super(key: key);
+  final String heroTag;
+  const CatEditorPage({Key? key, required this.cat, this.heroTag = ''}) : super(key: key);
 
   @override
   _CatEditorPageState createState() => _CatEditorPageState();
@@ -123,15 +125,18 @@ class _CatEditorPageState extends State<CatEditorPage> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
-          child: CachedNetworkImage(
-            // width: double.infinity,
-            imageUrl: '$BASE_URL${cat.url}',
-            progressIndicatorBuilder: (context, url, loadingProgress) {
-              return Center(
-                  child: ProgressBar(
-                loadingProgress: loadingProgress,
-              ));
-            },
+          child: Hero(
+            tag: widget.heroTag,
+            child: CachedNetworkImage(
+              // width: double.infinity,
+              imageUrl: '$BASE_URL${cat.url}',
+              progressIndicatorBuilder: (context, url, loadingProgress) {
+                return Center(
+                    child: ProgressBar(
+                  loadingProgress: loadingProgress,
+                ));
+              },
+            ),
           ),
         ),
       );

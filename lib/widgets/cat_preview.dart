@@ -7,12 +7,13 @@ import 'package:logger/logger.dart';
 class CatPreview extends StatelessWidget {
   final Cat cat;
   void Function()? onTap;
-  CatPreview({Key? key, required this.cat, this.onTap}) : super(key: key);
+  final String heroTag;
+  CatPreview({Key? key, required this.cat, this.onTap, this.heroTag = '', }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: cat.url,
+      tag: heroTag,
       child: Padding(
         padding: const EdgeInsets.all(2),
         child: Material(
