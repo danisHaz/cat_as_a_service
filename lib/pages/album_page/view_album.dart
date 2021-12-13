@@ -22,14 +22,14 @@ class ViewAlbumPage extends StatelessWidget {
           body: GridView.count(
             crossAxisCount: MediaQuery.of(context).size.width ~/ 100,
             children: [
-              for (var cat in album.cats)
+              for (var i = 0; i < album.cats.length; i++)
                 CatPreview(
-                  cat: cat,
-                  onTap: (tag){
+                  cat: album.cats[i],
+                  onTap: (){
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => CatViewPage(
-                          cat: cat,
-                          heroTag: tag,
+                          album: album,
+                          catIndex: i,
                         )));
                   },
                 )

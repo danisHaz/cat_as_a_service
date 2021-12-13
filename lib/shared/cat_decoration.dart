@@ -5,7 +5,9 @@ part 'cat_decoration.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class CatDecoration{
+  @JsonKey(defaultValue: '')
   final String text;
+  @JsonKey(defaultValue: CatDecorationFilter.none)
   final CatDecorationFilter filter;
 
   const CatDecoration({
