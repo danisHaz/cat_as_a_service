@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_item.dart';
 
-class DropdownPopup extends StatefulWidget {
+class DropdownPopup<T> extends StatefulWidget {
   const DropdownPopup(
       {Key? key,
       required this.parentOffset,
@@ -11,7 +11,7 @@ class DropdownPopup extends StatefulWidget {
       : super(key: key);
   final Offset parentOffset;
   final Size parentSize;
-  final List<DropdownItem> items;
+  final List<DropdownItem<T>> items;
   final double screenHeight;
 
   @override
@@ -90,7 +90,7 @@ class _DropdownPopupState extends State<DropdownPopup> {
                           ...widget.items.map((e) => GestureDetector(
                                 child: Container(
                                     padding: const EdgeInsets.all(5),
-                                    child: e.widget),
+                                    child: e.child),
                                 onTap: () {
                                   Navigator.pop(context, e.value);
                                 },
@@ -106,15 +106,15 @@ class _DropdownPopupState extends State<DropdownPopup> {
   }
 }
 
-Future openDropdown(
-    BuildContext context, GlobalKey parentKey, List<DropdownItem> items) {
+Future<T?> openDropdown<T>(
+    BuildContext context, GlobalKey parentKey, List<DropdownItem<T>> items) {
   final renderBox = parentKey.currentContext!.findRenderObject()! as RenderBox;
 
   return showDialog(
     barrierColor: Colors.transparent,
     context: context,
     builder: (c) {
-      return DropdownPopup(
+      return DropdownPopup<T>(
           screenHeight: MediaQuery.of(context).size.height -
               MediaQuery.of(context).viewPadding.top -
               MediaQuery.of(context).viewPadding.bottom,

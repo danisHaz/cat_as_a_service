@@ -7,6 +7,7 @@ import 'package:flutter_basics_2/shared/album.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
+import 'package:dotted_border/dotted_border.dart';
 
 import 'add_album.dart';
 
@@ -16,28 +17,69 @@ class AlbumsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<AlbumsCubit, AlbumsState>(
-        builder: (context, state) {
-          return GridView.count(
-            padding:
-                EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 2),
-            crossAxisCount: MediaQuery.of(context).size.width ~/ 150,
-            children: [
-              for (var album in state.albums.values) AlbumPreview(album)
-            ],
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              fullscreenDialog: true,
-              builder: (context) {
-                return const AddAlbumPage();
-              }));
-        },
-      ),
+      body: AlbumGrid(onTap: (album) {
+        if(album.cats.isEmpty)return;
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) {
+            return ViewAlbumPage(albumId: album.id);
+          },
+        ));
+      },)
+    );
+  }
+}
+
+class AlbumGrid extends StatelessWidget {
+  final Function(Album album) onTap;
+
+  const AlbumGrid({Key? key, required this.onTap}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AlbumsCubit, AlbumsState>(
+      builder: (context, state) {
+        return GridView.count(
+          physics: BouncingScrollPhysics(),
+          padding: EdgeInsets.all(16),
+          childAspectRatio: 0.8,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+          crossAxisCount: MediaQuery.of(context).size.width ~/ 150,
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) {
+                    return AddAlbumPage();
+                  },
+                ));
+              },
+              child: DottedBorder(
+                padding: EdgeInsets.zero,
+                borderType: BorderType.RRect,
+                radius: Radius.circular(25),
+                child: Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  decoration: BoxDecoration(
+                    // border: Border.all(),
+                    // borderRadius: BorderRadius.all(Radius.circular(25)),
+                  ),
+                  child: FittedBox(
+                    child: Icon(Icons.add),
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            ),
+            for (var album in state.albums.values)
+              GestureDetector(
+                onTap: ()=> onTap(album),
+                child: AlbumPreview(album),
+              )
+          ],
+        );
+      },
     );
   }
 }
@@ -49,57 +91,45 @@ class AlbumPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imageWidget = album.cats.isNotEmpty
-        ? Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: CachedNetworkImageProvider(
+    final imageWidget = Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(25)),
+        image: DecorationImage(
+          image: album.cats.isNotEmpty
+              ? CachedNetworkImageProvider(
                   '$BASE_URL/cat/${album.cats[0].id}',
                   errorListener: () {
                     Logger().e("Failed download image in ${_name}");
                   },
-                ),
-                fit: BoxFit.cover,
-              ),
-            ),
-          )
-        : const FittedBox(
-            child: Icon(Icons.wallpaper),
-            fit: BoxFit.contain,
-          );
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) {
-              return ViewAlbumPage(albumId: album.id);
-            },
-          ));
-        },
-        child: Column(
-          children: [
-            Expanded(
-              child: imageWidget,
-            ),
-            // imageWidget,
-            Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                        child: Text(
-                      album.name,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    )),
-                    Text(album.cats.length.toString()),
-                  ],
-                )),
-          ],
+                )
+              : AssetImage('assets/images/cat_placeholder.png')
+                  as ImageProvider,
+          fit: BoxFit.cover,
         ),
       ),
+    );
+    return Column(
+      children: [
+        Expanded(child: imageWidget),
+        Padding(
+          padding: EdgeInsets.only(top: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                  child: Text(
+                album.name,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              )),
+              Text(
+                album.cats.length.toString(),
+                style: TextStyle(color: Colors.grey),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
