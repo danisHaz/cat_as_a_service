@@ -71,6 +71,7 @@ class AlbumPreview extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () {
+          Logger().d("eqweqeqeqewqeqe");
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) {
               return ViewAlbumPage(albumId: album.id);
@@ -89,11 +90,12 @@ class AlbumPreview extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(
-                        child: Text(
-                      album.name,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    )),
+                      child: Text(
+                        album.name,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      )
+                    ),
                     Text(album.cats.length.toString()),
                   ],
                 )),

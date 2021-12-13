@@ -28,12 +28,12 @@ class FeedPageState extends State<FeedPage> {
             return const FeedErrorPage();
           } else if (state.isLoading) {
             return FeedMainPage(
-              cats: context.read<FeedCubit>().cats,
+              cats: state.data ?? <Cat>[],
               pageSize: 20
             );
-          } else if (state.isSuccessful ?? false) {
+          } else if (state.data != null) {
             return FeedMainPage(
-              cats: context.read<FeedCubit>().cats,
+              cats: state.data!,
               pageSize: 20
             );
           } else if (state.isUpdateRequired ?? false) {

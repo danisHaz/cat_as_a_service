@@ -26,17 +26,17 @@ class ViewAlbumPage extends StatelessWidget {
               for (var i = 0; i < album.cats.length; i++)
                 CatPreview(
                   cat: album.cats[i],
-                  onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CatViewPage(
-                          data: FromAlbumData(
-                            album: album,
-                            chosenCatIndex: i,
-                          )
-                        )
-                      )
-                    );
-                  },
+                  // onTap: () {
+                  //   Navigator.of(context).push(MaterialPageRoute(
+                  //       builder: (context) => CatViewPage(
+                  //         data: FromAlbumData(
+                  //           album: album,
+                  //           chosenCatIndex: i,
+                  //         )
+                  //       )
+                  //     )
+                  //   );
+                  // },
                 )
             ],
           ),

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/widgets.dart';
+import 'package:flutter_basics_2/shared/cat.dart';
 
 extension ErrorPrint on Error? {
   void print() {
@@ -13,13 +14,13 @@ class FeedDataState<T> {
   final Error? err;
   final bool isLoading;
   final bool? isUpdateRequired;
-  final bool? isSuccessful;
+  final List<Cat>? data;
 
   const FeedDataState({
     this.err,
     required this.isLoading,
     this.isUpdateRequired,
-    this.isSuccessful
+    this.data,
   });
 
   FeedDataState copyWith({
@@ -32,7 +33,7 @@ class FeedDataState<T> {
       isLoading: isLoading,
       err: err,
       isUpdateRequired: isUpdateRequired,
-      isSuccessful: isSuccessful
+      data: data,
     );
   }
 }
