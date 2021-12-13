@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_basics_2/pages/view_cat_page/view_cat_state.dart';
 import 'package:flutter_basics_2/shared/album.dart';
-import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:flutter_basics_2/widgets/sliding_appbar.dart';
 import 'package:logger/logger.dart';
@@ -10,14 +10,12 @@ import 'package:photo_view/photo_view_gallery.dart';
 
 class CatViewPage extends StatefulWidget {
   String get _name => runtimeType.toString();
-  final Album album;
-  final int catIndex;
+  final CatPageData data;
 
-  const CatViewPage(
-      {Key? key,
-      required this.album,
-      required this.catIndex})
-      : super(key: key);
+  const CatViewPage({
+    Key? key,
+    required this.data,
+  }): super(key: key);
 
   @override
   _CatViewPageState createState() => _CatViewPageState();
@@ -25,7 +23,7 @@ class CatViewPage extends StatefulWidget {
 
 class _CatViewPageState extends State<CatViewPage>
     with SingleTickerProviderStateMixin {
-  var _showAppBar = false;
+  bool _showAppBar = false;
   late final AnimationController _appBarSlideController;
   late final PageController _pageController;
 
@@ -36,7 +34,6 @@ class _CatViewPageState extends State<CatViewPage>
       vsync: this,
       duration: const Duration(milliseconds: 100),
     );
-    _pageController = PageController(initialPage: widget.catIndex);
   }
 
   @override
@@ -51,23 +48,7 @@ class _CatViewPageState extends State<CatViewPage>
         controller: _appBarSlideController,
       ),
       body: GestureDetector(
-        child: PhotoViewGallery.builder(
-          itemCount: widget.album.cats.length,
-          pageController: _pageController,
-          builder: (context, index) {
-            return PhotoViewGalleryPageOptions(
-              imageProvider: CachedNetworkImageProvider(
-                '$BASE_URL${widget.album.cats[index].url}',
-                errorListener: () {
-                  Logger().e("Failed download image in ${widget._name}");
-                },  
-              ),
-               heroAttributes: PhotoViewHeroAttributes(tag: widget.album.cats[index].url),
-              minScale: PhotoViewComputedScale.contained,
-              maxScale: 10.0,
-            );
-          },
-        ),
+        child: CatPageBuilder(data: widget.data).build(),
         onTap: () {
           setState(() {
             _showAppBar = !_showAppBar;

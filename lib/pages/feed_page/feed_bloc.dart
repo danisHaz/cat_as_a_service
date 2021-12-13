@@ -49,7 +49,7 @@ class FeedCubit extends Cubit<FeedDataState<dynamic>> {
           await CatRepository().getRandomCat()
         );
       }
-      emit(const FeedDataState<List<Cat>>(isLoading: false, isSuccessful: true));
+      emit(FeedDataState<List<Cat>>(isLoading: false, data: _data.cats));
     } on DioError catch(err) {
       Logger().d(err);
       emit(FeedDataState(isLoading: false, err: Error()));

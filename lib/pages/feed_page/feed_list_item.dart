@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_basics_2/pages/album_page/albums_bloc.dart';
 import 'package:flutter_basics_2/pages/base_error_page.dart';
+import 'package:flutter_basics_2/pages/view_cat_page/view_cat.dart';
+import 'package:flutter_basics_2/pages/view_cat_page/view_cat_state.dart';
 import 'package:flutter_basics_2/repositories/cat_repository.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
@@ -36,17 +38,6 @@ class FeedListItemState extends State<FeedListItem> {
     CatRepository().addCatToAlbum(id, widget.cat);
   }
 
-  CachedNetworkImage _buildPicture() => CachedNetworkImage(
-    imageUrl: BASE_URL + widget.cat.url,
-    fit: BoxFit.fill,
-    placeholder: (context, url) {
-      return const ProgressBar();
-    },
-    errorWidget: (context, url, error) {
-      return BaseErrorPage(errorMsg: error.toString());
-    },
-  );
-
   Widget _buildTags() => Align(
     alignment: Alignment.topLeft,
     child: Padding(
@@ -64,10 +55,20 @@ class FeedListItemState extends State<FeedListItem> {
     ),
   );
 
+  void _onTapOnCat() {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => CatViewPage(
+          data: SinglePictureData(
+            cat: widget.cat,
+          )
+        )
+      )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     try {
-      final picture = _buildPicture();
 
       return Card(
         color: const Color.fromARGB(250, 178, 235, 242),
@@ -76,17 +77,22 @@ class FeedListItemState extends State<FeedListItem> {
             _buildTags(),
             GestureDetector(
               onDoubleTap: _onDoubleTapOnCat,
+              onTap: _onTapOnCat,
               child: Stack(
                 alignment: AlignmentDirectional.center,
                 children: [
                   SizedBox(
                     width: double.infinity,
-                    // height: 250,
-                    child: picture,
+                    child: CachedNetworkImage(
+                      imageUrl: '$BASE_URL${widget.cat.url}',
+                      placeholder:(context, url) {
+                        return const ProgressBar();
+                      },
+                    ),
                   ),
                   SizedBox(
                     width: 250,
-                    height: min(220.0, picture.height ?? 220.0),
+                    height: 220.0,
                     child: FlareActor(
                       'assets/animations/instagram_like.flr',
                       controller: flareControls,
