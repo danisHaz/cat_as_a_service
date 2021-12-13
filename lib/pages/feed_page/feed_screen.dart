@@ -10,44 +10,37 @@ import 'package:flutter_basics_2/widgets/progress_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FeedPage extends StatefulWidget {
-  const FeedPage({Key? key}): super(key: key);
+  const FeedPage({Key? key}) : super(key: key);
 
   @override
   FeedPageState createState() => FeedPageState();
 }
 
 class FeedPageState extends State<FeedPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: BlocBuilder<FeedCubit, FeedDataState>(
         builder: (context, state) {
           if (state.err != null) {
             state.err.print();
             return const FeedErrorPage();
           } else if (state.isLoading) {
-            return FeedMainPage(
-              cats: state.data ?? <Cat>[],
-              pageSize: 20
-            );
+            return FeedMainPage(cats: state.data ?? <Cat>[], pageSize: 20);
           } else if (state.data != null) {
-            return FeedMainPage(
-              cats: state.data!,
-              pageSize: 20
-            );
+            return FeedMainPage(cats: state.data!, pageSize: 20);
           } else if (state.isUpdateRequired ?? false) {
-            context.read<FeedCubit>().getListOfCatsAsPage(numberOfCatsInPage: 20);
+            context
+                .read<FeedCubit>()
+                .getListOfCatsAsPage(numberOfCatsInPage: 20);
             return const Center(
-              child: Text(
-                "Updating...",
-                style: TextStyle(
-                  color: Colors.red
-                ),
-              )
-            );
+                child: Text(
+              "Updating...",
+              style: TextStyle(color: Colors.red),
+            ));
           }
-          
+
           // every state is invalid
           return const BaseErrorPage();
         },

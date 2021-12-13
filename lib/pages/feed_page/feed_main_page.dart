@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/widgets.dart';
 import 'package:flutter_basics_2/pages/feed_page/feed_bloc.dart';
 import 'package:flutter_basics_2/pages/feed_page/feed_list_item.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/widgets/progress_bar.dart';
-import 'package:logger/logger.dart';
 import 'package:provider/src/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -17,7 +14,7 @@ class FeedMainPage extends StatefulWidget {
     Key? key,
     required this.cats,
     required this.pageSize,
-  }): super(key: key);
+  }) : super(key: key);
 
   @override
   FeedMainPageState createState() => FeedMainPageState();
@@ -25,8 +22,8 @@ class FeedMainPage extends StatefulWidget {
 
 class FeedMainPageState extends State<FeedMainPage> {
   final ScrollController _controller = ScrollController();
-  final RefreshController _refreshController
-    = RefreshController(initialRefresh: false);
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
 
   @override
   void initState() {
@@ -46,23 +43,24 @@ class FeedMainPageState extends State<FeedMainPage> {
   @override
   Widget build(BuildContext context) {
     return SmartRefresher(
-      enablePullDown: true,
-      header: const WaterDropHeader(),
-      controller: _refreshController,
-      onRefresh: _onRefresh,
-      onLoading: _onLoading,
-      child: ListView.builder(
-        key: const PageStorageKey(0),
-        itemBuilder: (contex, index) {
-          log(index.toString());
-          return index >= widget.cats.length-1 ?
-            const ProgressBar() :
-            FeedListItem(cat: widget.cats[index],);
-        },
-        controller: _controller,
-        itemCount: widget.cats.length,
-      )
-    );
+        enablePullDown: true,
+        header: const ClassicHeader(),
+        controller: _refreshController,
+        onRefresh: _onRefresh,
+        onLoading: _onLoading,
+        child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          key: const PageStorageKey(0),
+          itemBuilder: (contex, index) {
+            return index >= widget.cats.length - 1
+                ? const ProgressBar()
+                : FeedListItem(
+                    cat: widget.cats[index],
+                  );
+          },
+          controller: _controller,
+          itemCount: widget.cats.length,
+        ));
   }
 
   @override
@@ -70,8 +68,7 @@ class FeedMainPageState extends State<FeedMainPage> {
     _controller
       ..removeListener(_onScroll)
       ..dispose();
-    _refreshController
-      .dispose();
+    _refreshController.dispose();
     super.dispose();
   }
 
@@ -79,8 +76,8 @@ class FeedMainPageState extends State<FeedMainPage> {
     //log(cats.length.toString());
     if (_isBottom) {
       context
-        .read<FeedCubit>()
-        .getListOfCatsAsPage(numberOfCatsInPage: widget.pageSize);
+          .read<FeedCubit>()
+          .getListOfCatsAsPage(numberOfCatsInPage: widget.pageSize);
     }
   }
 
