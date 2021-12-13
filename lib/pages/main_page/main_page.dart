@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'package:flutter_basics_2/pages/album_page/albums_bloc.dart';
-import 'package:flutter_basics_2/pages/add_cat_page/cat_search_bloc.dart';
-import 'package:flutter_basics_2/pages/feed_page/feed_bloc.dart';
 import 'package:flutter_basics_2/pages/album_page/albums.dart';
 import 'package:flutter_basics_2/pages/add_cat_page/cat_search.dart';
 import 'package:flutter_basics_2/shared/colors.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../feed_page/feed_screen.dart';
@@ -26,16 +22,10 @@ class MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => AlbumsCubit()),
-        BlocProvider(create: (context) => FeedCubit()),
-        BlocProvider(create: (context) => CatSearchBloc()),
-      ],
-      child: Scaffold(
-          backgroundColor: Colors.white,
-          body: SafeArea(child: _buildCurrentScreen()),
-          bottomNavigationBar: _buildNavbar()),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(child: _buildCurrentScreen()),
+      bottomNavigationBar: _buildNavbar()
     );
   }
 

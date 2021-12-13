@@ -5,6 +5,7 @@ import 'package:flutter_basics_2/pages/view_cat_page/view_cat.dart';
 import 'package:flutter_basics_2/pages/view_cat_page/view_cat_state.dart';
 import 'package:flutter_basics_2/widgets/cat_preview.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 
 class ViewAlbumPage extends StatelessWidget {
   final String albumId;
@@ -26,17 +27,17 @@ class ViewAlbumPage extends StatelessWidget {
               for (var i = 0; i < album.cats.length; i++)
                 CatPreview(
                   cat: album.cats[i],
-                  // onTap: () {
-                  //   Navigator.of(context).push(MaterialPageRoute(
-                  //       builder: (context) => CatViewPage(
-                  //         data: FromAlbumData(
-                  //           album: album,
-                  //           chosenCatIndex: i,
-                  //         )
-                  //       )
-                  //     )
-                  //   );
-                  // },
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => CatViewPage(
+                          data: FromAlbumData(
+                            album: album,
+                            chosenCatIndex: i,
+                          )
+                        )
+                      )
+                    );
+                  },
                 )
             ],
           ),

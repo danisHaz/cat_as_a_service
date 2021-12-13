@@ -71,7 +71,6 @@ class AlbumPreview extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () {
-          Logger().d("eqweqeqeqewqeqe");
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) {
               return ViewAlbumPage(albumId: album.id);

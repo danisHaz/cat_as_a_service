@@ -2,8 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_basics_2/pages/add_cat_page/cat_search_bloc.dart';
+import 'package:flutter_basics_2/pages/album_page/albums_bloc.dart';
+import 'package:flutter_basics_2/pages/feed_page/feed_bloc.dart';
 import 'package:flutter_basics_2/pages/main_page/main_page.dart';
 import 'package:flutter_basics_2/repositories/cat_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'firebase_options.dart';
 
@@ -41,12 +45,19 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const MainPage(),
-      localizationsDelegates: context.localizationDelegates,
-      locale: context.locale,
-      supportedLocales: context.supportedLocales,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => AlbumsCubit(), lazy: false),
+        BlocProvider(create: (context) => FeedCubit()),
+        BlocProvider(create: (context) => CatSearchBloc()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: const MainPage(),
+        localizationsDelegates: context.localizationDelegates,
+        locale: context.locale,
+        supportedLocales: context.supportedLocales,
+      ),
     );
   }
 }
