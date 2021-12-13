@@ -34,8 +34,6 @@ class CatSearchState {
 class CatSearchBloc extends Cubit<CatSearchState>{
   CatSearchBloc([CatSearchState initialState = const CatSearchState()]) : super(initialState){
     CatRepository().getAllTags().then((tags) {
-      // Logger().d("Got tags");
-      // Logger().d(tags);
       emit(state.copyWith(available_tags: tags));
       loadMoreCats(10);
     });
@@ -62,7 +60,7 @@ class CatSearchBloc extends Cubit<CatSearchState>{
     final oldState = state;
     final cats = await CatRepository().getAllCatsByTag(tags: state.search_tags, limitNumberOfCats: count, numberOfCatsToSkip: state.cats.length);
     if(state == oldState) {
-      print('${state.cats.length} ${cats.length}');
+      // print('${state.cats.length} ${cats.length}');
       emit(state.copyWith(cats: state.cats + cats, canLoadMore: cats.isNotEmpty));
     } else {
       Logger().i("load more cats finished after update");

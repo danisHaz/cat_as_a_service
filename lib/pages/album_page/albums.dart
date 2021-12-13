@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_basics_2/pages/album_page/albums_bloc.dart';
@@ -43,8 +44,8 @@ class AlbumsPage extends StatelessWidget {
 
 class AlbumPreview extends StatelessWidget {
   final Album album;
-
   const AlbumPreview(this.album, {Key? key}) : super(key: key);
+  String get _name => runtimeType.toString();
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,12 @@ class AlbumPreview extends StatelessWidget {
         ? Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage('$BASE_URL/cat/${album.cats[0].id}'),
+                image: CachedNetworkImageProvider(
+                  '$BASE_URL/cat/${album.cats[0].id}',
+                  errorListener: () {
+                    Logger().e("Failed download image in ${_name}");
+                  },
+                ),
                 fit: BoxFit.cover,
               ),
             ),

@@ -84,7 +84,6 @@ class CatSearchPageState extends State<CatSearchPage> {
                   key: const PageStorageKey(2),
                   slivers: [
                     SliverGrid(
-                      // key: const PageStorageKey(1),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount:
                             MediaQuery.of(context).size.width ~/ 100,

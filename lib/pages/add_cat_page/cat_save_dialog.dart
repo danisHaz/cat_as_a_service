@@ -1,11 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/album_page/albums_bloc.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 
 class CatSaveDialog extends StatelessWidget {
   final Cat cat;
+  String get _name => runtimeType.toString();
 
   const CatSaveDialog({Key? key, required this.cat}) : super(key: key);
 
@@ -37,7 +40,12 @@ class CatSaveDialog extends StatelessWidget {
               circleAvatar: album.cats.isNotEmpty
                   ? CircleAvatar(
                       backgroundImage:
-                          NetworkImage('$BASE_URL${album.cats[0].url}'),
+                          CachedNetworkImageProvider(
+                            '$BASE_URL${album.cats[0].url}',
+                            errorListener: () {
+                              Logger().e("Failed download image in $_name");
+                            },
+                          ),
                     )
                   : const CircleAvatar(
                       child: Icon(Icons.wallpaper),

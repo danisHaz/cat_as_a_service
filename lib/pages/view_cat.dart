@@ -1,12 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:flutter_basics_2/widgets/sliding_appbar.dart';
+import 'package:logger/logger.dart';
 import 'package:photo_view/photo_view.dart';
 
 class CatViewPage extends StatefulWidget {
   final Cat cat;
   final Object heroTag;
+  String get _name => runtimeType.toString();
 
   const CatViewPage({Key? key, required this.cat, required this.heroTag})
       : super(key: key);
@@ -44,7 +47,12 @@ class _CatViewPageState extends State<CatViewPage>
         child: Hero(
           tag: widget.heroTag,
           child: PhotoView(
-            imageProvider: NetworkImage('$BASE_URL${widget.cat.url}'),
+            imageProvider: CachedNetworkImageProvider(
+              '$BASE_URL${widget.cat.url}',
+              errorListener: () {
+                Logger().e("Failed download picture in ${widget._name}");
+              },
+            ),
             minScale: PhotoViewComputedScale.contained,
           ),
         ),

@@ -25,7 +25,7 @@ class FeedMainPage extends StatefulWidget {
 
 class FeedMainPageState extends State<FeedMainPage> {
   final ScrollController _controller = ScrollController();
-  final RefreshController _refreshController 
+  final RefreshController _refreshController
     = RefreshController(initialRefresh: false);
 
   @override

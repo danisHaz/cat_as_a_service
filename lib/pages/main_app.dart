@@ -44,7 +44,7 @@ class MainAppState extends State<MainApp> {
 
 	@override
 	Widget build(BuildContext context) {
-    final txt = "Cat as a service";
+    const txt = "Cat as a service";
 		return MultiBlocProvider(
 			providers: [
 				BlocProvider(create: (context) => AlbumsCubit()),

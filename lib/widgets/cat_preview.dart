@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
@@ -20,7 +21,12 @@ class CatPreview extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage('$BASE_URL${cat.url}'),
+                image: CachedNetworkImageProvider(
+                  '$BASE_URL${cat.url}',
+                  errorListener: () {
+                    Logger().e("Fail download image in cat_preview");
+                  },
+                ),
                 fit: BoxFit.cover,
               ),
             ),

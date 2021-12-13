@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controls.dart';
@@ -35,37 +36,44 @@ class FeedListItemState extends State<FeedListItem> {
     CatRepository().addCatToAlbum(id, widget.cat);
   }
 
+  CachedNetworkImage _buildPicture() => CachedNetworkImage(
+    imageUrl: BASE_URL + widget.cat.url!,
+    fit: BoxFit.fill,
+    placeholder: (context, url) {
+      return const ProgressBar();
+    },
+    errorWidget: (context, url, error) {
+      return BaseErrorPage(errorMsg: error.toString());
+    },
+  );
+
+  Widget _buildTags() => Align(
+    alignment: Alignment.topLeft,
+    child: Padding(
+      padding: const EdgeInsets.only(
+        top: 20.0,
+        bottom: 7.0,
+      ),
+      child: Text(
+        "Tags: ${widget.cat.tags.isEmpty ? "not provided" : widget.cat.tags.join(", ")}",
+        style: const TextStyle(
+          fontSize: 16.5,
+          fontStyle: FontStyle.normal,
+        )
+      )
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     try {
-      final pic = Image.network(
-        BASE_URL + widget.cat.url!,
-        fit: BoxFit.fill,
-        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-          if (loadingProgress == null) return child;
-          return const ProgressBar();
-        },
-      );
+      final picture = _buildPicture();
+
       return Card(
         color: const Color.fromARGB(250, 178, 235, 242),
         child: Column(
           children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 20.0,
-                  bottom: 7.0,
-                ),
-                child: Text(
-                  "Tags: ${widget.cat.tags.isEmpty ? "not provided" : widget.cat.tags.join(", ")}",
-                  style: const TextStyle(
-                    fontSize: 16.5,
-                    fontStyle: FontStyle.normal,
-                  )
-                )
-              ),
-            ),
+            _buildTags(),
             GestureDetector(
               onDoubleTap: _onDoubleTapOnCat,
               child: Stack(
@@ -74,21 +82,16 @@ class FeedListItemState extends State<FeedListItem> {
                   SizedBox(
                     width: double.infinity,
                     // height: 250,
-                    child: pic,
+                    child: picture,
                   ),
                   SizedBox(
                     width: 250,
-                    // height: double.infinity,
-                    height: min(220.0, pic.height ?? 220.0),
-                    child: SizedBox(
-                          width: 80,
-                          height: double.infinity,
-                          child: FlareActor(
-                            'assets/animations/instagram_like.flr',
-                            controller: flareControls,
-                            animation: 'idle',
-                          ),
-                        ),
+                    height: min(220.0, picture.height ?? 220.0),
+                    child: FlareActor(
+                      'assets/animations/instagram_like.flr',
+                      controller: flareControls,
+                      animation: 'idle',
+                    ),
                   ),
                 ],
               )
