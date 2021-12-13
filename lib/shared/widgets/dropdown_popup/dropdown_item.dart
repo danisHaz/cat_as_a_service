@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
-class DropdownItem {
-  Widget widget;
-  dynamic value;
+class DropdownItem<T> {
+  Widget child;
+  T value;
   DropdownItem({
-    required this.widget,
+    required this.child,
     required this.value,
   });
 }

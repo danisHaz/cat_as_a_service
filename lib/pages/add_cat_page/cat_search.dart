@@ -115,7 +115,7 @@ class CatSearchPageState extends State<CatSearchPage> {
                           child: CircularProgressIndicator(),
                         ),
                       ),
-                    const SliverFillRemaining(),
+                    // const SliverFillRemaining(),
                   ],
                 ),
               ),
