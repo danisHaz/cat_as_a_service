@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_basics_2/pages/main_page/main_page.dart';
 import 'package:flutter_basics_2/repositories/cat_repository.dart';
 
@@ -15,6 +16,15 @@ void main() async {
   );
 
   CatRepository().initialize();
+
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+      statusBarColor: Colors.white,
+      systemNavigationBarColor: Colors.white.withOpacity(0.75),
+      systemNavigationBarIconBrightness: Brightness.dark));
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
 
   runApp(
     EasyLocalization(
@@ -32,6 +42,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: const MainPage(),
       localizationsDelegates: context.localizationDelegates,
       locale: context.locale,

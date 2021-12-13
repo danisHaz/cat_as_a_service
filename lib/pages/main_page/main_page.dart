@@ -44,9 +44,8 @@ class MainPageState extends State<MainPage> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         IconButton(
-          padding: const EdgeInsets.all(6),
           alignment: Alignment.topCenter,
-          iconSize: 30,
+          iconSize: 25,
           icon: Icon(
             FontAwesomeIcons.dice,
             color: currentPage == MainScreenPageType.feedScreen
@@ -60,7 +59,7 @@ class MainPageState extends State<MainPage> {
           },
         ),
         IconButton(
-          iconSize: 40,
+          iconSize: 30,
           icon: Icon(
             Icons.add,
             color: currentPage == MainScreenPageType.addCatScreen
@@ -74,7 +73,7 @@ class MainPageState extends State<MainPage> {
           },
         ),
         IconButton(
-          iconSize: 30,
+          iconSize: 25,
           icon: Icon(
             Icons.collections,
             color: currentPage == MainScreenPageType.albumsScreen
