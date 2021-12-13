@@ -1,17 +1,22 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_basics_2/shared/album.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:flutter_basics_2/widgets/sliding_appbar.dart';
 import 'package:logger/logger.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 
 class CatViewPage extends StatefulWidget {
-  final Cat cat;
-  final Object heroTag;
   String get _name => runtimeType.toString();
+  final Album album;
+  final int catIndex;
 
-  const CatViewPage({Key? key, required this.cat, required this.heroTag})
+  const CatViewPage(
+      {Key? key,
+      required this.album,
+      required this.catIndex})
       : super(key: key);
 
   @override
@@ -22,6 +27,7 @@ class _CatViewPageState extends State<CatViewPage>
     with SingleTickerProviderStateMixin {
   var _showAppBar = false;
   late final AnimationController _appBarSlideController;
+  late final PageController _pageController;
 
   @override
   void initState() {
@@ -30,6 +36,7 @@ class _CatViewPageState extends State<CatViewPage>
       vsync: this,
       duration: const Duration(milliseconds: 100),
     );
+    _pageController = PageController(initialPage: widget.catIndex);
   }
 
   @override
@@ -44,17 +51,17 @@ class _CatViewPageState extends State<CatViewPage>
         controller: _appBarSlideController,
       ),
       body: GestureDetector(
-        child: Hero(
-          tag: widget.heroTag,
-          child: PhotoView(
-            imageProvider: CachedNetworkImageProvider(
-              '$BASE_URL${widget.cat.url}',
-              errorListener: () {
-                Logger().e("Failed download picture in ${widget._name}");
-              },
-            ),
-            minScale: PhotoViewComputedScale.contained,
-          ),
+        child: PhotoViewGallery.builder(
+          itemCount: widget.album.cats.length,
+          pageController: _pageController,
+          builder: (context, index) {
+            return PhotoViewGalleryPageOptions(
+              imageProvider: NetworkImage('$BASE_URL${widget.album.cats[index].url}'),
+               heroAttributes: PhotoViewHeroAttributes(tag: widget.album.cats[index].url),
+              minScale: PhotoViewComputedScale.contained,
+              maxScale: 10.0,
+            );
+          },
         ),
         onTap: () {
           setState(() {

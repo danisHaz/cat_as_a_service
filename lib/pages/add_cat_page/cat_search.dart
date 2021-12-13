@@ -95,7 +95,7 @@ class CatSearchPageState extends State<CatSearchPage> {
                           }
                           return CatPreview(
                             cat: state.cats[index],
-                            onTap: (tag) {
+                            onTap: () {
                             Navigator.of(context)
                               .push(MaterialPageRoute(
                                   builder: (context) => CatEditorPage(

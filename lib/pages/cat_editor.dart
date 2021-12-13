@@ -19,7 +19,7 @@ class CatEditorPage extends StatefulWidget {
 
 class _CatEditorPageState extends State<CatEditorPage> {
   late Cat cat;
-  final _textController = TextEditingController();
+  late final TextEditingController _textController;
   static const _filterNames = {
     CatDecorationFilter.none: 'No filters',
     CatDecorationFilter.blur: 'Blur',
@@ -34,12 +34,14 @@ class _CatEditorPageState extends State<CatEditorPage> {
   void initState() {
     super.initState();
     cat = widget.cat;
+    _selectedFilter = cat.decoration.filter;
+    _textController = TextEditingController(text: cat.decoration.text);
   }
 
   // TODO: debouncer
   void _updateDecoration() {
     setState(() {
-      cat = cat.decorated(CatDecoration(
+      cat = cat.copyWith(decoration: CatDecoration(
         text: _textController.value.text,
         filter: _selectedFilter,
       ));

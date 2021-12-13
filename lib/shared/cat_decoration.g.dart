@@ -8,8 +8,10 @@ part of 'cat_decoration.dart';
 
 CatDecoration _$CatDecorationFromJson(Map<String, dynamic> json) =>
     CatDecoration(
-      text: json['text'] as String,
-      filter: $enumDecode(_$CatDecorationFilterEnumMap, json['filter']),
+      text: json['text'] as String? ?? '',
+      filter:
+          $enumDecodeNullable(_$CatDecorationFilterEnumMap, json['filter']) ??
+              CatDecorationFilter.none,
     );
 
 Map<String, dynamic> _$CatDecorationToJson(CatDecoration instance) =>

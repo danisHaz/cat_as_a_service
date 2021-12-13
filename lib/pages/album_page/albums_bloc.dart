@@ -53,9 +53,8 @@ class AlbumsCubit extends Cubit<AlbumsState> {
           albumId,
           Cat(
               id: "61009bfccaacc400184f6b38",
-              created_at: "2021-07-27T23:51:23.991Z",
               tags: const ["alcoholic"],
-              url: "/cat/61009bfccaacc400184f6b38"));
+              ));
     }
   }
 
