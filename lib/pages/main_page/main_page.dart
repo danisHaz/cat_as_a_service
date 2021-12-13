@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'package:flutter_basics_2/pages/album_page/albums.dart';
 import 'package:flutter_basics_2/pages/add_cat_page/cat_search.dart';
+import 'package:flutter_basics_2/pages/albums_page/albums.dart';
 import 'package:flutter_basics_2/shared/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

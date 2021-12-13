@@ -3,7 +3,7 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_basics_2/pages/album_page/albums_bloc.dart';
+import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
 import 'package:flutter_basics_2/pages/base_error_page.dart';
 import 'package:flutter_basics_2/pages/view_cat_page/view_cat.dart';
 import 'package:flutter_basics_2/pages/view_cat_page/view_cat_state.dart';

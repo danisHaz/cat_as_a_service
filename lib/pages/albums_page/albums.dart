@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:flutter_basics_2/pages/album_page/albums_bloc.dart';
-import 'package:flutter_basics_2/pages/album_page/view_album.dart';
+import 'package:flutter_basics_2/pages/album/view_album.dart';
+import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
 import 'package:flutter_basics_2/shared/album.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:flutter_basics_2/utils/hero_tags.dart';
@@ -17,7 +17,6 @@ class AlbumsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: AlbumGrid(
@@ -43,8 +42,8 @@ class AlbumGrid extends StatelessWidget {
     return BlocBuilder<AlbumsCubit, AlbumsState>(
       builder: (context, state) {
         return GridView.count(
-          physics: BouncingScrollPhysics(),
-          padding: EdgeInsets.all(16),
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.all(16),
           childAspectRatio: 0.8,
           crossAxisSpacing: 16,
           mainAxisSpacing: 16,
@@ -54,11 +53,10 @@ class AlbumGrid extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) {
-                    return AddAlbumPage();
+                    return const AddAlbumPage();
                   },
                 ));
               },
-
               child: Container(
                 padding: const EdgeInsets.all(2.5),
                 child: DottedBorder(
@@ -105,7 +103,7 @@ class AlbumPreview extends StatelessWidget {
                     Logger().e("Failed download image in ${_name}");
                   },
                 )
-              : AssetImage('assets/images/cat_placeholder.png')
+              : const AssetImage('assets/images/cat_placeholder.png')
                   as ImageProvider,
           fit: BoxFit.cover,
         ),

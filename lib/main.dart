@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_basics_2/pages/add_cat_page/cat_search_bloc.dart';
-import 'package:flutter_basics_2/pages/album_page/albums_bloc.dart';
+import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
 import 'package:flutter_basics_2/pages/feed_page/feed_bloc.dart';
 import 'package:flutter_basics_2/pages/main_page/main_page.dart';
 import 'package:flutter_basics_2/repositories/cat_repository.dart';

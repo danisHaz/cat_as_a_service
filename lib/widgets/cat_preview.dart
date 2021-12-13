@@ -8,7 +8,12 @@ class CatPreview extends StatelessWidget {
   final Cat cat;
   void Function()? onTap;
   final String heroTag;
-  CatPreview({Key? key, required this.cat, this.onTap, this.heroTag = '', }) : super(key: key);
+  CatPreview({
+    Key? key,
+    required this.cat,
+    this.onTap,
+    this.heroTag = '',
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +25,7 @@ class CatPreview extends StatelessWidget {
           color: Colors.transparent,
           child: Container(
             decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
               image: DecorationImage(
                 image: CachedNetworkImageProvider(
                   '$BASE_URL${cat.url}',
