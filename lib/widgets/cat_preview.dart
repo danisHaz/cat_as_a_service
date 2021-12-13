@@ -5,14 +5,13 @@ import 'package:logger/logger.dart';
 
 class CatPreview extends StatelessWidget {
   final Cat cat;
-  final _heroTag = UniqueKey();
-  void Function(Key tag)? onTap;
+  void Function()? onTap;
   CatPreview({Key? key, required this.cat, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: _heroTag,
+      tag: cat.url,
       child: Padding(
         padding: const EdgeInsets.all(2),
         child: Material(
@@ -28,7 +27,7 @@ class CatPreview extends StatelessWidget {
               color: Colors.transparent,
               child: InkWell(
                 onTap: () {
-                  if (onTap != null) onTap!(_heroTag);
+                  if (onTap != null) onTap!();
                 },
               ),
             ),
