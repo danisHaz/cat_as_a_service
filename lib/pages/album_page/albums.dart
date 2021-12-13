@@ -17,16 +17,19 @@ class AlbumsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: AlbumGrid(
-      onTap: (album) {
-        if (album.cats.isEmpty) return;
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) {
-            return ViewAlbumPage(albumId: album.id);
-          },
-        ));
-      },
-    ));
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: AlbumGrid(
+        onTap: (album) {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) {
+              return ViewAlbumPage(albumId: album.id);
+            },
+          ));
+        },
+      ),
+    );
   }
 }
 
@@ -55,21 +58,20 @@ class AlbumGrid extends StatelessWidget {
                   },
                 ));
               },
-              child: DottedBorder(
-                padding: EdgeInsets.zero,
-                borderType: BorderType.RRect,
-                radius: Radius.circular(25),
-                child: Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  decoration: BoxDecoration(
-                      // border: Border.all(),
-                      // borderRadius: BorderRadius.all(Radius.circular(25)),
-                      ),
-                  child: FittedBox(
-                    child: Icon(Icons.add),
-                    fit: BoxFit.contain,
-                  ),
+
+              child: Container(
+                padding: const EdgeInsets.all(2.5),
+                child: DottedBorder(
+                  padding: EdgeInsets.zero,
+                  borderType: BorderType.RRect,
+                  radius: const Radius.circular(10),
+                  dashPattern: const [15, 5],
+                  strokeWidth: 5,
+                  child: const Center(
+                      child: Icon(
+                    Icons.add,
+                    size: 50,
+                  )),
                 ),
               ),
             ),
@@ -94,7 +96,7 @@ class AlbumPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     final imageWidget = Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(25)),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
         image: DecorationImage(
           image: album.cats.isNotEmpty
               ? CachedNetworkImageProvider(

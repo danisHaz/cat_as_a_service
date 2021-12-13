@@ -54,6 +54,7 @@ dependencies:
   share_plus: ^3.0.4
   dotted_border: ^2.0.0+2
   font_awesome_flutter: ^9.2.0
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:
