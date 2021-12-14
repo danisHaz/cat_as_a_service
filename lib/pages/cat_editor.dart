@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_basics_2/shared/album.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/shared/cat_decoration.dart';
+import 'package:flutter_basics_2/shared/widgets/custom_appbar.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_item.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_popup.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
@@ -144,8 +145,8 @@ class _CatEditorPageState extends State<CatEditorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Cat editor'),
+      appBar: CustomAppbar(
+        name: 'Cat editor',
         actions: [
           _buildSavePictureButton(),
           _buildShareButton(),

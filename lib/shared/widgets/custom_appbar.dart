@@ -26,27 +26,30 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
         Container(
           height: 50,
           color: backgroundColor,
-          child: Row(
-            children: [
-              IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    color: textColor,
-                    size: 30,
-                  )),
-              Expanded(
-                child: Text(
-                  name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 25, color: textColor),
+          child: Material(
+            type: MaterialType.transparency,
+            child: Row(
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      color: textColor,
+                      size: 30,
+                    )),
+                Expanded(
+                  child: Text(
+                    name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 25, color: textColor),
+                  ),
                 ),
-              ),
-              ...actions ?? []
-            ],
+                ...actions ?? []
+              ],
+            ),
           ),
         ),
       ],
