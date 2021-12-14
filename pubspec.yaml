@@ -55,6 +55,7 @@ dependencies:
   dotted_border: ^2.0.0+2
   font_awesome_flutter: ^9.2.0
   shimmer: ^2.0.0
+  flutter_keyboard_visibility: ^5.1.0
 
 dev_dependencies:
   flutter_test:

@@ -14,7 +14,6 @@ import 'package:flutter_basics_2/utils/hero_tags.dart';
 import 'package:flutter_basics_2/widgets/progress_bar.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/src/provider.dart';
-import 'package:shimmer/shimmer.dart';
 
 class FeedListItem extends StatefulWidget {
   final Cat cat;
@@ -66,7 +65,6 @@ class FeedListItemState extends State<FeedListItem> {
       return Column(
         children: [
           // _buildTags(),
-          Container(height: 30),
           GestureDetector(
               onDoubleTap: _onDoubleTapOnCat,
               onTap: _onTapOnCat,
@@ -79,7 +77,7 @@ class FeedListItemState extends State<FeedListItem> {
                       tag: catHeroTag(cat: widget.cat),
                       child: CachedNetworkImage(
                         imageUrl: '$BASE_URL${widget.cat.url}',
-                        placeholder:(context, url) {
+                        placeholder: (context, url) {
                           return const ProgressBar();
                         },
                       ),
@@ -95,7 +93,8 @@ class FeedListItemState extends State<FeedListItem> {
                     ),
                   ),
                 ],
-              ))
+              )),
+          Container(height: 30),
         ],
       );
     } catch (e) {
