@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
+import 'package:flutter_basics_2/shared/widgets/custom_appbar.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery_saver/gallery_saver.dart';
@@ -19,8 +20,8 @@ class CatSaveDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AlbumsCubit, AlbumsState>(builder: (context, state) {
       return Scaffold(
-        appBar: AppBar(
-          title: Text('Choose album'),
+        appBar: CustomAppbar(
+          name: 'Choose album',
         ),
         body: AlbumGrid(
           onTap: (album) {

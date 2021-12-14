@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
+import 'package:flutter_basics_2/shared/widgets/custom_appbar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddAlbumPage extends StatefulWidget {
@@ -22,8 +23,8 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Add Album'),
+      appBar: CustomAppbar(
+        name:'Add Album',
       ),
       body: ListView(
         padding: const EdgeInsets.all(18),
