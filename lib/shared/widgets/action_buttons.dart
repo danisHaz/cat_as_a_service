@@ -13,10 +13,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../album.dart';
 import '../cat.dart';
 
+
 class SaveCatButton extends StatelessWidget {
   final Cat cat;
+  const SaveCatButton({Key? key, required this.cat}): super(key: key);
 
-  const SaveCatButton({Key? key, required this.cat}) : super(key: key);
+  Future<String> _getImagePath() async {
+    final cache = DefaultCacheManager();
+    final file = await cache.getSingleFile(cat.url);
+    return file.path;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +35,17 @@ class SaveCatButton extends StatelessWidget {
           buttonKey,
           [
             DropdownItem(
-              child: const Text(
-                'Save to album',
-                style: TextStyle(color: Colors.white),
+              child: Container(
+                width: 250,
+                padding: const EdgeInsets.all(5),
+                child: const Text(
+                  'Save to album',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
               ),
               value: () async {
                 final album = await showDialog(
@@ -39,21 +53,55 @@ class SaveCatButton extends StatelessWidget {
                     builder: (context) => CatSaveDialog(cat: cat));
                 if (album != null && album is Album) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text('Image saved to ${album.name}'),
+                    backgroundColor: Colors.black,
+                    content: Text(
+                      'Image saved to ${album.name}',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
                   ));
                 }
               },
             ),
             DropdownItem(
-              child: const Text(
-                'Save to device',
-                style: TextStyle(color: Colors.white),
+              child: Container(
+                width: 250,
+                padding: const EdgeInsets.all(5),
+                child: const Text(
+                  'Save to device',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
               ),
               value: () async {
-                await GallerySaver.saveImage(await _getImagePath(cat));
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text('Image saved'),
-                ));
+                try {
+                  await GallerySaver.saveImage(await _getImagePath());
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    backgroundColor: Colors.black,
+                    content: Text(
+                      'Image saved',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ));
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    backgroundColor: Colors.black,
+                    content: Text(
+                      e.toString(),
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ));
+                }
               },
             ),
           ],

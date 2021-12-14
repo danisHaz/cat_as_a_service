@@ -3,18 +3,15 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_basics_2/pages/add_cat/cat_save_dialog.dart';
-import 'package:flutter_basics_2/shared/album.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/shared/colors.dart';
+import 'package:flutter_basics_2/shared/widgets/action_buttons.dart';
 import 'package:flutter_basics_2/shared/widgets/custom_appbar.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_item.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_popup.dart';
-import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:flutter_basics_2/widgets/progress_bar.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gallery_saver/gallery_saver.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
@@ -67,96 +64,6 @@ class _CatEditorPageState extends State<CatEditorPage> {
         height: double.tryParse(_heightController.text),
       );
     });
-  }
-
-  IconButton _buildSavePictureButton() {
-    final buttonKey = GlobalKey();
-    return IconButton(
-      key: buttonKey,
-      onPressed: () async {
-        final func = await openDropdown(
-          context,
-          buttonKey,
-          [
-            DropdownItem(
-              child: Container(
-                width: 250,
-                padding: const EdgeInsets.all(5),
-                child: const Text(
-                  'Save to album',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-              ),
-              value: () async {
-                final album = await showDialog(
-                    context: context,
-                    builder: (context) => CatSaveDialog(cat: cat));
-                if (album != null && album is Album) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    backgroundColor: Colors.black,
-                    content: Text(
-                      'Image saved to ${album.name}',
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                  ));
-                }
-              },
-            ),
-            DropdownItem(
-              child: Container(
-                width: 250,
-                padding: const EdgeInsets.all(5),
-                child: const Text(
-                  'Save to device',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-              ),
-              value: () async {
-                try {
-                  await GallerySaver.saveImage(await _getImagePath());
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    backgroundColor: Colors.black,
-                    content: Text(
-                      'Image saved',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
-                  ));
-                } catch (e) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    backgroundColor: Colors.black,
-                    content: Text(
-                      e.toString(),
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                  ));
-                }
-              },
-            ),
-          ],
-        );
-        if (func != null) (func as Function())();
-      },
-      icon: const Icon(
-        Icons.arrow_downward,
-        size: 30,
-      ),
-    );
   }
 
   _showFilters() async {
@@ -221,7 +128,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
       appBar: CustomAppbar(
         name: 'Cat editor',
         actions: [
-          _buildSavePictureButton(),
+          SaveCatButton(cat: cat),
           _buildShareButton(),
         ],
       ),
@@ -260,7 +167,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
                   ),
                 ),
                 Container(width: 5),
-                Container(
+                SizedBox(
                   width: 65,
                   child: TextField(
                     decoration: const InputDecoration(
@@ -283,8 +190,8 @@ class _CatEditorPageState extends State<CatEditorPage> {
                     },
                   ),
                 ),
-                Container(width: 5),
-                Container(
+                const SizedBox(width: 5),
+                SizedBox(
                   width: 110,
                   child: TextField(
                     decoration: const InputDecoration(
@@ -309,12 +216,12 @@ class _CatEditorPageState extends State<CatEditorPage> {
                 ),
               ],
             ),
-            Container(height: 14),
+            const SizedBox(height: 14),
             const Text(
               'Filters: ',
               style: TextStyle(fontSize: 24),
             ),
-            Container(height: 2),
+            const SizedBox(height: 2),
             Row(
               children: [
                 GestureDetector(
@@ -357,7 +264,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
             Container(height: 2),
             Row(
               children: [
-                Container(
+                SizedBox(
                   width: 85,
                   child: TextField(
                     decoration: const InputDecoration(
@@ -379,10 +286,10 @@ class _CatEditorPageState extends State<CatEditorPage> {
                     },
                   ),
                 ),
-                Container(width: 10),
+                const SizedBox(width: 10),
                 const Text('x'),
-                Container(width: 10),
-                Container(
+                const SizedBox(width: 10),
+                SizedBox(
                   width: 85,
                   child: TextField(
                     decoration: const InputDecoration(

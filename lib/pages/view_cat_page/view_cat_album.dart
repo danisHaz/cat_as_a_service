@@ -6,7 +6,6 @@ import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
 import 'package:flutter_basics_2/pages/view_cat_page/hiding_appbar_page.dart';
 import 'package:flutter_basics_2/shared/widgets/action_buttons.dart';
 import 'package:flutter_basics_2/shared/widgets/custom_appbar.dart';
-import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:flutter_basics_2/utils/hero_tags.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photo_view/photo_view.dart';
@@ -38,20 +37,24 @@ class _AlbumCatViewPageState extends State<AlbumCatViewPage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AlbumsCubit, AlbumsState>(builder: (context, state) {
-      final album = state.albums[widget.albumId]!;
+      final album = state.albums[widget.albumId];
 
-      final cat = album.cats[currentPage];
+      if(album?.cats.isEmpty ?? true) {
+        return const Text('Album is empty');
+      }
+
+      final cat = album?.cats[currentPage];
 
       return HidingAppBarPage(
         appBar: CustomAppbar(
           name: '',
-          actions: [
+          actions: cat == null ? [] : [
             DeleteCatButton(
               albumId: widget.albumId,
               index: currentPage,
-              onDelete: (){
+              onDelete: () {
                 setState(() {
-                  if(album.cats.length == 1){
+                  if(album!.cats.length == 1){
                     Navigator.of(context).pop();
                   }
                   if(currentPage >= album.cats.length - 1){
@@ -72,7 +75,7 @@ class _AlbumCatViewPageState extends State<AlbumCatViewPage> {
           ],
         ),
         body: PhotoViewGallery.builder(
-          itemCount: max(album.cats.length, currentPage),
+          itemCount: max(album!.cats.length, currentPage),
           pageController: _pageController,
           onPageChanged: (page) => setState(() {
             currentPage = page;
