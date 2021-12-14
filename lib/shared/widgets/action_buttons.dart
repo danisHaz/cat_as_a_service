@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/add_cat/cat_editor.dart';
-import 'package:flutter_basics_2/pages/add_cat_page/cat_save_dialog.dart';
+import 'package:flutter_basics_2/pages/add_cat/cat_save_dialog.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_item.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_popup.dart';

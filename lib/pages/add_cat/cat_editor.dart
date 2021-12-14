@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_basics_2/pages/add_cat_page/cat_save_dialog.dart';
+import 'package:flutter_basics_2/pages/add_cat/cat_save_dialog.dart';
 import 'package:flutter_basics_2/shared/album.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/shared/cat_decoration.dart';
@@ -219,9 +219,6 @@ class _CatEditorPageState extends State<CatEditorPage> {
         ),
       );
 
-  Widget _colorWidget(Color color) {
-    return Container(height: 25, width: 25, color: color);
-  }
 
   @override
   Widget build(BuildContext context) {
