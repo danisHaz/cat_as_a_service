@@ -1,68 +1,71 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_basics_2/shared/cat_decoration.dart';
+import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:logger/logger.dart';
 
 part 'cat.g.dart';
+
+enum CatDecorationFilter{
+  none,
+  sepia,
+  blur,
+  mono,
+  negative,
+  paint,
+}
+
+extension CatDecrationFilterExtensions on CatDecorationFilter? {
+  String emptyIfNull() {
+    return this?.toString().split(".").last ?? "";
+  }
+
+  List<T> customMap<T>(T Function(CatDecorationFilter filter) func) =>
+    List.of([
+      func(CatDecorationFilter.none),
+      func(CatDecorationFilter.sepia),
+      func(CatDecorationFilter.blur),
+      func(CatDecorationFilter.mono),
+      func(CatDecorationFilter.negative),
+      func(CatDecorationFilter.paint),
+    ]);
+    
+  bool equals(Object other) {
+    return other is CatDecorationFilter && other.toString() == toString();
+  }
+}
+
+extension StringExtensions on String? {
+  String emptyIfNull() => this ?? "";
+}
 
 @immutable
 @JsonSerializable(explicitToJson: true)
 class Cat {
 	final String id;
 	final List<String> tags;
+  final String? textColor;
+  final double? fontSize;
+  final String? text;
+  final CatDecorationFilter? filter;
+  final String? type;
+  final double? height;
+  final double? width;
+  String get url => "$BASE_URL/cat/$id"
+        + (text.emptyIfNull().isEmpty == true ? "" : "/says/$text")
+        + "?filter=${filter.emptyIfNull()}"
+        + "&color=${textColor.emptyIfNull()}&type=${type.emptyIfNull()}"
+        + "&size=${fontSize ?? ""}&height=${height ?? ""}&width=${width ?? ""}";
 
-	@JsonKey(readValue: _readDecoration)
-	final CatDecoration decoration;
-
-
-	Cat({
+	const Cat({
 	  required this.id,
     required this.tags,
-		this.decoration = const CatDecoration(text: '', filter: CatDecorationFilter.none),
+    this.textColor,
+    this.fontSize,
+    this.text,
+    this.filter,
+    this.type,
+    this.height,
+    this.width
   });
-
-
-	static Map<String, dynamic> _readDecoration(Map map, String key){
-		final _map = map as Map<String, dynamic>;
-		if(_map.containsKey(key)){
-			return _map[key];
-		} else {
-			return {};
-		}
-	}
-
-	String get url{
-		final says = decoration.text.isNotEmpty ? '/says/${decoration.text}' : '';
-		var filter = '?filter=';
-		switch(decoration.filter){
-			case CatDecorationFilter.none:
-				filter = '';
-				break;
-			case CatDecorationFilter.sepia:
-				filter += 'sepia';
-				break;
-			case CatDecorationFilter.blur:
-				filter += 'blur';
-				break;
-			case CatDecorationFilter.mono:
-				filter += 'mono';
-				break;
-			case CatDecorationFilter.negative:
-				filter += 'negative';
-				break;
-			case CatDecorationFilter.paint:
-				filter += 'paint';
-				break;
-		}
-
-
-		return '/cat/$id$says$filter';
-	}
-
-	@override
-  bool operator ==(Object other){
-		return other is Cat && other.url == url;
-	}
 
 	factory Cat.fromJson(Map<String, dynamic> json) => _$CatFromJson(json);
 
@@ -71,16 +74,25 @@ class Cat {
 	Cat copyWith({
     String? id,
     List<String>? tags,
-    CatDecoration? decoration,
+    String? textColor,
+    double? fontSize,
+    String? text,
+    CatDecorationFilter? filter,
+    String? type,
+    double? height,
+    double? width,
   }) {
     return Cat(
       id: id ?? this.id,
       tags: tags ?? this.tags,
-      decoration: decoration ?? this.decoration,
+      textColor: textColor ?? this.textColor,
+      fontSize: fontSize ?? this.fontSize,
+      text: text ?? this.text,
+      filter: filter ?? this.filter,
+      type: type ?? this.type,
+      height: height ?? this.height,
+      width: width ?? this.width,
     );
   }
-
-  @override
-  int get hashCode => url.hashCode;
 
 }

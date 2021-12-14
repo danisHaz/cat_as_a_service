@@ -49,35 +49,35 @@ class AlbumGrid extends StatelessWidget {
           mainAxisSpacing: 16,
           crossAxisCount: MediaQuery.of(context).size.width ~/ 150,
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) {
-                    return const AddAlbumPage();
-                  },
-                ));
-              },
-              child: Container(
-                padding: const EdgeInsets.all(2.5),
-                child: DottedBorder(
-                  padding: EdgeInsets.zero,
-                  borderType: BorderType.RRect,
-                  radius: const Radius.circular(10),
-                  dashPattern: const [15, 5],
-                  strokeWidth: 5,
-                  child: const Center(
-                      child: Icon(
-                    Icons.add,
-                    size: 50,
-                  )),
+            Container(
+              padding: const EdgeInsets.all(2.5),
+              child: DottedBorder(
+                padding: EdgeInsets.zero,
+                borderType: BorderType.RRect,
+                radius: const Radius.circular(10),
+                dashPattern: const [15, 5],
+                strokeWidth: 5,
+                child: Ink(
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(10),
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) {
+                          return const AddAlbumPage();
+                        },
+                      ));
+                    },
+                    child: const Center(
+                        child: Icon(
+                      Icons.add,
+                      size: 50,
+                    )),
+                  ),
                 ),
               ),
             ),
             for (var album in state.albums.values)
-              GestureDetector(
-                onTap: () => onTap(album),
-                child: AlbumPreview(album),
-              )
+              AlbumPreview(album, onTap: onTap)
           ],
         );
       },
@@ -86,8 +86,9 @@ class AlbumGrid extends StatelessWidget {
 }
 
 class AlbumPreview extends StatelessWidget {
+  final Function(Album) onTap;
   final Album album;
-  const AlbumPreview(this.album, {Key? key}) : super(key: key);
+  const AlbumPreview(this.album, {Key? key, required this.onTap}) : super(key: key);
   String get _name => runtimeType.toString();
 
   @override
@@ -98,7 +99,7 @@ class AlbumPreview extends StatelessWidget {
         image: DecorationImage(
           image: album.cats.isNotEmpty
               ? CachedNetworkImageProvider(
-                  '$BASE_URL${album.cats[0].url}',
+                  album.cats[0].url,
                   errorListener: () {
                     Logger().e("Failed download image in ${_name}");
                   },
@@ -106,6 +107,13 @@ class AlbumPreview extends StatelessWidget {
               : const AssetImage('assets/images/cat_placeholder.png')
                   as ImageProvider,
           fit: BoxFit.cover,
+        ),
+      ),
+      child: Material(
+        type: MaterialType.transparency,
+        child: InkWell(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          onTap: ()=>onTap(album),
         ),
       ),
     );

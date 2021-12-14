@@ -25,6 +25,7 @@ class _HidingAppBarPageState extends State<HidingAppBarPage>
     _appBarSlideController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 100),
+      value: 1,
     );
     _updateSystemUI();
   }
