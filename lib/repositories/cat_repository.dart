@@ -71,6 +71,10 @@ class CatRepository {
     return id;
   }
 
+  Future<void> removeAlbum(String albumId) async {
+    await _albumsCollection.doc(albumId).delete();
+  }
+
   Future<void> addCatToAlbum(String albumId, Cat cat)async {
     final snapshot = await _albumsCollection.doc(albumId).get();
     final snapshotData = snapshot.data();
