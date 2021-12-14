@@ -39,6 +39,7 @@ class CatSearchBloc extends Cubit<CatSearchState>{
     });
   }
 
+  
 
   void setSearchTags(List<String> tags){
     emit(state.copyWith(search_tags: tags, cats: [], canLoadMore: true));

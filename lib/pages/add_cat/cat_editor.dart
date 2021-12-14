@@ -200,6 +200,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
                         borderRadius: BorderRadius
                           .all(Radius.circular(10))
                       ),
+
                       fillColor: backgroundGrey,
                       filled: true,
                       hintText: 'CSS color',
