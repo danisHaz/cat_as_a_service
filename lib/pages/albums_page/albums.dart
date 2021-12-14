@@ -98,7 +98,7 @@ class AlbumPreview extends StatelessWidget {
         image: DecorationImage(
           image: album.cats.isNotEmpty
               ? CachedNetworkImageProvider(
-                  '$BASE_URL${album.cats[0].url}',
+                  album.cats[0].url,
                   errorListener: () {
                     Logger().e("Failed download image in ${_name}");
                   },

@@ -74,7 +74,7 @@ class FeedListItemState extends State<FeedListItem> {
                     child: Hero(
                       tag: catHeroTag(cat: widget.cat),
                       child: CachedNetworkImage(
-                        imageUrl: '$BASE_URL${widget.cat.url}',
+                        imageUrl: widget.cat.url,
                         placeholder: (context, url) {
                           return const ProgressBar();
                         },

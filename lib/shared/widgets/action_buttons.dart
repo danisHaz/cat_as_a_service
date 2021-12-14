@@ -147,6 +147,6 @@ class DeleteCatButton extends StatelessWidget {
 
 Future<String> _getImagePath(Cat cat) async {
   final cache = DefaultCacheManager();
-  final file = await cache.getSingleFile('$BASE_URL${cat.url}');
+  final file = await cache.getSingleFile(cat.url);
   return file.path;
 }

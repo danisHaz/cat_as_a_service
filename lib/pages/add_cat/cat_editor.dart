@@ -41,19 +41,9 @@ class _CatEditorPageState extends State<CatEditorPage> {
   final filterKey = GlobalKey();
   final colorKey = GlobalKey();
 
-  String _generateUrl() {
-    String finalUrl
-      = "$BASE_URL${cat.url}" +
-        (cat.text?.emptyIfNull().isEmpty == true ? "" : "/says/${cat.text}")
-        + "?filter=${cat.filter.emptyIfNull()}"
-        + "&color=${cat.textColor.emptyIfNull()}&type=${cat.type.emptyIfNull()}"
-        + "&size=${cat.fontSize ?? ""}&height=${cat.height ?? ""}&width=${cat.width ?? ""}";
-    return finalUrl;
-  }
-
   Future<String> _getImagePath() async {
     final cache = DefaultCacheManager();
-    final file = await cache.getSingleFile(_generateUrl());
+    final file = await cache.getSingleFile(cat.url);
     return file.path;
   }
 
@@ -208,7 +198,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
           child: CachedNetworkImage(
             fit: BoxFit.cover,
             // width: double.infinity,
-            imageUrl: _generateUrl(),
+            imageUrl: cat.url,
             progressIndicatorBuilder: (context, url, loadingProgress) {
               return Center(
                   child: ProgressBar(

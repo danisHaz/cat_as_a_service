@@ -63,7 +63,7 @@ class _AlbumCatViewPageState extends State<AlbumCatViewPage> {
           builder: (context, index) {
             return PhotoViewGalleryPageOptions(
               imageProvider: CachedNetworkImageProvider(
-                  '$BASE_URL${album.cats[index].url}'),
+                  album.cats[index].url),
               heroAttributes: PhotoViewHeroAttributes(
                 tag: catHeroTag(
                   album: album,

@@ -28,7 +28,7 @@ class CatPreview extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(10)),
               image: DecorationImage(
                 image: CachedNetworkImageProvider(
-                  '$BASE_URL${cat.url}',
+                  cat.url,
                   errorListener: () {
                     Logger().e("Fail download image in cat_preview");
                   },

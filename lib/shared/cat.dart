@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'cat.g.dart';
@@ -48,7 +49,11 @@ class Cat{
   final String? type;
   final double? height;
   final double? width;
-  String get url => "/cat/$id";
+  String get url => "$BASE_URL/cat/$id" +
+        (text.emptyIfNull().isEmpty == true ? "" : "/says/$text")
+        + "?filter=${filter.emptyIfNull()}"
+        + "&color=${textColor.emptyIfNull()}&type=${type.emptyIfNull()}"
+        + "&size=${fontSize ?? ""}&height=${height ?? ""}&width=${width ?? ""}";
 
 	const Cat({
 	  required this.id,
