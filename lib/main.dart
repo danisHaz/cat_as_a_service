@@ -7,6 +7,7 @@ import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
 import 'package:flutter_basics_2/pages/feed_page/feed_bloc.dart';
 import 'package:flutter_basics_2/pages/main_page/main_page.dart';
 import 'package:flutter_basics_2/repositories/cat_repository.dart';
+import 'package:flutter_basics_2/shared/transitions_builder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'firebase_options.dart';
@@ -57,6 +58,13 @@ class MainApp extends StatelessWidget {
         localizationsDelegates: context.localizationDelegates,
         locale: context.locale,
         supportedLocales: context.supportedLocales,
+        theme: ThemeData.light().copyWith(
+          pageTransitionsTheme: PageTransitionsTheme(
+            builders: {
+              for(var entry in TargetPlatform.values) entry : CatPageTransitionsBuilder(),
+            }
+          ),
+        ),
       ),
     );
   }
