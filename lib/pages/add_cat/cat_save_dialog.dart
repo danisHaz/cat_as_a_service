@@ -20,7 +20,8 @@ class CatSaveDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AlbumsCubit, AlbumsState>(builder: (context, state) {
       return Scaffold(
-        appBar: CustomAppbar(
+        backgroundColor: Colors.white,
+        appBar: const CustomAppbar(
           name: 'Choose album',
         ),
         body: AlbumGrid(
