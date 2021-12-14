@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
@@ -37,12 +39,27 @@ class _AlbumCatViewPageState extends State<AlbumCatViewPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<AlbumsCubit, AlbumsState>(builder: (context, state) {
       final album = state.albums[widget.albumId]!;
+
       final cat = album.cats[currentPage];
+
       return HidingAppBarPage(
         appBar: CustomAppbar(
           name: '',
           actions: [
-            DeleteCatButton(albumId: widget.albumId, index: currentPage),
+            DeleteCatButton(
+              albumId: widget.albumId,
+              index: currentPage,
+              onDelete: (){
+                setState(() {
+                  if(album.cats.length == 1){
+                    Navigator.of(context).pop();
+                  }
+                  if(currentPage >= album.cats.length - 1){
+                    _pageController.jumpToPage(currentPage - 1);
+                  }
+                });
+              },
+            ),
             EditCatButton(
               cat: cat,
               editorHeroTag: catHeroTag(
@@ -55,24 +72,32 @@ class _AlbumCatViewPageState extends State<AlbumCatViewPage> {
           ],
         ),
         body: PhotoViewGallery.builder(
-          itemCount: album.cats.length,
+          itemCount: max(album.cats.length, currentPage),
           pageController: _pageController,
           onPageChanged: (page) => setState(() {
             currentPage = page;
           }),
           builder: (context, index) {
-            return PhotoViewGalleryPageOptions(
-              imageProvider: CachedNetworkImageProvider(
-                  '$BASE_URL${album.cats[index].url}'),
-              heroAttributes: PhotoViewHeroAttributes(
-                tag: catHeroTag(
-                  album: album,
-                  index: index,
+            if (index < album.cats.length) {
+              return PhotoViewGalleryPageOptions(
+                imageProvider: CachedNetworkImageProvider(
+                    '$BASE_URL${album.cats[index].url}'),
+                heroAttributes: PhotoViewHeroAttributes(
+                  tag: catHeroTag(
+                    album: album,
+                    index: index,
+                  ),
                 ),
-              ),
-              minScale: PhotoViewComputedScale.contained,
-              maxScale: 10.0,
-            );
+                minScale: PhotoViewComputedScale.contained,
+                maxScale: 10.0,
+              );
+            } else {
+              return PhotoViewGalleryPageOptions.customChild(
+                child: null,
+                maxScale: 1.0,
+                minScale: 1.0,
+              );
+            }
           },
         ),
       );

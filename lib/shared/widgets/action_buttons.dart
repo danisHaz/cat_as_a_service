@@ -110,8 +110,9 @@ class EditCatButton extends StatelessWidget {
 class DeleteCatButton extends StatelessWidget {
   final String albumId;
   final int index;
+  final Function? onDelete;
 
-  const DeleteCatButton({Key? key, required this.albumId, required this.index})
+  const DeleteCatButton({Key? key, required this.albumId, required this.index, this.onDelete})
       : super(key: key);
 
   @override
@@ -122,7 +123,8 @@ class DeleteCatButton extends StatelessWidget {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text('Are yo sure $index'),
+              title: Text('Remove cat from album'),
+              content: Text('Are you sure?'),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(false),
@@ -137,6 +139,7 @@ class DeleteCatButton extends StatelessWidget {
           },
         );
         if (result == true) {
+          if(onDelete!= null)onDelete!();
           context.read<AlbumsCubit>().removeCatFromAlbum(albumId, index);
         }
       },

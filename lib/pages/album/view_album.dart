@@ -33,7 +33,7 @@ class ViewAlbumPage extends StatelessWidget {
                   icon: const Icon(FontAwesomeIcons.trash))
             ],
           ),
-          body: GridView.count(
+          body: album.cats.isNotEmpty ? GridView.count(
             physics: const BouncingScrollPhysics(),
             crossAxisCount: MediaQuery.of(context).size.width ~/ 150,
             childAspectRatio: 0.8,
@@ -51,6 +51,8 @@ class ViewAlbumPage extends StatelessWidget {
                   },
                 )
             ],
+          ) : Center(
+            child:  Text('Empty album'),
           ),
         );
       },
