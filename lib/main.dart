@@ -7,6 +7,7 @@ import 'package:flutter_basics_2/pages/feed_page/feed_bloc.dart';
 import 'package:flutter_basics_2/pages/main_page/main_page.dart';
 import 'package:flutter_basics_2/pages/search_cat/cat_search_bloc.dart';
 import 'package:flutter_basics_2/repositories/cat_repository.dart';
+import 'package:flutter_basics_2/shared/widgets/top_offset_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'firebase_options.dart';

@@ -303,7 +303,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
                         isCollapsed: true,
                       ),
                       keyboardType: TextInputType.number,
-                      controller: _fontSizeController,
+                      controller: _fontColorController,
                       style: const TextStyle(fontSize: 18),
                       onChanged: (value) {
                         _updateDecoration();

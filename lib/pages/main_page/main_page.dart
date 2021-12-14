@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums.dart';
 import 'package:flutter_basics_2/pages/search_cat/cat_search.dart';
 import 'package:flutter_basics_2/shared/colors.dart';
+import 'package:flutter_basics_2/shared/widgets/top_offset_provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../feed_page/feed_screen.dart';
@@ -23,10 +24,12 @@ class MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(child: _buildCurrentScreen()),
-      bottomNavigationBar: _buildNavbar()
-    );
+        backgroundColor: Colors.white,
+        body: TopOffsetProvider(
+          child: SafeArea(child: _buildCurrentScreen()),
+          context: context,
+        ),
+        bottomNavigationBar: _buildNavbar());
   }
 
   Widget _buildNavbar() {
