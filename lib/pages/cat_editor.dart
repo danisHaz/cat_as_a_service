@@ -1,24 +1,11 @@
-import 'dart:ffi';
-import 'dart:math';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_basics_2/shared/album.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
-import 'package:flutter_basics_2/shared/cat_decoration.dart';
 import 'package:flutter_basics_2/shared/widgets/action_buttons.dart';
 import 'package:flutter_basics_2/shared/widgets/custom_appbar.dart';
-import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_item.dart';
-import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_popup.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
-import 'package:flutter_basics_2/utils/hero_tags.dart';
 import 'package:flutter_basics_2/widgets/progress_bar.dart';
-import 'package:gallery_saver/gallery_saver.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-
-import 'add_cat_page/cat_save_dialog.dart';
 
 class CatEditorPage extends StatefulWidget {
   final Cat cat;
@@ -32,48 +19,48 @@ class CatEditorPage extends StatefulWidget {
 class _CatEditorPageState extends State<CatEditorPage> {
   late Cat cat;
   late final TextEditingController _textController;
-  static const _filterNames = {
-    CatDecorationFilter.none: 'No filters',
-    CatDecorationFilter.blur: 'Blur',
-    CatDecorationFilter.mono: 'Monochrome',
-    CatDecorationFilter.negative: 'Negative',
-    CatDecorationFilter.paint: 'Paint',
-    CatDecorationFilter.sepia: 'Sepia',
-  };
   var _selectedFilter = CatDecorationFilter.none;
-  
 
   @override
   void initState() {
     super.initState();
     cat = widget.cat;
-    _selectedFilter = cat.decoration.filter;
-    _textController = TextEditingController(text: cat.decoration.text);
+    _selectedFilter = cat.filter ?? CatDecorationFilter.none;
+    _textController = TextEditingController(text: cat.text);
   }
 
   // TODO: debouncer
   void _updateDecoration() {
     setState(() {
       cat = cat.copyWith(
-          decoration: CatDecoration(
         text: _textController.value.text,
         filter: _selectedFilter,
-      ));
+      );
     });
+  }
+
+  String _generateUrl() {
+    String finalUrl
+      = "$BASE_URL${cat.url}" +
+        (cat.text?.emptyIfNull().isEmpty == true ? "" : "/says/${cat.text}")
+        + "?filter=${cat.filter.emptyIfNull()}"
+        + "&color=${cat.textColor.emptyIfNull()}&type=${cat.type.emptyIfNull()}"
+        + "&size=${cat.fontSize ?? ""}&height=${cat.height ?? ""}&width=${cat.width ?? ""}";
+    return finalUrl;
   }
   
   Widget _buildPicture() => Center(
         child: Container(
           clipBehavior: Clip.antiAlias,
-          constraints: BoxConstraints(maxHeight: 300),
-          decoration: BoxDecoration(
+          constraints: const BoxConstraints(maxHeight: 300),
+          decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
           child: Hero(
             tag: widget.heroTag,
             child: CachedNetworkImage(
               // width: double.infinity,
-              imageUrl: '$BASE_URL${cat.url}',
+              imageUrl: _generateUrl(),
               progressIndicatorBuilder: (context, url, loadingProgress) {
                 return Center(
                     child: ProgressBar(
@@ -96,13 +83,13 @@ class _CatEditorPageState extends State<CatEditorPage> {
         ],
       ),
       body: ListView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         children: [
           _buildPicture(),
-          Text('Text'),
+          const Text('Text'),
           TextFormField(
             decoration: InputDecoration(
-              border: OutlineInputBorder(
+              border: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(99999))),
               fillColor: Colors.grey[300],
               filled: true,
@@ -115,19 +102,24 @@ class _CatEditorPageState extends State<CatEditorPage> {
             },
             autofocus: false,
           ),
-          Text('Filters'),
+          const Text('Filters'),
           Wrap(
-            children: _filterNames.entries.map((e) {
-              if (e.key == _selectedFilter) {
+            children: _selectedFilter.customMap((e) {
+              if (_selectedFilter.equals(e)) {
                 return ElevatedButton(
-                    onPressed: () => {}, child: Text(e.value));
+                  onPressed: () => {
+                    
+                  },
+                  child: Text(e.emptyIfNull())
+                );
               } else {
                 return OutlinedButton(
-                    onPressed: () {
-                      _selectedFilter = e.key;
-                      _updateDecoration();
-                    },
-                    child: Text(e.value));
+                  onPressed: () {
+                    _selectedFilter = e;
+                    _updateDecoration();
+                  },
+                  child: Text(e.emptyIfNull())
+                );
               }
             }).toList(),
           ),
