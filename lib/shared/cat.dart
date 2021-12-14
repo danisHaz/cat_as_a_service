@@ -39,7 +39,7 @@ extension StringExtensions on String? {
 
 @immutable
 @JsonSerializable(explicitToJson: true)
-class Cat{
+class Cat {
 	final String id;
 	final List<String> tags;
   final String? textColor;
@@ -49,8 +49,8 @@ class Cat{
   final String? type;
   final double? height;
   final double? width;
-  String get url => "$BASE_URL/cat/$id" +
-        (text.emptyIfNull().isEmpty == true ? "" : "/says/$text")
+  String get url => "$BASE_URL/cat/$id"
+        + (text.emptyIfNull().isEmpty == true ? "" : "/says/$text")
         + "?filter=${filter.emptyIfNull()}"
         + "&color=${textColor.emptyIfNull()}&type=${type.emptyIfNull()}"
         + "&size=${fontSize ?? ""}&height=${height ?? ""}&width=${width ?? ""}";
