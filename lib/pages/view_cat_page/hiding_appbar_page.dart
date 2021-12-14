@@ -1,45 +1,51 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_basics_2/pages/view_cat_page/view_cat_state.dart';
-import 'package:flutter_basics_2/shared/album.dart';
-import 'package:flutter_basics_2/shared/widgets/custom_appbar.dart';
-import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:flutter_basics_2/widgets/sliding_appbar.dart';
-import 'package:logger/logger.dart';
-import 'package:photo_view/photo_view.dart';
-import 'package:photo_view/photo_view_gallery.dart';
 
-class CatViewPage extends StatefulWidget {
-  String get _name => runtimeType.toString();
-  final CatPageData data;
+class HidingAppBarPage extends StatefulWidget {
+  final PreferredSizeWidget appBar;
+  final Widget body;
 
-  const CatViewPage({
-    Key? key,
-    required this.data,
+  const HidingAppBarPage({
+    Key? key, required this.appBar, required this.body,
   }) : super(key: key);
 
   @override
-  _CatViewPageState createState() => _CatViewPageState();
+  _HidingAppBarPageState createState() => _HidingAppBarPageState();
 }
 
-class _CatViewPageState extends State<CatViewPage>
+class _HidingAppBarPageState extends State<HidingAppBarPage>
     with SingleTickerProviderStateMixin {
-  bool _showAppBar = true;
+  bool _showAppBar = false;
+  late final AnimationController _appBarSlideController;
+
+  @override
+  void initState(){
+    super.initState();
+    _appBarSlideController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 100),
+    );
+    _updateSystemUI();
+  }
 
   _flipAppbar() {
     setState(() {
       _showAppBar = !_showAppBar;
     });
 
+    _updateSystemUI();
+  }
+
+  void _updateSystemUI(){
     if (_showAppBar) {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-          statusBarColor: Colors.white,
+          statusBarColor: Colors.transparent,
           systemNavigationBarColor: Colors.white.withOpacity(0.75),
           systemNavigationBarIconBrightness: Brightness.dark));
     } else {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
-          statusBarColor: Colors.black,
+          statusBarColor: Colors.transparent,
           systemNavigationBarColor: Colors.black.withOpacity(0.75),
           systemNavigationBarIconBrightness: Brightness.light));
     }
@@ -59,14 +65,13 @@ class _CatViewPageState extends State<CatViewPage>
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: _showAppBar
-          ? const CustomAppbar(
-              name: "",
-              actions: [],
-            )
-          : null,
+      appBar: SlidingAppBar(
+        child: widget.appBar,
+        controller: _appBarSlideController,
+        visible: _showAppBar,
+      ),
       body: GestureDetector(
-        child: CatPageBuilder(data: widget.data).build(),
+        child: widget.body,
         onTap: () {
           _flipAppbar();
         },

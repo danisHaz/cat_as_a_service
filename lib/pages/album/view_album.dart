@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
-import 'package:flutter_basics_2/pages/view_cat_page/view_cat.dart';
-import 'package:flutter_basics_2/pages/view_cat_page/view_cat_state.dart';
+import 'package:flutter_basics_2/pages/view_cat_page/view_cat_album.dart';
 import 'package:flutter_basics_2/shared/widgets/custom_appbar.dart';
 import 'package:flutter_basics_2/utils/hero_tags.dart';
 import 'package:flutter_basics_2/widgets/cat_preview.dart';
@@ -45,11 +44,10 @@ class ViewAlbumPage extends StatelessWidget {
                   cat: album.cats[i],
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CatViewPage(
-                                data: FromAlbumData(
-                              album: album,
-                              chosenCatIndex: i,
-                            ))));
+                        builder: (context) => AlbumCatViewPage(
+                              albumId: album.id,
+                              startIndex: i,
+                            )));
                   },
                 )
             ],
