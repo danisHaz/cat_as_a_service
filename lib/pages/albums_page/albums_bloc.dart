@@ -64,4 +64,8 @@ class AlbumsCubit extends Cubit<AlbumsState> {
   Future<void> removeCatFromAlbum(String albumId, int index) async {
     await CatRepository().removeCatFromAlbum(albumId, index);
   }
+
+  Future<void> rmoveAlbum(String albumId) async{
+    await CatRepository().removeAlbum(albumId);
+  }
 }
