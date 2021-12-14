@@ -22,6 +22,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       children: [
         Container(
           height: MediaQuery.of(context).viewPadding.top,
+          color: backgroundColor,
         ),
         Container(
           height: 50,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_basics_2/widgets/sliding_appbar.dart';
 
 class HidingAppBarPage extends StatefulWidget {
   final PreferredSizeWidget appBar;
@@ -15,21 +16,36 @@ class HidingAppBarPage extends StatefulWidget {
 
 class _HidingAppBarPageState extends State<HidingAppBarPage>
     with SingleTickerProviderStateMixin {
-  bool _showAppBar = true;
+  bool _showAppBar = false;
+  late final AnimationController _appBarSlideController;
+
+  @override
+  void initState(){
+    super.initState();
+    _appBarSlideController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 100),
+    );
+    _updateSystemUI();
+  }
 
   _flipAppbar() {
     setState(() {
       _showAppBar = !_showAppBar;
     });
 
+    _updateSystemUI();
+  }
+
+  void _updateSystemUI(){
     if (_showAppBar) {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-          statusBarColor: Colors.white,
+          statusBarColor: Colors.transparent,
           systemNavigationBarColor: Colors.white.withOpacity(0.75),
           systemNavigationBarIconBrightness: Brightness.dark));
     } else {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
-          statusBarColor: Colors.black,
+          statusBarColor: Colors.transparent,
           systemNavigationBarColor: Colors.black.withOpacity(0.75),
           systemNavigationBarIconBrightness: Brightness.light));
     }
@@ -49,9 +65,11 @@ class _HidingAppBarPageState extends State<HidingAppBarPage>
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: _showAppBar
-          ?  widget.appBar
-          : null,
+      appBar: SlidingAppBar(
+        child: widget.appBar,
+        controller: _appBarSlideController,
+        visible: _showAppBar,
+      ),
       body: GestureDetector(
         child: widget.body,
         onTap: () {
