@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_basics_2/shared/album.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/shared/cat_decoration.dart';
+import 'package:flutter_basics_2/shared/widgets/action_buttons.dart';
 import 'package:flutter_basics_2/shared/widgets/custom_appbar.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_item.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_popup.dart';
@@ -40,12 +41,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
     CatDecorationFilter.sepia: 'Sepia',
   };
   var _selectedFilter = CatDecorationFilter.none;
-
-  Future<String> _getImagePath() async {
-    final cache = DefaultCacheManager();
-    final file = await cache.getSingleFile('$BASE_URL${cat.url}');
-    return file.path;
-  }
+  
 
   @override
   void initState() {
@@ -65,60 +61,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
       ));
     });
   }
-
-  IconButton _buildSavePictureButton() {
-    final buttonKey = GlobalKey();
-    return IconButton(
-      key: buttonKey,
-      onPressed: () async {
-        final func = await openDropdown(
-          context,
-          buttonKey,
-          [
-            DropdownItem(
-              child: const Text(
-                'Save to album',
-                style: TextStyle(color: Colors.white),
-              ),
-              value: () async {
-                final album = await showDialog(
-                    context: context,
-                    builder: (context) => CatSaveDialog(cat: cat));
-                if (album != null && album is Album){
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Image saved to ${album.name}'),));
-                }
-              },
-            ),
-            DropdownItem(
-              child: const Text(
-                'Save to device',
-                style: TextStyle(color: Colors.white),
-              ),
-              value: () async {
-                await GallerySaver.saveImage(await _getImagePath());
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text('Image saved'),
-                ));
-              },
-            ),
-          ],
-        );
-        if (func != null) (func as Function())();
-      },
-      icon: const Icon(
-        Icons.arrow_downward,
-        size: 30,
-      ),
-    );
-  }
-
-  IconButton _buildShareButton() => IconButton(
-        onPressed: () async {
-          Share.shareFiles([await _getImagePath()]);
-        },
-        icon: const Icon(Icons.share),
-      );
-
+  
   Widget _buildPicture() => Center(
         child: Container(
           clipBehavior: Clip.antiAlias,
@@ -148,8 +91,8 @@ class _CatEditorPageState extends State<CatEditorPage> {
       appBar: CustomAppbar(
         name: 'Cat editor',
         actions: [
-          _buildSavePictureButton(),
-          _buildShareButton(),
+          SaveCatButton(cat: cat),
+          ShareCatButton(cat: cat),
         ],
       ),
       body: ListView(

@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
 import 'package:flutter_basics_2/pages/base_error_page.dart';
-import 'package:flutter_basics_2/pages/view_cat_page/view_cat.dart';
-import 'package:flutter_basics_2/pages/view_cat_page/view_cat_state.dart';
+import 'package:flutter_basics_2/pages/view_cat_page/view_cat_single.dart';
 import 'package:flutter_basics_2/repositories/cat_repository.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
@@ -54,10 +53,9 @@ class FeedListItemState extends State<FeedListItem> {
 
   void _onTapOnCat() {
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => CatViewPage(
-                data: SinglePictureData(
+        builder: (context) => SingleCatViewPage(
               cat: widget.cat,
-            ))));
+            )));
   }
 
   @override
@@ -79,7 +77,7 @@ class FeedListItemState extends State<FeedListItem> {
                       tag: catHeroTag(cat: widget.cat),
                       child: CachedNetworkImage(
                         imageUrl: '$BASE_URL${widget.cat.url}',
-                        placeholder:(context, url) {
+                        placeholder: (context, url) {
                           return const ProgressBar();
                         },
                       ),
