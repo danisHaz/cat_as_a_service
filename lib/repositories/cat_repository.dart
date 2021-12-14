@@ -7,6 +7,8 @@ import 'package:flutter_basics_2/repositories/api_service.dart';
 import 'package:flutter_basics_2/shared/album.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 
+// TODO: !IMPORTANT! rewrite albums as subcollections
+
 class CatRepository {
   static final CatRepository _instance = CatRepository._create();
   late final Dio _dio;
@@ -72,6 +74,14 @@ class CatRepository {
     final snapshotData = snapshot.data();
     final album = Album.fromJson(snapshotData as Map<String, dynamic>);
     album.cats.add(cat);
+    await _albumsCollection.doc(albumId).update(album.toJson());
+  }
+
+  Future<void> removeCatFromAlbum(String albumId, int index) async {
+    final snapshot = await _albumsCollection.doc(albumId).get();
+    final snapshotData = snapshot.data();
+    final album = Album.fromJson(snapshotData as Map<String, dynamic>);
+    album.cats.removeAt(index);
     await _albumsCollection.doc(albumId).update(album.toJson());
   }
 
