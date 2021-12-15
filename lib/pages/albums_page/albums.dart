@@ -8,7 +8,7 @@ import 'package:flutter_basics_2/utils/hero_tags.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:dotted_border/dotted_border.dart';
-import 'add_album.dart';
+import '../add_album/add_album.dart';
 
 class AlbumsPage extends StatelessWidget {
   const AlbumsPage({Key? key}) : super(key: key);
