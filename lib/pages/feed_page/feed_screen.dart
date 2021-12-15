@@ -7,6 +7,8 @@ import 'package:flutter_basics_2/pages/feed_page/feed_data_state.dart';
 import 'package:flutter_basics_2/pages/feed_page/feed_error_page.dart';
 import 'package:flutter_basics_2/pages/feed_page/feed_main_page.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
+import 'package:flutter_basics_2/shared/colors.dart';
+import 'package:flutter_basics_2/widgets/progress_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FeedPage extends StatefulWidget {
@@ -37,7 +39,7 @@ class FeedPageState extends State<FeedPage> {
             return Center(
                 child: Text(
               "updating_page".tr(),
-              style: const TextStyle(color: Colors.red),
+              style: const TextStyle(color: mainBlue),
             ));
           }
 
