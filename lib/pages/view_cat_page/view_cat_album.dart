@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
 import 'package:flutter_basics_2/pages/view_cat_page/hiding_appbar_page.dart';
 import 'package:flutter_basics_2/shared/widgets/action_buttons.dart';
@@ -33,6 +34,12 @@ class _AlbumCatViewPageState extends State<AlbumCatViewPage> {
     super.initState();
     _pageController = PageController(initialPage: widget.startIndex);
     currentPage = widget.startIndex;
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    super.dispose();
   }
 
   @override
@@ -104,6 +111,13 @@ class _AlbumCatViewPageState extends State<AlbumCatViewPage> {
             }
           },
         ),
+        onChangeVisibility: (isVisible) {
+          if (isVisible)
+            SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+          else
+            SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+
+        },
       );
     });
   }

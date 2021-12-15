@@ -7,9 +7,14 @@ import 'package:flutter_basics_2/widgets/sliding_appbar.dart';
 class HidingAppBarPage extends StatefulWidget {
   final PreferredSizeWidget appBar;
   final Widget body;
+  bool isVisible = true;
+  final void Function(bool isVisible)? onChangeVisibility;
 
-  const HidingAppBarPage({
-    Key? key, required this.appBar, required this.body,
+  HidingAppBarPage({
+    Key? key,
+    required this.appBar,
+    required this.body,
+    this.onChangeVisibility,
   }) : super(key: key);
 
   @override
@@ -41,6 +46,10 @@ class _HidingAppBarPageState extends State<HidingAppBarPage>
     setState(() {
       _showAppBar = !_showAppBar;
     });
+
+    if (widget.onChangeVisibility != null) {
+      widget.onChangeVisibility!(_showAppBar);
+    }
 
     _updateSystemUI();
   }
