@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
@@ -126,7 +127,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppbar(
-        name: 'Cat editor',
+        name: 'cat_editor.name'.tr(),
         actions: [
           SaveCatButton(cat: cat),
           _buildShareButton(),
@@ -138,25 +139,25 @@ class _CatEditorPageState extends State<CatEditorPage> {
           children: [
             _buildPicture(),
             Container(height: 22),
-            const Text(
-              'Text: ',
-              style: TextStyle(fontSize: 24),
+            Text(
+              'cat_editor.text'.tr(),
+              style: const TextStyle(fontSize: 24),
             ),
             Container(height: 2),
             Row(
               children: [
                 Expanded(
                   child: TextField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius
                           .all(Radius.circular(10))
                       ),
                       fillColor: backgroundGrey,
                       filled: true,
-                      hintText: 'Enter text',
-                      contentPadding: EdgeInsets.all(15),
+                      hintText: 'cat_editor.enter_text'.tr(),
+                      contentPadding: const EdgeInsets.all(15),
                       isCollapsed: true,
                     ),
                     controller: _textController,
@@ -170,16 +171,16 @@ class _CatEditorPageState extends State<CatEditorPage> {
                 SizedBox(
                   width: 65,
                   child: TextField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius
                           .all(Radius.circular(10))
                       ),
                       fillColor: backgroundGrey,
                       filled: true,
-                      hintText: 'Size',
-                      contentPadding: EdgeInsets.all(15),
+                      hintText: 'cat_editor.size'.tr(),
+                      contentPadding: const EdgeInsets.all(15),
                       isCollapsed: true,
                     ),
                     keyboardType: TextInputType.number,
@@ -194,8 +195,8 @@ class _CatEditorPageState extends State<CatEditorPage> {
                 SizedBox(
                   width: 110,
                   child: TextField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius
                           .all(Radius.circular(10))
@@ -203,8 +204,8 @@ class _CatEditorPageState extends State<CatEditorPage> {
 
                       fillColor: backgroundGrey,
                       filled: true,
-                      hintText: 'CSS color',
-                      contentPadding: EdgeInsets.all(16),
+                      hintText: 'cat_editor.css_colour'.tr(),
+                      contentPadding: const EdgeInsets.all(16),
                       isCollapsed: true,
                     ),
                     keyboardType: TextInputType.text,
@@ -218,9 +219,9 @@ class _CatEditorPageState extends State<CatEditorPage> {
               ],
             ),
             const SizedBox(height: 14),
-            const Text(
-              'Filters: ',
-              style: TextStyle(fontSize: 24),
+            Text(
+              'cat_editor.filters'.tr(),
+              style: const TextStyle(fontSize: 24),
             ),
             const SizedBox(height: 2),
             Row(
@@ -243,7 +244,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
                           _selectedFilter.emptyIfNull()
                             .isEmpty == false ? 
                             _selectedFilter.emptyIfNull() :
-                            "Error",
+                            "cat_editor.error".tr(),
                           style: const TextStyle(fontSize: 18),
                         ),
                         Container(width: 10),
@@ -258,9 +259,9 @@ class _CatEditorPageState extends State<CatEditorPage> {
               ],
             ),
             Container(height: 14),
-            const Text(
-              'Size: ',
-              style: TextStyle(fontSize: 24),
+            Text(
+              "cat_editor.sizes".tr(),
+              style: const TextStyle(fontSize: 24),
             ),
             Container(height: 2),
             Row(

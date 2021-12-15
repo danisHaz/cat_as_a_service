@@ -1,0 +1,65 @@
+{
+    "main_app_bar_title" : "Cat as a service",
+    "app_name" : "Cat as a service",
+    "bottom_bar": {
+        "feed": "Лента",
+        "add_a_cat": "Добавить котика",
+        "albums": "Альбомы"
+    },
+    "error_notify": "Что-то пошло не так...",
+    "favourite_album": "Избранное",
+    "updating_page": "Загрузка...",
+    "cat_editor": {
+        "name": "Редактор котиков",
+        "text": "Текст: ",
+        "enter_text": "Введите текст",
+        "size": "Размер",
+        "css_color": "Цвет",
+        "filters": "Фильтры: ",
+        "error": "Ошибка",
+        "sizes": "Размеры: "
+    },
+    "cat_save_dialog": {
+        "choose_album": "Выберите альбом"
+    },
+    "view_album": {
+        "dead_album": "МЕРТВЫЙ АЛЬБОМ",
+        "remove_album": "Удалить альбом",
+        "are_you_sure": "Вы уверены?",
+        "cancel": "Отменить",
+        "delete": "Удалить",
+        "emtpy_album": "Пусто"
+    },
+    "add_album": {
+        "name": "Добавить альбом",
+        "label_text": "Название альбома",
+        "must_not_be_empty": "Название не может быть пустым",
+        "add": "Добавить"
+    },
+    "cat_search": {
+        "enter_tag": "Введите тег..."
+    },
+    "suggestions": {
+        "no_suggestions": "Нет предложений"
+    },
+    "view_cat_album": {
+        "album_is_empty": "Альбом пуст"
+    },
+    "action_buttons": {
+        "save_to_album": "Сохранить в альбом",
+        "image_saved_to": "Фото сохранено в ",
+        "save_to_device": "Сохранить на устройстве",
+        "image_saved": "Фото сохранено",
+        "remove_cat": "Удалить кота из альбома",
+        "are_you_sure": "Вы уверены?",
+        "cancel": "Отменить",
+        "delete": "Удалить"
+    },
+    "feed_main_page": {
+        "failed_text": "Не удалось обновить",
+        "release_text": "Отпустите",
+        "complete_text": "Обновлено",
+        "refreshing_text": "Обновление...",
+        "idle_text": "Потяните вниз"
+    }
+}

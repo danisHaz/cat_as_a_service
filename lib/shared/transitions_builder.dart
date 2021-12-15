@@ -16,6 +16,5 @@ class CatPageTransitionsBuilder extends PageTransitionsBuilder {
       ),
       child: child,
     );
-    return child;
   }
 }

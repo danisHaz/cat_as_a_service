@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_basics_2/pages/feed_page/feed_bloc.dart';
@@ -6,7 +7,6 @@ import 'package:flutter_basics_2/pages/feed_page/feed_data_state.dart';
 import 'package:flutter_basics_2/pages/feed_page/feed_error_page.dart';
 import 'package:flutter_basics_2/pages/feed_page/feed_main_page.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
-import 'package:flutter_basics_2/widgets/progress_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FeedPage extends StatefulWidget {
@@ -34,10 +34,10 @@ class FeedPageState extends State<FeedPage> {
             context
                 .read<FeedCubit>()
                 .getListOfCatsAsPage(numberOfCatsInPage: 20);
-            return const Center(
+            return Center(
                 child: Text(
-              "Updating...",
-              style: TextStyle(color: Colors.red),
+              "updating_page".tr(),
+              style: const TextStyle(color: Colors.red),
             ));
           }
 

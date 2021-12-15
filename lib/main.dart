@@ -34,9 +34,9 @@ void main() async {
 
   runApp(
     EasyLocalization(
-      supportedLocales: const [Locale('en', 'US')],
+      supportedLocales: [Locale('en'), Locale('ru')],
       path: 'assets/locales',
-      fallbackLocale: const Locale('en', 'US'),
+      fallbackLocale: Locale('en'),
       child: const MainApp(),
     ),
   );
@@ -47,6 +47,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // context.setLocale(Locale('ru'));
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => AlbumsCubit(), lazy: false),
