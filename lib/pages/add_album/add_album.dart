@@ -1,7 +1,6 @@
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
-import 'package:flutter_basics_2/shared/colors.dart';
 import 'package:flutter_basics_2/shared/widgets/custom_appbar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,7 +24,6 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: CustomAppbar(
         name: 'add_album.name'.tr(),
       ),
@@ -39,7 +37,7 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
                 border: const OutlineInputBorder(
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
-                fillColor: backgroundGrey,
+                // fillColor: backgroundGrey,
                 helperText: ' ',
                 errorText: isError ? "add_album.must_not_be_empty".tr() : null,
                 filled: true,
@@ -47,9 +45,9 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
                 contentPadding: const EdgeInsets.all(15),
                 isCollapsed: true,
                 suffixIcon: isError
-                    ? const Icon(
+                    ? Icon(
                         Icons.error,
-                        color: Colors.red,
+                        color: Theme.of(context).errorColor,
                       )
                     : null,
               ),
@@ -61,25 +59,30 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
               autofocus: true,
             ),
           ),
-          InkWell(
-            onTap: () {
-              if (_textController.value.text.isEmpty) {
-                setState(() {
-                  isError = true;
-                });
-                return;
-              }
-              context.read<AlbumsCubit>().addAlbum(_textController.value.text);
-              Navigator.pop(context);
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10), color: mainBlue),
-              height: 52,
-              child: Center(
-                child: Text(
-                  "add_album.add".tr(),
-                  style: const TextStyle(fontSize: 18, color: Colors.white),
+          Material(
+            color: Theme.of(context).colorScheme.primary,
+            borderRadius: BorderRadius.circular(10),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(10),
+              onTap: () {
+                if (_textController.value.text.isEmpty) {
+                  setState(() {
+                    isError = true;
+                  });
+                  return;
+                }
+                context
+                    .read<AlbumsCubit>()
+                    .addAlbum(_textController.value.text);
+                Navigator.pop(context);
+              },
+              child: Container(
+                height: 52,
+                child: Center(
+                  child: Text(
+                    "add_album.add".tr(),
+                    style: const TextStyle(fontSize: 18),
+                  ),
                 ),
               ),
             ),
