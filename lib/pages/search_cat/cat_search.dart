@@ -29,18 +29,23 @@ class CatSearchPageState extends State<CatSearchPage> {
   @override
   void dispose() {
     _scrollController.dispose();
+    node.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    node.addListener(() {
+      setState(() {
+        suggestionsVisible = node.hasFocus;
+      });
+    });
   }
 
   // TODO: keep scrolling position when changing page
   @override
   Widget build(BuildContext context) {
-    node.addListener(() {
-      if (node.hasFocus == false)
-        setState(() {
-          suggestionsVisible = false;
-        });
-    });
     return BlocBuilder<CatSearchBloc, CatSearchState>(
       builder: (context, state) {
         return Scaffold(
@@ -64,83 +69,41 @@ class CatSearchPageState extends State<CatSearchPage> {
                                 borderRadius: BorderRadius.circular(10),
                                 color: backgroundGrey,
                               ),
-                              padding: const EdgeInsets.all(10),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    e,
-                                    style: const TextStyle(fontSize: 18),
+                              clipBehavior: Clip.antiAlias,
+                              child: Material(
+                                type: MaterialType.transparency,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        e,
+                                        style: const TextStyle(fontSize: 18),
+                                      ),
+                                      Container(width: 10),
+                                      IconButton(
+                                          padding: const EdgeInsets.all(0),
+                                          visualDensity: const VisualDensity(
+                                              horizontal: -4, vertical: -4),
+                                          onPressed: () {
+                                            setState(() {
+                                              tags.removeWhere(
+                                                  (element) => element == e);
+                                            });
+                                            context.read<CatSearchBloc>()
+                                              ..setSearchTags(tags)
+                                              ..loadMoreCats(10);
+                                            _textController.clear();
+                                          },
+                                          icon: const Icon(Icons.close))
+                                    ],
                                   ),
-                                  Container(width: 10),
-                                  IconButton(
-                                      padding: const EdgeInsets.all(0),
-                                      visualDensity: const VisualDensity(
-                                          horizontal: -4, vertical: -4),
-                                      onPressed: () {
-                                        setState(() {
-                                          tags.removeWhere(
-                                              (element) => element == e);
-                                        });
-                                        context.read<CatSearchBloc>()
-                                          ..setSearchTags(tags)
-                                          ..loadMoreCats(10);
-                                        _textController.clear();
-                                      },
-                                      icon: const Icon(Icons.close))
-                                ],
+                                ),
                               )))
                           .toList(),
                     ),
                     Container(height: 8),
-                    // Padding(
-                    //   padding: const EdgeInsets.all(8.0),
-                    //   child: ChipsInput(
-                    //     decoration: const InputDecoration(
-                    //         border: OutlineInputBorder(),
-                    //         labelText: "Search tags"),
-                    //     initialValue: state.search_tags,
-                    //     findSuggestions: (String query) {
-                    //       if (query.isEmpty) return <String>[];
-                    //       return state.available_tags
-                    //           .where((tag) => tag
-                    //               .toLowerCase()
-                    //               .contains(query.toLowerCase()))
-                    //           .toList(growable: false)
-                    //         ..sort((a, b) => a
-                    //             .toLowerCase()
-                    //             .indexOf(query.toLowerCase())
-                    //             .compareTo(b
-                    //                 .toLowerCase()
-                    //                 .indexOf(query.toLowerCase())));
-                    //     },
-                    //     onChanged: (List<String> value) {
-                    //       context.read<CatSearchBloc>()
-                    //         ..setSearchTags(value)
-                    //         ..loadMoreCats(10);
-                    //     },
-                    //     suggestionBuilder: (BuildContext context,
-                    //         ChipsInputState<String> state, String data) {
-                    //       return ListTile(
-                    //         title: Text(data),
-                    //         onTap: () => state.selectSuggestion(data),
-                    //       );
-                    //     },
-                    //     chipBuilder: (BuildContext context,
-                    //         ChipsInputState<String> state, String data) {
-                    //       return InputChip(
-                    //         label: Text(data),
-                    //         // onPressed: (){
-                    //         //   state.deleteChip(data);
-                    //         // },
-                    //         deleteIcon: const Icon(Icons.highlight_off),
-                    //         onDeleted: () {
-                    //           state.deleteChip(data);
-                    //         },
-                    //       );
-                    //     },
-                    //   ),
-                    // ),
                     Flexible(
                       child: CustomScrollView(
                         physics: const BouncingScrollPhysics(),
@@ -196,7 +159,7 @@ class CatSearchPageState extends State<CatSearchPage> {
                 GestureDetector(
                   onTap: () {
                     setState(() {
-                      suggestionsVisible = false;
+                      node.unfocus();
                     });
                   },
                 ),
@@ -207,7 +170,7 @@ class CatSearchPageState extends State<CatSearchPage> {
                   selectOption: (String option) {
                     setState(() {
                       tags.add(option);
-                      suggestionsVisible = false;
+                      node.unfocus();
                     });
                     context.read<CatSearchBloc>()
                       ..setSearchTags(tags)
@@ -232,11 +195,6 @@ class CatSearchPageState extends State<CatSearchPage> {
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextField(
         key: searchbarKey,
-        onTap: () {
-          setState(() {
-            suggestionsVisible = !suggestionsVisible;
-          });
-        },
         enabled: true,
         decoration: const InputDecoration(
           border: OutlineInputBorder(
