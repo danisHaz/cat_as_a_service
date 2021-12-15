@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-
 import 'package:flutter_basics_2/pages/albums_page/albums.dart';
 import 'package:flutter_basics_2/pages/search_cat/cat_search.dart';
-import 'package:flutter_basics_2/shared/colors.dart';
+import 'package:flutter_basics_2/pages/settings/settings.dart';
 import 'package:flutter_basics_2/shared/widgets/top_offset_provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -24,15 +23,16 @@ class MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).backgroundColor,
         body: TopOffsetProvider(
           child: SafeArea(child: _buildCurrentScreen()),
           context: context,
         ),
-        bottomNavigationBar: _buildNavbar());
+        bottomNavigationBar: _buildNavbar(context));
   }
 
-  Widget _buildNavbar() {
+  Widget _buildNavbar(BuildContext context) {
+    var activeColor = Theme.of(context).colorScheme.primary;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -42,8 +42,8 @@ class MainPageState extends State<MainPage> {
           icon: Icon(
             FontAwesomeIcons.dice,
             color: currentPage == MainScreenPageType.feedScreen
-                ? mainBlue
-                : Colors.black,
+                ? activeColor
+                : null,
           ),
           onPressed: () {
             setState(() {
@@ -56,8 +56,8 @@ class MainPageState extends State<MainPage> {
           icon: Icon(
             Icons.add,
             color: currentPage == MainScreenPageType.addCatScreen
-                ? mainBlue
-                : Colors.black,
+                ? activeColor
+                : null,
           ),
           onPressed: () {
             setState(() {
@@ -70,8 +70,8 @@ class MainPageState extends State<MainPage> {
           icon: Icon(
             Icons.collections,
             color: currentPage == MainScreenPageType.albumsScreen
-                ? mainBlue
-                : Colors.black,
+                ? activeColor
+                : null,
           ),
           onPressed: () {
             setState(() {
@@ -79,6 +79,24 @@ class MainPageState extends State<MainPage> {
             });
           },
         ),
+        IconButton(
+          icon: Icon(
+            Icons.settings,
+            color: null,
+          ),
+          onPressed: () async {
+            showModalBottomSheet(
+              shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(10))),
+              // expand: false,
+              context: context,
+              builder: (context) {
+                return SettingsPage();
+              },
+            );
+          },
+        )
       ],
     );
   }

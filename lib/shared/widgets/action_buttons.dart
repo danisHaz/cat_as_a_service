@@ -1,4 +1,5 @@
 import 'package:easy_localization/src/public_ext.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/add_cat/cat_editor.dart';
 import 'package:flutter_basics_2/pages/add_cat/cat_save_dialog.dart';
@@ -39,10 +40,9 @@ class SaveCatButton extends StatelessWidget {
               child: Container(
                 width: 250,
                 padding: const EdgeInsets.all(5),
-                child: Text(
+                child:Text(
                   'action_buttons.save_to_album'.tr(),
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w300,
                   ),
@@ -56,12 +56,10 @@ class SaveCatButton extends StatelessWidget {
                     builder: (context) => CatSaveDialog(cat: cat));
                 if (album != null && album is Album) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    backgroundColor: Colors.black,
                     content: Text(
                       'action_buttons.image_saved_to'.tr() + album.name,
                       style: const TextStyle(
                         fontSize: 20,
-                        color: Colors.white,
                         fontWeight: FontWeight.w300,
                       ),
                     ),
@@ -76,7 +74,6 @@ class SaveCatButton extends StatelessWidget {
                 child: Text(
                   'action_buttons.save_to_device'.tr(),
                   style: const TextStyle(
-                    color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.w300,
                   ),
@@ -86,20 +83,17 @@ class SaveCatButton extends StatelessWidget {
                 try {
                   await GallerySaver.saveImage(await _getImagePath());
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    backgroundColor: Colors.black,
                     content: Text(
                       'action_buttons.image_saved'.tr(),
-                      style: const TextStyle(fontSize: 20, color: Colors.white),
+                      style: const TextStyle(fontSize: 20),
                     ),
                   ));
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    backgroundColor: Colors.black,
                     content: Text(
                       e.toString(),
                       style: const TextStyle(
                         fontSize: 20,
-                        color: Colors.white,
                         fontWeight: FontWeight.w300,
                       ),
                     ),

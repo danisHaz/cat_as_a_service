@@ -5,15 +5,15 @@ import 'package:flutter/widgets.dart';
 class ProgressBar extends StatelessWidget {
   final Color? color;
   final DownloadProgress? loadingProgress;
-  const ProgressBar({Key? key, this.color, this.loadingProgress}): super(key: key);
+
+  const ProgressBar({Key? key, this.color, this.loadingProgress})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Center( 
-      child: CircularProgressIndicator(
-        color: color ?? Colors.blue,
-        value: loadingProgress?.progress
-      )
-    );
+    return Center(
+        child: CircularProgressIndicator(
+            color: color ?? Theme.of(context).progressIndicatorTheme.color,
+            value: loadingProgress?.progress));
   }
 }

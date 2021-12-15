@@ -8,7 +8,7 @@ import 'package:flutter_basics_2/utils/hero_tags.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:dotted_border/dotted_border.dart';
-import 'add_album.dart';
+import '../add_album/add_album.dart';
 
 class AlbumsPage extends StatelessWidget {
   const AlbumsPage({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class AlbumsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       body: AlbumGrid(
         onTap: (album) {
           Navigator.of(context).push(MaterialPageRoute(
@@ -55,6 +55,7 @@ class AlbumGrid extends StatelessWidget {
                 radius: const Radius.circular(10),
                 dashPattern: const [15, 5],
                 strokeWidth: 5,
+                color: Theme.of(context).iconTheme.color ?? Colors.black,
                 child: Ink(
                   child: InkWell(
                     borderRadius: BorderRadius.circular(10),
@@ -136,7 +137,7 @@ class AlbumPreview extends StatelessWidget {
               )),
               Text(
                 album.cats.length.toString(),
-                style: const TextStyle(color: Colors.grey),
+                style: TextStyle(color: Theme.of(context).hintColor),
               ),
             ],
           ),
