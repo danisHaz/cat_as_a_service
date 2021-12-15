@@ -47,60 +47,65 @@ class _DropdownPopupState extends State<DropdownPopup> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white.withOpacity(0),
-      body: Stack(
-        children: [
-          Container(
-            color: Colors.transparent,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
+      body: DefaultTextStyle(
+        style: TextStyle(
+          color: Theme.of(context).backgroundColor,
+        ),
+        child: Stack(
+          children: [
+            Container(
+              color: Colors.transparent,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
             ),
-          ),
-          Positioned(
-            top: toBottom
-                ? widget.parentOffset.dy + widget.parentSize.height
-                : 0,
-            left: toRight ? widget.parentOffset.dx : 0,
-            height: toBottom ? bottomOffset : widget.parentOffset.dy,
-            width: toRight
-                ? rightOffset + widget.parentSize.width
-                : widget.parentOffset.dx + widget.parentSize.width,
-            child: Container(
-              alignment: (() {
-                if (toBottom) {
-                  if (toRight) return Alignment.topLeft;
-                  return Alignment.topRight;
-                }
-                if (toRight) return Alignment.bottomLeft;
-                return Alignment.bottomRight;
-              }()),
+            Positioned(
+              top: toBottom
+                  ? widget.parentOffset.dy + widget.parentSize.height
+                  : 0,
+              left: toRight ? widget.parentOffset.dx : 0,
+              height: toBottom ? bottomOffset : widget.parentOffset.dy,
+              width: toRight
+                  ? rightOffset + widget.parentSize.width
+                  : widget.parentOffset.dx + widget.parentSize.width,
               child: Container(
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      key: listKey,
-                      children: [
-                        if (widget.items.isNotEmpty)
-                          ...widget.items.map((e) => GestureDetector(
-                                child: Container(
-                                    padding: const EdgeInsets.all(5),
-                                    child: e.child),
-                                onTap: () {
-                                  Navigator.pop(context, e.value);
-                                },
-                              ))
-                      ],
-                    ),
-                  )),
+                alignment: (() {
+                  if (toBottom) {
+                    if (toRight) return Alignment.topLeft;
+                    return Alignment.topRight;
+                  }
+                  if (toRight) return Alignment.bottomLeft;
+                  return Alignment.bottomRight;
+                }()),
+                child: Container(
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.onBackground,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        key: listKey,
+                        children: [
+                          if (widget.items.isNotEmpty)
+                            ...widget.items.map((e) => GestureDetector(
+                                  child: Container(
+                                      padding: const EdgeInsets.all(5),
+                                      child: e.child),
+                                  onTap: () {
+                                    Navigator.pop(context, e.value);
+                                  },
+                                ))
+                        ],
+                      ),
+                    )),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

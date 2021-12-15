@@ -9,7 +9,7 @@ class FeedErrorPage extends StatelessWidget {
     return Center(
       child: Text(
         'feed_error_notify'.tr(), 
-        style: const TextStyle(color: Colors.black),
+        style: TextStyle(color: Theme.of(context).errorColor),
       )
     );
   }

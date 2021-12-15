@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_basics_2/utils/system_chrome.dart';
 import 'package:flutter_basics_2/widgets/sliding_appbar.dart';
 
 class HidingAppBarPage extends StatefulWidget {
@@ -18,6 +20,7 @@ class _HidingAppBarPageState extends State<HidingAppBarPage>
     with SingleTickerProviderStateMixin {
   bool _showAppBar = false;
   late final AnimationController _appBarSlideController;
+  late ThemeData theme;
 
   @override
   void initState(){
@@ -27,7 +30,11 @@ class _HidingAppBarPageState extends State<HidingAppBarPage>
       duration: const Duration(milliseconds: 100),
       value: 1,
     );
-    _updateSystemUI();
+
+    SchedulerBinding.instance?.addPostFrameCallback((timeStamp) {
+      theme = Theme.of(context);
+      _updateSystemUI();
+    });
   }
 
   _flipAppbar() {
@@ -40,10 +47,7 @@ class _HidingAppBarPageState extends State<HidingAppBarPage>
 
   void _updateSystemUI(){
     if (_showAppBar) {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-          statusBarColor: Colors.transparent,
-          systemNavigationBarColor: Colors.white.withOpacity(0.75),
-          systemNavigationBarIconBrightness: Brightness.dark));
+      setSystemChrome(theme);
     } else {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
           statusBarColor: Colors.transparent,
@@ -54,15 +58,14 @@ class _HidingAppBarPageState extends State<HidingAppBarPage>
 
   @override
   void dispose() {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-        statusBarColor: Colors.white,
-        systemNavigationBarColor: Colors.white.withOpacity(0.75),
-        systemNavigationBarIconBrightness: Brightness.dark));
+    setSystemChrome(theme);
     super.dispose();
+    // TODO: implement dispose
   }
 
   @override
   Widget build(BuildContext context) {
+    theme = Theme.of(context);
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: SlidingAppBar(

@@ -1,7 +1,6 @@
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
 import 'package:flutter_basics_2/pages/view_cat_page/view_cat_album.dart';
 import 'package:flutter_basics_2/shared/widgets/custom_appbar.dart';
@@ -23,7 +22,6 @@ class ViewAlbumPage extends StatelessWidget {
       builder: (context, state) {
         final album = state.albums[albumId];
         return Scaffold(
-          backgroundColor: Colors.white,
           appBar: CustomAppbar(
             name: album?.name ?? 'view_album.dead_album'.tr(),
             actions: [

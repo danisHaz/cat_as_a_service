@@ -9,10 +9,7 @@ import 'package:flutter_basics_2/pages/base_error_page.dart';
 import 'package:flutter_basics_2/pages/view_cat_page/view_cat_single.dart';
 import 'package:flutter_basics_2/repositories/cat_repository.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
-import 'package:flutter_basics_2/shared/colors.dart';
-import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:flutter_basics_2/utils/hero_tags.dart';
-import 'package:flutter_basics_2/widgets/progress_bar.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/src/provider.dart';
 

@@ -7,8 +7,6 @@ import 'package:flutter_basics_2/pages/feed_page/feed_data_state.dart';
 import 'package:flutter_basics_2/pages/feed_page/feed_error_page.dart';
 import 'package:flutter_basics_2/pages/feed_page/feed_main_page.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
-import 'package:flutter_basics_2/shared/colors.dart';
-import 'package:flutter_basics_2/widgets/progress_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FeedPage extends StatefulWidget {
@@ -22,7 +20,7 @@ class FeedPageState extends State<FeedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       body: BlocBuilder<FeedCubit, FeedDataState>(
         builder: (context, state) {
           if (state.err != null) {
@@ -38,8 +36,8 @@ class FeedPageState extends State<FeedPage> {
                 .getListOfCatsAsPage(numberOfCatsInPage: 20);
             return Center(
                 child: Text(
-              "updating_page".tr(),
-              style: const TextStyle(color: mainBlue),
+                  "updating_page".tr(),
+              style: TextStyle(color: Theme.of(context).errorColor),
             ));
           }
 
