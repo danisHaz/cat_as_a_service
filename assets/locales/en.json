@@ -29,7 +29,7 @@
         "are_you_sure": "Are you sure?",
         "cancel": "Cancel",
         "delete": "Delete",
-        "emtpy_album": "Empty album"
+        "empty_album": "Empty album"
     },
     "add_album": {
         "name": "Add album",

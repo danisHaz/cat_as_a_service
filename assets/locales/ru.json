@@ -28,7 +28,7 @@
         "are_you_sure": "Вы уверены?",
         "cancel": "Отменить",
         "delete": "Удалить",
-        "emtpy_album": "Пусто"
+        "empty_album": "Пусто"
     },
     "add_album": {
         "name": "Добавить альбом",

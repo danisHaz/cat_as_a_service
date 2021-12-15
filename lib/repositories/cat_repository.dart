@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_basics_2/repositories/api_service.dart';
 import 'package:flutter_basics_2/shared/album.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
+import 'package:logger/logger.dart';
 
 // TODO: !IMPORTANT! rewrite albums as subcollections
 
@@ -75,7 +76,7 @@ class CatRepository {
     await _albumsCollection.doc(albumId).delete();
   }
 
-  Future<void> addCatToAlbum(String albumId, Cat cat)async {
+  Future<void> addCatToAlbum(String albumId, Cat cat) async {
     final snapshot = await _albumsCollection.doc(albumId).get();
     final snapshotData = snapshot.data();
     final album = Album.fromJson(snapshotData as Map<String, dynamic>);

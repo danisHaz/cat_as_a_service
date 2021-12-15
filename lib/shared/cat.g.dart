@@ -14,6 +14,8 @@ Cat _$CatFromJson(Map<String, dynamic> json) => Cat(
       text: json['text'] as String?,
       filter: $enumDecodeNullable(_$CatDecorationFilterEnumMap, json['filter']),
       type: json['type'] as String?,
+      height: (json['height'] as num?)?.toDouble(),
+      width: (json['width'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$CatToJson(Cat instance) => <String, dynamic>{
@@ -24,6 +26,8 @@ Map<String, dynamic> _$CatToJson(Cat instance) => <String, dynamic>{
       'text': instance.text,
       'filter': _$CatDecorationFilterEnumMap[instance.filter],
       'type': instance.type,
+      'height': instance.height,
+      'width': instance.width,
     };
 
 const _$CatDecorationFilterEnumMap = {

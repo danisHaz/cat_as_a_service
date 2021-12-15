@@ -13,6 +13,7 @@ import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_popup.da
 import 'package:flutter_basics_2/widgets/progress_bar.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:logger/logger.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
@@ -49,8 +50,13 @@ class _CatEditorPageState extends State<CatEditorPage> {
   void initState() {
     super.initState();
     cat = widget.cat;
+    Logger().d(cat.width);
     _selectedFilter = cat.filter ?? CatDecorationFilter.none;
     _textController.text = cat.text.emptyIfNull();
+    _fontSizeController.text = cat.fontSize?.toString() ?? "";
+    _fontColorController.text = cat.textColor.emptyIfNull();
+    _widthController.text = cat.width?.toString() ?? "";
+    _heightController.text = cat.height?.toString() ?? "";
   }
 
   // TODO: debouncer
