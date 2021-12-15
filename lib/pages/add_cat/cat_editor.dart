@@ -141,7 +141,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
             children: [
               _buildPicture(),
               Container(height: 22),
-              const Text(
+              Text(
                 'cat_editor.text'.tr(),
                 style: TextStyle(fontSize: 24),
               ),
@@ -150,7 +150,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
                 children: [
                   Expanded(
                     child: TextField(
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius:
@@ -171,7 +171,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
                   SizedBox(
                     width: 65,
                     child: TextField(
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius:
@@ -193,7 +193,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
                   SizedBox(
                     width: 110,
                     child: TextField(
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius:
@@ -256,7 +256,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
                 ],
               ),
               Container(height: 14),
-              const Text(
+              Text(
                 "cat_editor.sizes".tr(),
                 style: TextStyle(fontSize: 24),
               ),
