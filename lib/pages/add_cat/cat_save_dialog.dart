@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CatSaveDialog extends StatelessWidget {
   final Cat cat;
-  String get _name => runtimeType.toString();
 
   const CatSaveDialog({Key? key, required this.cat}) : super(key: key);
 
@@ -17,7 +16,6 @@ class CatSaveDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AlbumsCubit, AlbumsState>(builder: (context, state) {
       return Scaffold(
-        backgroundColor: Colors.white,
         appBar: CustomAppbar(
           name: 'cat_save_dialog.choose_album'.tr(),
         ),

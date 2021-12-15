@@ -21,7 +21,7 @@ class CatPreview extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(2),
         child: Material(
-          color: Colors.transparent,
+          type: MaterialType.transparency,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -36,7 +36,7 @@ class CatPreview extends StatelessWidget {
               ),
             ),
             child: Material(
-              color: Colors.transparent,
+              type: MaterialType.transparency,
               child: InkWell(
                 onTap: () {
                   if (onTap != null) onTap!();

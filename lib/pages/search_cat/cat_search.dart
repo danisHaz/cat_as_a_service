@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/add_cat/cat_editor.dart';
 import 'package:flutter_basics_2/pages/search_cat/cat_search_bloc.dart';
 import 'package:flutter_basics_2/pages/search_cat/suggestions.dart';
-import 'package:flutter_basics_2/shared/colors.dart';
 import 'package:flutter_basics_2/utils/hero_tags.dart';
 import 'package:flutter_basics_2/widgets/cat_preview.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,7 +45,7 @@ class CatSearchPageState extends State<CatSearchPage> {
     return BlocBuilder<CatSearchBloc, CatSearchState>(
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: Colors.white,
+          // backgroundColor: Colors.white,
           body: Stack(
             children: [
               Padding(
@@ -54,50 +53,30 @@ class CatSearchPageState extends State<CatSearchPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    _buildSearchbar(),
+                    _buildSearchbar(context),
                     Wrap(
                       spacing: 3,
                       runSpacing: 3,
                       runAlignment: WrapAlignment.start,
                       alignment: WrapAlignment.start,
                       children: tags
-                          .map((e) => Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: backgroundGrey,
-                              ),
-                              clipBehavior: Clip.antiAlias,
-                              child: Material(
-                                type: MaterialType.transparency,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        e,
-                                        style: const TextStyle(fontSize: 18),
-                                      ),
-                                      Container(width: 10),
-                                      IconButton(
-                                          padding: const EdgeInsets.all(0),
-                                          visualDensity: const VisualDensity(
-                                              horizontal: -4, vertical: -4),
-                                          onPressed: () {
-                                            setState(() {
-                                              tags.removeWhere(
-                                                  (element) => element == e);
-                                            });
-                                            context.read<CatSearchBloc>()
-                                              ..setSearchTags(tags)
-                                              ..loadMoreCats(10);
-                                            _textController.clear();
-                                          },
-                                          icon: const Icon(Icons.close))
-                                    ],
-                                  ),
+                          .map((e) => Chip(
+                                deleteIcon: Icon(Icons.close),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                padding: EdgeInsets.all(10),
+                                label: Text(
+                                  e,
+                                  style: TextStyle(fontSize: 18),
                                 ),
-                              )))
+                                onDeleted: () => setState(() {
+                                  tags.removeWhere((element) => element == e);
+                                  context.read<CatSearchBloc>()
+                                    ..setSearchTags(tags)
+                                    ..loadMoreCats(10);
+                                  _textController.clear();
+                                }),
+                              ))
                           .toList(),
                     ),
                     Container(height: 8),
@@ -187,17 +166,17 @@ class CatSearchPageState extends State<CatSearchPage> {
     );
   }
 
-  Widget _buildSearchbar() {
+  Widget _buildSearchbar(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextField(
         key: searchbarKey,
         enabled: true,
         decoration: InputDecoration(
-          border: const OutlineInputBorder(
+          border: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.all(Radius.circular(10))),
-          fillColor: backgroundGrey,
+          fillColor: Theme.of(context).inputDecorationTheme.fillColor,
           filled: true,
           hintText: 'cat_search.enter_tag'.tr(),
           contentPadding: const EdgeInsets.all(15),

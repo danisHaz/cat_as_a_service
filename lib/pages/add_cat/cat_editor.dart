@@ -6,20 +6,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_basics_2/pages/view_cat_page/view_cat_single.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
-import 'package:flutter_basics_2/shared/colors.dart';
+
+// import 'package:flutter_basics_2/shared/colors.dart';
 import 'package:flutter_basics_2/shared/widgets/action_buttons.dart';
 import 'package:flutter_basics_2/shared/widgets/custom_appbar.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_item.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_popup.dart';
 import 'package:flutter_basics_2/widgets/progress_bar.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class CatEditorPage extends StatefulWidget {
   final Cat cat;
   final String heroTag;
+
   const CatEditorPage({Key? key, required this.cat, this.heroTag = ''})
       : super(key: key);
 
@@ -77,7 +79,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
             child: Text(
               e.emptyIfNull(),
               style: const TextStyle(
-                color: Colors.white,
+                // color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.w300,
               ),
@@ -134,7 +136,9 @@ class _CatEditorPageState extends State<CatEditorPage> {
 
   @override
   Widget build(BuildContext context) {
+    final backgroundGrey = Theme.of(context).inputDecorationTheme.fillColor;
     return Scaffold(
+
         backgroundColor: Colors.white,
         appBar: CustomAppbar(
           name: 'cat_editor.name'.tr(),
@@ -152,6 +156,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
               Text(
                 'cat_editor.text'.tr(),
                 style: const TextStyle(fontSize: 24),
+
               ),
               Container(height: 2),
               Row(
@@ -167,6 +172,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
                         filled: true,
                         hintText: 'cat_editor.enter_text'.tr(),
                         contentPadding: const EdgeInsets.all(15),
+
                         isCollapsed: true,
                       ),
                       controller: _textController,
@@ -189,6 +195,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
                         filled: true,
                         hintText: 'cat_editor.size'.tr(),
                         contentPadding: const EdgeInsets.all(15),
+
                         isCollapsed: true,
                       ),
                       keyboardType: TextInputType.number,
@@ -212,6 +219,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
                         filled: true,
                         hintText: 'cat_editor.css_colour'.tr(),
                         contentPadding: const EdgeInsets.all(16),
+
                         isCollapsed: true,
                       ),
                       keyboardType: TextInputType.text,
@@ -228,6 +236,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
               Text(
                 'cat_editor.filters'.tr(),
                 style: const TextStyle(fontSize: 24),
+
               ),
               const SizedBox(height: 2),
               Row(
@@ -279,7 +288,6 @@ class _CatEditorPageState extends State<CatEditorPage> {
                             borderSide: BorderSide.none,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        fillColor: backgroundGrey,
                         filled: true,
                         hintText: '-',
                         contentPadding: EdgeInsets.all(15),
@@ -304,6 +312,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
                             borderSide: BorderSide.none,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
+
                         fillColor: backgroundGrey,
                         filled: true,
                         hintText: '-',
