@@ -41,7 +41,6 @@ class SaveCatButton extends StatelessWidget {
                 child: const Text(
                   'Save to album',
                   style: TextStyle(
-                    color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.w300,
                   ),
@@ -53,12 +52,10 @@ class SaveCatButton extends StatelessWidget {
                     builder: (context) => CatSaveDialog(cat: cat));
                 if (album != null && album is Album) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    backgroundColor: Colors.black,
                     content: Text(
                       'Image saved to ${album.name}',
                       style: const TextStyle(
                         fontSize: 20,
-                        color: Colors.white,
                         fontWeight: FontWeight.w300,
                       ),
                     ),
@@ -73,7 +70,6 @@ class SaveCatButton extends StatelessWidget {
                 child: const Text(
                   'Save to device',
                   style: TextStyle(
-                    color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.w300,
                   ),
@@ -82,21 +78,18 @@ class SaveCatButton extends StatelessWidget {
               value: () async {
                 try {
                   await GallerySaver.saveImage(await _getImagePath());
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    backgroundColor: Colors.black,
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(
                       'Image saved',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: TextStyle(fontSize: 20),
                     ),
                   ));
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    backgroundColor: Colors.black,
                     content: Text(
                       e.toString(),
                       style: const TextStyle(
                         fontSize: 20,
-                        color: Colors.white,
                         fontWeight: FontWeight.w300,
                       ),
                     ),

@@ -6,9 +6,10 @@ import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
 import 'package:flutter_basics_2/pages/feed_page/feed_bloc.dart';
 import 'package:flutter_basics_2/pages/main_page/main_page.dart';
 import 'package:flutter_basics_2/pages/search_cat/cat_search_bloc.dart';
+import 'package:flutter_basics_2/pages/settings/settings_bloc.dart';
 import 'package:flutter_basics_2/repositories/cat_repository.dart';
-import 'package:flutter_basics_2/shared/widgets/top_offset_provider.dart';
 import 'package:flutter_basics_2/shared/transitions_builder.dart';
+import 'package:flutter_basics_2/utils/system_chrome.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'firebase_options.dart';
@@ -47,25 +48,47 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final pageTransitionTheme = PageTransitionsTheme(builders: {
+      for (var entry in TargetPlatform.values)
+        entry: CatPageTransitionsBuilder(),
+    });
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => AlbumsCubit(), lazy: false),
         BlocProvider(create: (context) => FeedCubit()),
         BlocProvider(create: (context) => CatSearchBloc()),
+        BlocProvider(create: (context) => SettingsCubit()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: const MainPage(),
-        localizationsDelegates: context.localizationDelegates,
-        locale: context.locale,
-        supportedLocales: context.supportedLocales,
-        theme: ThemeData.light().copyWith(
-          pageTransitionsTheme: PageTransitionsTheme(
-            builders: {
-              for(var entry in TargetPlatform.values) entry : CatPageTransitionsBuilder(),
-            }
-          ),
-        ),
+      child: BlocBuilder<SettingsCubit, SettingsState>(
+        builder: (context, state) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: const MainPage(),
+            builder: (context, child){
+              // TODO: remove it from build because it is wrong
+              setSystemChrome(Theme.of(context));
+              return child!;
+            },
+            localizationsDelegates: context.localizationDelegates,
+            locale: context.locale,
+            supportedLocales: context.supportedLocales,
+            theme: ThemeData.from(
+              colorScheme: const ColorScheme.light(
+                primary: Colors.lightBlue,
+                primaryVariant: Colors.blue,
+              ),
+            ).copyWith(pageTransitionsTheme: pageTransitionTheme),
+            darkTheme: ThemeData.from(
+              colorScheme: const ColorScheme.dark(
+                primary: Colors.lightBlue,
+                primaryVariant: Colors.blue,
+              ),
+            ).copyWith(
+              pageTransitionsTheme: pageTransitionTheme,
+            ),
+            themeMode: state.theme,
+          );
+        },
       ),
     );
   }

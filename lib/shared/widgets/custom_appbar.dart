@@ -6,15 +6,15 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
     required this.name,
     this.noBackButton = false,
     this.actions,
-    this.backgroundColor = Colors.white,
-    this.textColor = Colors.black,
+    this.backgroundColor,
+    this.textColor,
   }) : super(key: key);
 
   final String name;
   final bool noBackButton;
   final List<Widget>? actions;
-  final Color textColor;
-  final Color backgroundColor;
+  final Color? textColor;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +22,11 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       children: [
         Container(
           height: MediaQuery.of(context).viewPadding.top,
-          color: backgroundColor,
+          color: backgroundColor ?? Theme.of(context).backgroundColor,
         ),
         Container(
           height: 50,
-          color: backgroundColor,
+          color: backgroundColor ?? Theme.of(context).backgroundColor,
           child: Material(
             type: MaterialType.transparency,
             child: Row(

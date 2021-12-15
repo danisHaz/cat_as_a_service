@@ -20,7 +20,7 @@ class FeedPageState extends State<FeedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       body: BlocBuilder<FeedCubit, FeedDataState>(
         builder: (context, state) {
           if (state.err != null) {
@@ -34,10 +34,10 @@ class FeedPageState extends State<FeedPage> {
             context
                 .read<FeedCubit>()
                 .getListOfCatsAsPage(numberOfCatsInPage: 20);
-            return const Center(
+            return Center(
                 child: Text(
               "Updating...",
-              style: TextStyle(color: Colors.red),
+              style: TextStyle(color: Theme.of(context).errorColor),
             ));
           }
 
