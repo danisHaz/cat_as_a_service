@@ -8,7 +8,6 @@ import 'package:flutter_basics_2/utils/hero_tags.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:dotted_border/dotted_border.dart';
-
 import 'add_album.dart';
 
 class AlbumsPage extends StatelessWidget {
@@ -95,7 +94,7 @@ class AlbumPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     final imageWidget = Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
         image: DecorationImage(
           image: album.cats.isNotEmpty
               ? CachedNetworkImageProvider(

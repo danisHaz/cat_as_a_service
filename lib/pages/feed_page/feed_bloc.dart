@@ -54,11 +54,7 @@ class FeedCubit extends Cubit<FeedDataState<dynamic>> {
       Logger().d(err);
       emit(FeedDataState(isLoading: false, err: Error()));
     } catch (err) {
-      // Logger().d(err);
       emit(FeedDataState(isLoading: false, err: err as Error));
     }
-
-    // data collected or error is thrown
-
   }
 }

@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
@@ -14,9 +16,8 @@ class CatSaveDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AlbumsCubit, AlbumsState>(builder: (context, state) {
       return Scaffold(
-        // backgroundColor: Colors.white,
-        appBar: const CustomAppbar(
-          name: 'Choose album',
+        appBar: CustomAppbar(
+          name: 'cat_save_dialog.choose_album'.tr(),
         ),
         body: AlbumGrid(
           onTap: (album) {

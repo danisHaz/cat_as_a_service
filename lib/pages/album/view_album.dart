@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
@@ -22,7 +23,7 @@ class ViewAlbumPage extends StatelessWidget {
         final album = state.albums[albumId];
         return Scaffold(
           appBar: CustomAppbar(
-            name: album?.name ?? 'DEAD ALBUM' ,
+            name: album?.name ?? 'view_album.dead_album'.tr(),
             actions: [
               IconButton(
                   onPressed: () async {
@@ -30,16 +31,16 @@ class ViewAlbumPage extends StatelessWidget {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          title: Text('Remove album "${album?.name}"'),
-                          content: const Text('Are you sure?'),
+                          title: Text("view_album.remove_album".tr() + '"${album?.name}"'),
+                          content: Text("view_album.are_you_sure".tr()),
                           actions: [
                             TextButton(
                               onPressed: () => Navigator.of(context).pop(false),
-                              child: const Text('Cancel'),
+                              child: Text("view_album.cancel".tr()),
                             ),
                             TextButton(
                               onPressed: () => Navigator.of(context).pop(true),
-                              child: const Text('Delete'),
+                              child: Text("view_album.delete".tr()),
                             ),
                           ],
                         );
@@ -71,8 +72,8 @@ class ViewAlbumPage extends StatelessWidget {
                   },
                 )
             ],
-          ) : const Center(
-            child:  Text('Empty album'),
+          ) : Center(
+            child:  Text("view_album.empty_album".tr()),
           ),
         );
       },

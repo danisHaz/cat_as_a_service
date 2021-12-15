@@ -1,10 +1,11 @@
+import 'package:easy_localization/src/public_ext.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/add_cat/cat_editor.dart';
 import 'package:flutter_basics_2/pages/add_cat/cat_save_dialog.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_item.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_popup.dart';
-import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -38,8 +39,8 @@ class SaveCatButton extends StatelessWidget {
               child: Container(
                 width: 250,
                 padding: const EdgeInsets.all(5),
-                child: const Text(
-                  'Save to album',
+                child:Text(
+                  'action_buttons.save_to_album'.tr(),
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w300,
@@ -53,7 +54,7 @@ class SaveCatButton extends StatelessWidget {
                 if (album != null && album is Album) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(
-                      'Image saved to ${album.name}',
+                      'action_buttons.image_saved_to'.tr() + album.name,
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w300,
@@ -67,9 +68,9 @@ class SaveCatButton extends StatelessWidget {
               child: Container(
                 width: 250,
                 padding: const EdgeInsets.all(5),
-                child: const Text(
-                  'Save to device',
-                  style: TextStyle(
+                child: Text(
+                  'action_buttons.save_to_device'.tr(),
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w300,
                   ),
@@ -80,8 +81,8 @@ class SaveCatButton extends StatelessWidget {
                   await GallerySaver.saveImage(await _getImagePath());
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(
-                      'Image saved',
-                      style: TextStyle(fontSize: 20),
+                      'action_buttons.image_saved'.tr(),
+                      style: const TextStyle(fontSize: 20),
                     ),
                   ));
                 } catch (e) {
@@ -164,16 +165,16 @@ class DeleteCatButton extends StatelessWidget {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text('Remove cat from album'),
-              content: Text('Are you sure?'),
+              title: Text('action_buttons.remove_cat'.tr()),
+              content: Text("action_buttons.are_you_sure".tr()),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: Text('Cancel'),
+                  child: Text('action_buttons.cancel'.tr()),
                 ),
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(true),
-                  child: Text('Delete'),
+                  child: Text('action_buttons.delete'.tr()),
                 ),
               ],
             );

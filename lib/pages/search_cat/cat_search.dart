@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/add_cat/cat_editor.dart';
 import 'package:flutter_basics_2/pages/search_cat/cat_search_bloc.dart';
@@ -177,8 +178,8 @@ class CatSearchPageState extends State<CatSearchPage> {
               borderRadius: BorderRadius.all(Radius.circular(10))),
           fillColor: Theme.of(context).inputDecorationTheme.fillColor,
           filled: true,
-          hintText: 'Enter tag...',
-          contentPadding: EdgeInsets.all(15),
+          hintText: 'cat_search.enter_tag'.tr(),
+          contentPadding: const EdgeInsets.all(15),
           isCollapsed: true,
         ),
         controller: _textController,

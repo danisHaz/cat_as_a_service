@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_basics_2/pages/base_error_page.dart';
 import 'package:flutter_basics_2/pages/view_cat_page/view_cat_single.dart';
 import 'package:flutter_basics_2/repositories/cat_repository.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
+import 'package:flutter_basics_2/shared/colors.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:flutter_basics_2/utils/hero_tags.dart';
 import 'package:flutter_basics_2/widgets/progress_bar.dart';
@@ -27,28 +29,14 @@ class FeedListItemState extends State<FeedListItem> {
 
   void _onDoubleTapOnCat() {
     flareControls.play("like");
-    const favouritesTranslated = "Favourites";
     String? id =
-        context.read<AlbumsCubit>().getAlbumIdByName(favouritesTranslated);
+        context.read<AlbumsCubit>().getAlbumIdByName("favourite_album".tr());
     if (id == null) {
       return;
     }
     CatRepository().addCatToAlbum(id, widget.cat);
   }
 
-  Widget _buildTags() => Align(
-      alignment: Alignment.topLeft,
-      child: Padding(
-          padding: const EdgeInsets.only(
-            left: 2,
-            bottom: 2,
-            top: 20.0,
-          ),
-          child: Text(widget.cat.tags.join(", "),
-              style: const TextStyle(
-                fontSize: 18,
-                fontStyle: FontStyle.normal,
-              ))));
 
   void _onTapOnCat() {
     Navigator.of(context).push(MaterialPageRoute(
@@ -75,9 +63,14 @@ class FeedListItemState extends State<FeedListItem> {
                       tag: catHeroTag(cat: widget.cat),
                       child: CachedNetworkImage(
                         imageUrl: widget.cat.url,
-                        placeholder: (context, url) {
-                          return const ProgressBar();
-                        },
+                        // placeholder: (context, url) {
+                        //   return const ProgressBar(
+                        //     color: backgroundGrey,
+                        //   );
+                        // },
+                        // fadeOutDuration: Duration(microseconds: 0),
+                        // fadeInDuration: Duration(microseconds: 0),
+                        // placeholderFadeInDuration: Duration(microseconds: 0),
                       ),
                     ),
                   ),
