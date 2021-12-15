@@ -9,25 +9,32 @@ import 'package:photo_view/photo_view.dart';
 
 class SingleCatViewPage extends StatelessWidget {
   final Cat cat;
+  final bool showActions;
+  final String? heroTag;
 
-  const SingleCatViewPage({Key? key, required this.cat}) : super(key: key);
+  const SingleCatViewPage(
+      {Key? key, required this.cat, this.showActions = true, this.heroTag})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return HidingAppBarPage(
       appBar: CustomAppbar(
         name: '',
-        actions: [
-          EditCatButton(
-            cat: cat,
-            editorHeroTag: catHeroTag(cat: cat),
-          ),
-          SaveCatButton(cat: cat),
-          ShareCatButton(cat: cat),
-        ],
+        actions: showActions
+            ? [
+                EditCatButton(
+                  cat: cat,
+                  editorHeroTag: catHeroTag(cat: cat),
+                ),
+                SaveCatButton(cat: cat),
+                ShareCatButton(cat: cat),
+              ]
+            : [],
       ),
       body: PhotoView(
-        heroAttributes: PhotoViewHeroAttributes(tag: catHeroTag(cat: cat)),
+        heroAttributes:
+            PhotoViewHeroAttributes(tag: heroTag ?? catHeroTag(cat: cat)),
         imageProvider: CachedNetworkImageProvider(cat.url),
         minScale: PhotoViewComputedScale.contained,
         maxScale: 10.0,
