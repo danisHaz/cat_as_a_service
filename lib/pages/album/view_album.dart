@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,7 +25,7 @@ class ViewAlbumPage extends StatelessWidget {
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: CustomAppbar(
-            name: album?.name ?? 'DEAD ALBUM' ,
+            name: album?.name ?? 'view_album.dead_album'.tr(),
             actions: [
               IconButton(
                   onPressed: () async {
@@ -32,16 +33,16 @@ class ViewAlbumPage extends StatelessWidget {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          title: Text('Remove album "${album?.name}"'),
-                          content: Text('Are you sure?'),
+                          title: Text("view_album.remove_album".tr() + '"${album?.name}"'),
+                          content: Text("view_album.are_you_sure".tr()),
                           actions: [
                             TextButton(
                               onPressed: () => Navigator.of(context).pop(false),
-                              child: Text('Cancel'),
+                              child: Text("view_album.cancel".tr()),
                             ),
                             TextButton(
                               onPressed: () => Navigator.of(context).pop(true),
-                              child: Text('Delete'),
+                              child: Text("view_album.delete".tr()),
                             ),
                           ],
                         );
@@ -74,7 +75,7 @@ class ViewAlbumPage extends StatelessWidget {
                 )
             ],
           ) : Center(
-            child:  Text('Empty album'),
+            child:  Text("view_album.empty_album".tr()),
           ),
         );
       },

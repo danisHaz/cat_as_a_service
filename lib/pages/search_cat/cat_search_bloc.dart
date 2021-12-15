@@ -46,22 +46,11 @@ class CatSearchBloc extends Cubit<CatSearchState>{
     loadMoreCats(10);
   }
 
-  // void addSearchTag(String tag){
-  //   emit(state.copyWith(search_tags: state.search_tags + [tag], cats: []));
-  // }
-  //
-  // void removeSearchTag(String tag){
-  //   final newTags = state.search_tags;
-  //   newTags.remove(tag);
-  //   emit(state.copyWith(search_tags: newTags, cats: []));
-  // }
-
   void loadMoreCats(int count) async{
     if(!state.canLoadMore) return;
     final oldState = state;
     final cats = await CatRepository().getAllCatsByTag(tags: state.search_tags, limitNumberOfCats: count, numberOfCatsToSkip: state.cats.length);
     if(state == oldState) {
-      // print('${state.cats.length} ${cats.length}');
       emit(state.copyWith(cats: state.cats + cats, canLoadMore: cats.isNotEmpty));
     } else {
       Logger().i("load more cats finished after update");

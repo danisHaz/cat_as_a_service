@@ -58,7 +58,6 @@ class _HidingAppBarPageState extends State<HidingAppBarPage>
         statusBarColor: Colors.white,
         systemNavigationBarColor: Colors.white.withOpacity(0.75),
         systemNavigationBarIconBrightness: Brightness.dark));
-    // TODO: implement dispose
     super.dispose();
   }
 

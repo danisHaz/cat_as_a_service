@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
 import 'package:flutter_basics_2/shared/widgets/custom_appbar.dart';
@@ -24,7 +25,7 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        name:'Add Album',
+        name:'add_album.name'.tr(),
       ),
       body: ListView(
         padding: const EdgeInsets.all(18),
@@ -36,9 +37,9 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
               isError = false;
             }),
             decoration: InputDecoration(
-              labelText: 'Album name',
+              labelText: "add_album.label_text".tr(),
               helperText: ' ',
-              errorText: isError ? "Album name must not be empty" : null,
+              errorText: isError ? "add_album.must_not_be_empty".tr() : null,
               border: const OutlineInputBorder(),
               suffixIcon: isError ? const Icon(
                 Icons.error,
@@ -56,7 +57,7 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
               context.read<AlbumsCubit>().addAlbum(_textController.value.text);
               Navigator.pop(context);
             },
-            child: const Text('Add'),
+            child: Text("add_album.add".tr()),
           )
         ],
       ),

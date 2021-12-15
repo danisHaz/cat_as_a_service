@@ -61,6 +61,6 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   // TODO: implement preferredSize
   Size get preferredSize {
     // final offset = MediaQuery.of(context).viewPadding.top;
-    return Size(0, 50);
+    return const Size(0, 50);
   }
 }

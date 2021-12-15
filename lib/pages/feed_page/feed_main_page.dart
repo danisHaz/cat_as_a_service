@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_basics_2/pages/feed_page/feed_bloc.dart';
 import 'package:flutter_basics_2/pages/feed_page/feed_list_item.dart';
@@ -44,7 +45,13 @@ class FeedMainPageState extends State<FeedMainPage> {
   Widget build(BuildContext context) {
     return SmartRefresher(
         enablePullDown: true,
-        header: const ClassicHeader(),
+        header: ClassicHeader(
+          failedText: "feed_main_page.failed_text".tr(),
+          releaseText: "feed_main_page.release_text".tr(),
+          completeText: "feed_main_page.complete_text".tr(),
+          refreshingText: "feed_main_page.refreshing_text".tr(),
+          idleText: "feed_main_page.idle_text".tr(),
+        ),
         controller: _refreshController,
         onRefresh: _onRefresh,
         onLoading: _onLoading,
@@ -73,7 +80,6 @@ class FeedMainPageState extends State<FeedMainPage> {
   }
 
   void _onScroll() {
-    //log(cats.length.toString());
     if (_isBottom) {
       context
           .read<FeedCubit>()
@@ -85,8 +91,6 @@ class FeedMainPageState extends State<FeedMainPage> {
     if (!_controller.hasClients) return false;
     final maxScroll = _controller.position.maxScrollExtent;
     final currentScroll = _controller.offset;
-    // Logger().d(currentScroll);
-    // Logger().d(maxScroll);
     return currentScroll >= (maxScroll * 0.9);
   }
 }

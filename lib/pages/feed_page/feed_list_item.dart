@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
@@ -28,28 +29,14 @@ class FeedListItemState extends State<FeedListItem> {
 
   void _onDoubleTapOnCat() {
     flareControls.play("like");
-    const favouritesTranslated = "Favourites";
     String? id =
-        context.read<AlbumsCubit>().getAlbumIdByName(favouritesTranslated);
+        context.read<AlbumsCubit>().getAlbumIdByName("favourite_album".tr());
     if (id == null) {
       return;
     }
     CatRepository().addCatToAlbum(id, widget.cat);
   }
 
-  Widget _buildTags() => Align(
-      alignment: Alignment.topLeft,
-      child: Padding(
-          padding: const EdgeInsets.only(
-            left: 2,
-            bottom: 2,
-            top: 20.0,
-          ),
-          child: Text(widget.cat.tags.join(", "),
-              style: const TextStyle(
-                fontSize: 18,
-                fontStyle: FontStyle.normal,
-              ))));
 
   void _onTapOnCat() {
     Navigator.of(context).push(MaterialPageRoute(

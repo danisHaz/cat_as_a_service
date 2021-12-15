@@ -1,3 +1,4 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/shared/widgets/top_offset_provider.dart';
 
@@ -60,10 +61,10 @@ class Suggestions extends StatelessWidget {
                 if (_getSuggestions().isEmpty)
                   Container(
                     padding: const EdgeInsets.all(10),
-                    child: const Text(
-                      'No suggestions',
+                    child: Text(
+                      "suggestions.no_suggestions".tr(),
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.w300,

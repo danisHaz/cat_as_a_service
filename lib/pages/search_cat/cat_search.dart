@@ -1,15 +1,12 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/add_cat/cat_editor.dart';
 import 'package:flutter_basics_2/pages/search_cat/cat_search_bloc.dart';
 import 'package:flutter_basics_2/pages/search_cat/suggestions.dart';
 import 'package:flutter_basics_2/shared/colors.dart';
-import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_item.dart';
-import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_popup.dart';
 import 'package:flutter_basics_2/utils/hero_tags.dart';
 import 'package:flutter_basics_2/widgets/cat_preview.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_chips_input/flutter_chips_input.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class CatSearchPage extends StatefulWidget {
   const CatSearchPage({Key? key}) : super(key: key);
@@ -196,14 +193,14 @@ class CatSearchPageState extends State<CatSearchPage> {
       child: TextField(
         key: searchbarKey,
         enabled: true,
-        decoration: const InputDecoration(
-          border: OutlineInputBorder(
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.all(Radius.circular(10))),
           fillColor: backgroundGrey,
           filled: true,
-          hintText: 'Enter tag...',
-          contentPadding: EdgeInsets.all(15),
+          hintText: 'cat_search.enter_tag'.tr(),
+          contentPadding: const EdgeInsets.all(15),
           isCollapsed: true,
         ),
         controller: _textController,

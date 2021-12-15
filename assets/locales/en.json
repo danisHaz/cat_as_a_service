@@ -1,0 +1,66 @@
+{
+    "main_app_bar_title": "Cat as a service",
+    "app_name": "Cat as a service",
+    "bottom_bar":
+    {
+        "feed": "Feed",
+        "add_a_cat": "Add a cat",
+        "albums": "Albums"
+    },
+    "error_notify": "Something went wrong...",
+    "favourite_album": "Favourites",
+    "updating_page": "Updating...",
+    "cat_editor": {
+        "name": "Cat editor",
+        "text": "Text: ",
+        "enter_text": "Enter text",
+        "size": "Size",
+        "css_colour": "Css colour",
+        "filters": "Filters: ",
+        "error": "Error",
+        "sizes": "Sizes: "
+    },
+    "cat_save_dialog": {
+        "choose_album": "Choose album"
+    },
+    "view_album": {
+        "dead_album": "DEAD ALBUM",
+        "remove_album": "Remove album",
+        "are_you_sure": "Are you sure?",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "emtpy_album": "Empty album"
+    },
+    "add_album": {
+        "name": "Add album",
+        "label_text": "Album name",
+        "must_not_be_empty": "Album name must not be empty",
+        "add": "Add"
+    },
+    "cat_search": {
+        "enter_tag": "Enter tag..."
+    },
+    "suggestions": {
+        "no_suggestions": "No suggestions"
+    },
+    "view_cat_album": {
+        "album_is_empty": "Album is empty"
+    },
+    "action_buttons": {
+        "save_to_album": "Save to album",
+        "image_saved_to": "Image saved to ",
+        "save_to_device": "Save to device",
+        "image_saved": "Image saved",
+        "remove_cat": "Remove cat from album",
+        "are_you_sure": "Are you sure?",
+        "cancel": "Cancel",
+        "delete": "Delete"
+    },
+    "feed_main_page": {
+        "failed_text": "Failed to update",
+        "release_text": "Release",
+        "complete_text": "Refreshed",
+        "refreshing_text": "Refreshing...",
+        "idle_text": "Pull down"
+    }
+}
