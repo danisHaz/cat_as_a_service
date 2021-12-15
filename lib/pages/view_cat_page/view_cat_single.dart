@@ -29,7 +29,7 @@ class SingleCatViewPage extends StatelessWidget {
       ),
       body: PhotoView(
         heroAttributes: PhotoViewHeroAttributes(tag: catHeroTag(cat: cat)),
-        imageProvider: CachedNetworkImageProvider('$BASE_URL${cat.url}'),
+        imageProvider: CachedNetworkImageProvider(cat.url),
         minScale: PhotoViewComputedScale.contained,
         maxScale: 10.0,
       ),

@@ -23,29 +23,31 @@ class CatRepository {
     return _instance;
   }
 
-  Future<Cat> getRandomCat() async {
-    final kitty = await _apiService.getCatJsonData(getJson: true);
-    return kitty;
-  }
+  Future<Cat> getFilteredCat(Cat oldCat) =>
+    _apiService.getFilteredSpecifiedCat(
+      filter: oldCat.filter.emptyIfNull(),
+      fontSize: oldCat.fontSize?.toString() ?? "",
+      textColor: oldCat.textColor?.toString() ?? "",
+      type: oldCat.type ?? "",
+      id: oldCat.id,
+    );
 
-  Future<List<String>> getAllTags() async {
-    final tags = await _apiService.getAllTags();
-    return tags;
-  }
+  Future<Cat> getRandomCat() =>
+    _apiService.getCatJsonData(getJson: true);
+
+  Future<List<String>> getAllTags() =>
+    _apiService.getAllTags();
 
   Future<List<Cat>> getAllCatsByTag({
     required List<String> tags,
     int numberOfCatsToSkip = 0,
     int limitNumberOfCats = 10,
-  }) async {
-    final kitties = await _apiService.getAllCatsByTag(
+  }) =>
+    _apiService.getAllCatsByTag(
       formattedTags: tags.join(","),
       numberOfCatsToSkip: numberOfCatsToSkip,
       limitNumberOfCats: limitNumberOfCats,
     );
-
-    return kitties;
-  }
 
   late final CollectionReference _albumsCollection;
 
@@ -67,6 +69,10 @@ class CatRepository {
     final id = _albumsCollection.doc().id;
     await _albumsCollection.doc(id).set(Album(id, name, []).toJson());
     return id;
+  }
+
+  Future<void> removeAlbum(String albumId) async {
+    await _albumsCollection.doc(albumId).delete();
   }
 
   Future<void> addCatToAlbum(String albumId, Cat cat)async {
