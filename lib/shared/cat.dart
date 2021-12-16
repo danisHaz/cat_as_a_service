@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_basics_2/repositories/cat_repository.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -94,5 +95,4 @@ class Cat {
       width: width ?? this.width,
     );
   }
-
 }

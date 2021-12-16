@@ -24,11 +24,12 @@
     },
     "view_album": {
         "dead_album": "МЕРТВЫЙ АЛЬБОМ",
-        "remove_album": "Удалить альбом",
+        "remove_album": "Удалить альбом ",
         "are_you_sure": "Вы уверены?",
         "cancel": "Отменить",
         "delete": "Удалить",
-        "empty_album": "Пусто"
+        "empty_album": "Пусто",
+        "remove_many_pictures": "Удалить выбранные картинки"
     },
     "add_album": {
         "name": "Добавить альбом",
