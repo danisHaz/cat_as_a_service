@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
@@ -14,6 +15,7 @@ class CatRepository {
   static final CatRepository _instance = CatRepository._create();
   late final Dio _dio;
   late final ApiService _apiService;
+
 
   CatRepository._create() {
     _dio = Dio();
@@ -89,6 +91,19 @@ class CatRepository {
     final snapshotData = snapshot.data();
     final album = Album.fromJson(snapshotData as Map<String, dynamic>);
     album.cats.removeAt(index);
+    await _albumsCollection.doc(albumId).update(album.toJson());
+  }
+
+  Future<void> removeMultipleCatsFromAlbum(String albumId, List<int> catsIndices) async {
+    final snapshot = await _albumsCollection.doc(albumId).get();
+    final snapshotData = snapshot.data();
+    final album = Album.fromJson(snapshotData as Map<String, dynamic>);
+    catsIndices.sort();
+    // Logger().d(catsIndices.length);
+    for (int i = catsIndices.length-1; i >= 0; i--) {
+      // Logger().d(catsIndices[i]);
+      album.cats.removeAt(catsIndices[i]);
+    }
     await _albumsCollection.doc(albumId).update(album.toJson());
   }
 

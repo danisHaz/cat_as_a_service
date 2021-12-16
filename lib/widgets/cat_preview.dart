@@ -7,11 +7,14 @@ class CatPreview extends StatelessWidget {
   final Cat cat;
   void Function()? onTap;
   final String heroTag;
+  void Function()? onLongPressed;
+
   CatPreview({
     Key? key,
     required this.cat,
     this.onTap,
     this.heroTag = '',
+    this.onLongPressed,
   }) : super(key: key);
 
   @override
@@ -40,6 +43,9 @@ class CatPreview extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   if (onTap != null) onTap!();
+                },
+                onLongPress:() {
+                  if (onLongPressed != null) onLongPressed!();
                 },
               ),
             ),
