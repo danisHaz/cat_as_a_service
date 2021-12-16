@@ -61,18 +61,10 @@ class MainApp extends StatelessWidget {
             localizationsDelegates: context.localizationDelegates,
             locale: context.locale,
             supportedLocales: context.supportedLocales,
-            theme: ThemeData.from(
-              colorScheme: const ColorScheme.light(
-                primary: Colors.lightBlue,
-                primaryVariant: Colors.blue,
-              ),
-            ).copyWith(pageTransitionsTheme: pageTransitionTheme),
-            darkTheme: ThemeData.from(
-              colorScheme: const ColorScheme.dark(
-                primary: Colors.lightBlue,
-                primaryVariant: Colors.blue,
-              ),
-            ).copyWith(
+            theme: ThemeData.light().copyWith(pageTransitionsTheme: pageTransitionTheme,
+                colorScheme: ColorScheme.light(primary: Colors.lightBlue, primaryVariant: Colors.blue),
+            ),
+            darkTheme: ThemeData.dark().copyWith(
               pageTransitionsTheme: pageTransitionTheme,
             ),
             themeMode: state.theme,

@@ -59,32 +59,20 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
               autofocus: true,
             ),
           ),
-          Material(
-            color: Theme.of(context).colorScheme.primary,
-            borderRadius: BorderRadius.circular(10),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(10),
-              onTap: () {
-                if (_textController.value.text.isEmpty) {
-                  setState(() {
-                    isError = true;
-                  });
-                  return;
-                }
-                context
-                    .read<AlbumsCubit>()
-                    .addAlbum(_textController.value.text);
-                Navigator.pop(context);
-              },
-              child: Container(
-                height: 52,
-                child: Center(
-                  child: Text(
-                    "add_album.add".tr(),
-                    style: const TextStyle(fontSize: 18),
-                  ),
-                ),
-              ),
+          ElevatedButton(
+            onPressed: () {
+              if (_textController.value.text.isEmpty) {
+                setState(() {
+                  isError = true;
+                });
+                return;
+              }
+              context.read<AlbumsCubit>().addAlbum(_textController.value.text);
+              Navigator.pop(context);
+            },
+            child: Text(
+              "add_album.add".tr(),
+              style: const TextStyle(fontSize: 18),
             ),
           ),
         ],

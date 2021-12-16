@@ -27,7 +27,7 @@ class MainPageState extends State<MainPage> {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: getUiStyle(Theme.of(context)),
       child: Scaffold(
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).colorScheme.background,
           body: TopOffsetProvider(
             child: SafeArea(child: _buildCurrentScreen()),
             context: context,
@@ -40,71 +40,75 @@ class MainPageState extends State<MainPage> {
 
   Widget _buildNavbar(BuildContext context) {
     var activeColor = Theme.of(context).colorScheme.primary;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        IconButton(
-          alignment: Alignment.topCenter,
-          iconSize: 25,
-          icon: Icon(
-            FontAwesomeIcons.dice,
-            color: currentPage == MainScreenPageType.feedScreen
-                ? activeColor
-                : null,
+    return Material(
+      elevation: 6,
+      color: Theme.of(context).bottomAppBarColor,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
+            alignment: Alignment.topCenter,
+            iconSize: 25,
+            icon: Icon(
+              FontAwesomeIcons.dice,
+              color: currentPage == MainScreenPageType.feedScreen
+                  ? activeColor
+                  : null,
+            ),
+            onPressed: () {
+              setState(() {
+                currentPage = MainScreenPageType.feedScreen;
+              });
+            },
           ),
-          onPressed: () {
-            setState(() {
-              currentPage = MainScreenPageType.feedScreen;
-            });
-          },
-        ),
-        IconButton(
-          iconSize: 30,
-          icon: Icon(
-            Icons.add,
-            color: currentPage == MainScreenPageType.addCatScreen
-                ? activeColor
-                : null,
+          IconButton(
+            iconSize: 30,
+            icon: Icon(
+              Icons.add,
+              color: currentPage == MainScreenPageType.addCatScreen
+                  ? activeColor
+                  : null,
+            ),
+            onPressed: () {
+              setState(() {
+                currentPage = MainScreenPageType.addCatScreen;
+              });
+            },
           ),
-          onPressed: () {
-            setState(() {
-              currentPage = MainScreenPageType.addCatScreen;
-            });
-          },
-        ),
-        IconButton(
-          iconSize: 25,
-          icon: Icon(
-            Icons.collections,
-            color: currentPage == MainScreenPageType.albumsScreen
-                ? activeColor
-                : null,
+          IconButton(
+            iconSize: 25,
+            icon: Icon(
+              Icons.collections,
+              color: currentPage == MainScreenPageType.albumsScreen
+                  ? activeColor
+                  : null,
+            ),
+            onPressed: () {
+              setState(() {
+                currentPage = MainScreenPageType.albumsScreen;
+              });
+            },
           ),
-          onPressed: () {
-            setState(() {
-              currentPage = MainScreenPageType.albumsScreen;
-            });
-          },
-        ),
-        IconButton(
-          icon: Icon(
-            Icons.settings,
-            color: null,
-          ),
-          onPressed: () async {
-            showModalBottomSheet(
-              shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(10))),
-              // expand: false,
-              context: context,
-              builder: (context) {
-                return SettingsPage();
-              },
-            );
-          },
-        )
-      ],
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: null,
+            ),
+            onPressed: () async {
+              showModalBottomSheet(
+                shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(10))),
+                // expand: false,
+                context: context,
+                builder: (context) {
+                  return SettingsPage();
+                },
+              );
+            },
+          )
+        ],
+      ),
     );
   }
 

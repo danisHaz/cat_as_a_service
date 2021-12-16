@@ -10,6 +10,7 @@ import 'package:flutter_basics_2/pages/view_cat_page/view_cat_single.dart';
 import 'package:flutter_basics_2/repositories/cat_repository.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/utils/hero_tags.dart';
+import 'package:flutter_basics_2/widgets/progress_bar.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/src/provider.dart';
 
@@ -60,14 +61,12 @@ class FeedListItemState extends State<FeedListItem> {
                       tag: catHeroTag(cat: widget.cat),
                       child: CachedNetworkImage(
                         imageUrl: widget.cat.url,
-                        // placeholder: (context, url) {
-                        //   return const ProgressBar(
-                        //     color: backgroundGrey,
-                        //   );
-                        // },
-                        // fadeOutDuration: Duration(microseconds: 0),
-                        // fadeInDuration: Duration(microseconds: 0),
-                        // placeholderFadeInDuration: Duration(microseconds: 0),
+                        placeholder: (context, url) {
+                          return const ProgressBar();
+                        },
+                        fadeOutDuration: Duration(microseconds: 0),
+                        fadeInDuration: Duration(microseconds: 0),
+                        placeholderFadeInDuration: Duration(microseconds: 0),
                       ),
                     ),
                   ),
@@ -82,7 +81,7 @@ class FeedListItemState extends State<FeedListItem> {
                   ),
                 ],
               )),
-          Container(height: 30),
+          // Container(height: 30),
         ],
       );
     } catch (e) {

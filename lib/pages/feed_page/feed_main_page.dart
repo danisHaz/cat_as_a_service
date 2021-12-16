@@ -55,7 +55,7 @@ class FeedMainPageState extends State<FeedMainPage> {
         controller: _refreshController,
         onRefresh: _onRefresh,
         onLoading: _onLoading,
-        child: ListView.builder(
+        child: ListView.separated(
           physics: const BouncingScrollPhysics(),
           key: const PageStorageKey(0),
           itemBuilder: (contex, index) {
@@ -67,6 +67,11 @@ class FeedMainPageState extends State<FeedMainPage> {
           },
           controller: _controller,
           itemCount: widget.cats.length,
+          separatorBuilder: (BuildContext context, int index) {
+            return Container(
+              height: 30,
+            );
+          },
         ));
   }
 
