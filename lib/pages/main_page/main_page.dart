@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums.dart';
 import 'package:flutter_basics_2/pages/search_cat/cat_search.dart';
 import 'package:flutter_basics_2/pages/settings/settings.dart';
 import 'package:flutter_basics_2/shared/widgets/top_offset_provider.dart';
+import 'package:flutter_basics_2/utils/system_chrome.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../feed_page/feed_screen.dart';
@@ -22,13 +24,18 @@ class MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: TopOffsetProvider(
-          child: SafeArea(child: _buildCurrentScreen()),
-          context: context,
-        ),
-        bottomNavigationBar: _buildNavbar(context));
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: getUiStyle(Theme.of(context)),
+      child: Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
+          body: TopOffsetProvider(
+            child: SafeArea(child: _buildCurrentScreen()),
+            context: context,
+          ),
+          bottomNavigationBar: _buildNavbar(context),
+        extendBody: false,
+      ),
+    );
   }
 
   Widget _buildNavbar(BuildContext context) {

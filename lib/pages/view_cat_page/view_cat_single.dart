@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_basics_2/pages/view_cat_page/hiding_appbar_page.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/shared/widgets/action_buttons.dart';
@@ -18,13 +17,6 @@ class SingleCatViewPage extends StatefulWidget {
 }
 
 class SingleCatViewPageState extends State<SingleCatViewPage> {
-
-  @override
-  void dispose() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return HidingAppBarPage(
@@ -45,13 +37,6 @@ class SingleCatViewPageState extends State<SingleCatViewPage> {
         minScale: PhotoViewComputedScale.contained,
         maxScale: 10.0,
       ),
-      onChangeVisibility: (isVisible) {
-        if (isVisible)
-          SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-        else
-          SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-
-      },
     );
   }
 }

@@ -28,7 +28,8 @@ class _HidingAppBarPageState extends State<HidingAppBarPage>
   late ThemeData theme;
 
   @override
-  void initState(){
+  void initState() {
+    // SystemChrome
     super.initState();
     _appBarSlideController = AnimationController(
       vsync: this,
@@ -38,7 +39,7 @@ class _HidingAppBarPageState extends State<HidingAppBarPage>
 
     SchedulerBinding.instance?.addPostFrameCallback((timeStamp) {
       theme = Theme.of(context);
-      _updateSystemUI();
+      // _updateSystemUI();
     });
   }
 
@@ -46,47 +47,45 @@ class _HidingAppBarPageState extends State<HidingAppBarPage>
     setState(() {
       _showAppBar = !_showAppBar;
     });
-
-    if (widget.onChangeVisibility != null) {
-      widget.onChangeVisibility!(_showAppBar);
-    }
-
-    _updateSystemUI();
+    // _updateSystemUI();
   }
 
-  void _updateSystemUI(){
-    if (_showAppBar) {
-      setSystemChrome(theme);
-    } else {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
-          statusBarColor: Colors.transparent,
-          systemNavigationBarColor: Colors.black.withOpacity(0.75),
-          systemNavigationBarIconBrightness: Brightness.light));
-    }
-  }
+  // void _updateSystemUI() {
+  //   if (_showAppBar) {
+  //     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+  //   } else {
+  //     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.top]);
+  //   }
+  // }
 
-  @override
-  void dispose() {
-    setSystemChrome(theme);
-    super.dispose();
-    // TODO: implement dispose
-  }
+  // @override
+  // void dispose() {
+  //   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
     theme = Theme.of(context);
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: SlidingAppBar(
-        child: widget.appBar,
-        controller: _appBarSlideController,
-        visible: _showAppBar,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: _showAppBar ? getUiStyle(theme) : SystemUiOverlayStyle.light.copyWith(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarColor: Colors.black.withOpacity(0.75),
+        systemNavigationBarIconBrightness: Brightness.light,
       ),
-      body: GestureDetector(
-        child: widget.body,
-        onTap: () {
-          _flipAppbar();
-        },
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: SlidingAppBar(
+          child: widget.appBar,
+          controller: _appBarSlideController,
+          visible: _showAppBar,
+        ),
+        body: GestureDetector(
+          child: widget.body,
+          onTap: () {
+            _flipAppbar();
+          },
+        ),
       ),
     );
   }
