@@ -73,6 +73,20 @@ class ViewAlbumPageState extends State<ViewAlbumPage> {
   }
 
   void _onMultiplePicturesDelete() async {
+    if (_catsIndices.length == 0) {
+      final snackBar = SnackBar(
+            content: Text(
+              "view_album.nothing_to_delete".tr(),
+              style: TextStyle(
+                color: Theme.of(context).hintColor
+              )
+            ),
+            backgroundColor: Theme.of(context).backgroundColor
+          );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      return;
+    }
     final result = await showDialog<bool>(
       context: context,
       builder: (context) {
@@ -114,8 +128,8 @@ class ViewAlbumPageState extends State<ViewAlbumPage> {
         ],
         [
           IconButton(
-            onPressed: _changeInfo,
-            icon: const Icon(FontAwesomeIcons.times),
+            onPressed: _onMultiplePicturesDelete,
+            icon: const Icon(FontAwesomeIcons.trash),
           )
         ],
       ];
@@ -162,16 +176,20 @@ class ViewAlbumPageState extends State<ViewAlbumPage> {
     return BlocBuilder<AlbumsCubit, AlbumsState>(
       builder: (context, state) {
         final album = state.albums[widget.albumId];
+        final appBarName = _info == ViewAlbumPageInfo.observing
+          ? album?.name ?? 'view_album.dead_album'.tr()
+          : "view_album.selected".tr() + _catsIndices.length.toString();
+
         return Scaffold(
           appBar: CustomAppbar(
-            name: album?.name ?? 'view_album.dead_album'.tr(),
+            name: appBarName,
             actions: _buildActions(state, _info),
             mainNavButton: _info == ViewAlbumPageInfo.deletion ? const Icon(
-              FontAwesomeIcons.trash,
+              FontAwesomeIcons.times,
               size: 30,
             ) : null,
             onMainNavButtonPressed: _info == ViewAlbumPageInfo.deletion 
-              ? _onMultiplePicturesDelete : null,
+              ? () {_changeInfo(); _clearCatsIndices();} : null,
           ),
           body: album != null && album.cats.isNotEmpty ? GridView.count(
             physics: const BouncingScrollPhysics(),

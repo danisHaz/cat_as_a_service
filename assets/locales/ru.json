@@ -29,7 +29,9 @@
         "cancel": "Отменить",
         "delete": "Удалить",
         "empty_album": "Пусто",
-        "remove_many_pictures": "Удалить выбранные картинки"
+        "remove_many_pictures": "Удалить выбранные картинки",
+        "selected": "Выбрано: ",
+        "nothing_to_delete": "Ничего не выбрано"
     },
     "add_album": {
         "name": "Добавить альбом",
