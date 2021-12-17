@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums.dart';
 import 'package:flutter_basics_2/pages/search_cat/cat_search.dart';
 import 'package:flutter_basics_2/pages/settings/settings.dart';
 import 'package:flutter_basics_2/shared/widgets/top_offset_provider.dart';
+import 'package:flutter_basics_2/utils/system_chrome.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../feed_page/feed_screen.dart';
@@ -22,82 +24,91 @@ class MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: TopOffsetProvider(
-          child: SafeArea(child: _buildCurrentScreen()),
-          context: context,
-        ),
-        bottomNavigationBar: _buildNavbar(context));
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: getUiStyle(Theme.of(context)),
+      child: Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.background,
+          body: TopOffsetProvider(
+            child: SafeArea(child: _buildCurrentScreen()),
+            context: context,
+          ),
+          bottomNavigationBar: _buildNavbar(context),
+        extendBody: false,
+      ),
+    );
   }
 
   Widget _buildNavbar(BuildContext context) {
     var activeColor = Theme.of(context).colorScheme.primary;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        IconButton(
-          alignment: Alignment.topCenter,
-          iconSize: 25,
-          icon: Icon(
-            FontAwesomeIcons.dice,
-            color: currentPage == MainScreenPageType.feedScreen
-                ? activeColor
-                : null,
+    return Material(
+      elevation: 6,
+      color: Theme.of(context).bottomAppBarColor,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
+            alignment: Alignment.topCenter,
+            iconSize: 25,
+            icon: Icon(
+              FontAwesomeIcons.dice,
+              color: currentPage == MainScreenPageType.feedScreen
+                  ? activeColor
+                  : null,
+            ),
+            onPressed: () {
+              setState(() {
+                currentPage = MainScreenPageType.feedScreen;
+              });
+            },
           ),
-          onPressed: () {
-            setState(() {
-              currentPage = MainScreenPageType.feedScreen;
-            });
-          },
-        ),
-        IconButton(
-          iconSize: 30,
-          icon: Icon(
-            Icons.add,
-            color: currentPage == MainScreenPageType.addCatScreen
-                ? activeColor
-                : null,
+          IconButton(
+            iconSize: 30,
+            icon: Icon(
+              Icons.add,
+              color: currentPage == MainScreenPageType.addCatScreen
+                  ? activeColor
+                  : null,
+            ),
+            onPressed: () {
+              setState(() {
+                currentPage = MainScreenPageType.addCatScreen;
+              });
+            },
           ),
-          onPressed: () {
-            setState(() {
-              currentPage = MainScreenPageType.addCatScreen;
-            });
-          },
-        ),
-        IconButton(
-          iconSize: 25,
-          icon: Icon(
-            Icons.collections,
-            color: currentPage == MainScreenPageType.albumsScreen
-                ? activeColor
-                : null,
+          IconButton(
+            iconSize: 25,
+            icon: Icon(
+              Icons.collections,
+              color: currentPage == MainScreenPageType.albumsScreen
+                  ? activeColor
+                  : null,
+            ),
+            onPressed: () {
+              setState(() {
+                currentPage = MainScreenPageType.albumsScreen;
+              });
+            },
           ),
-          onPressed: () {
-            setState(() {
-              currentPage = MainScreenPageType.albumsScreen;
-            });
-          },
-        ),
-        IconButton(
-          icon: Icon(
-            Icons.settings,
-            color: null,
-          ),
-          onPressed: () async {
-            showModalBottomSheet(
-              shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(10))),
-              // expand: false,
-              context: context,
-              builder: (context) {
-                return SettingsPage();
-              },
-            );
-          },
-        )
-      ],
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: null,
+            ),
+            onPressed: () async {
+              showModalBottomSheet(
+                shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(10))),
+                // expand: false,
+                context: context,
+                builder: (context) {
+                  return SettingsPage();
+                },
+              );
+            },
+          )
+        ],
+      ),
     );
   }
 

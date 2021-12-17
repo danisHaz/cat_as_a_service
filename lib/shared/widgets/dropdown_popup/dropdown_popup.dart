@@ -49,7 +49,7 @@ class _DropdownPopupState extends State<DropdownPopup> {
       backgroundColor: Colors.white.withOpacity(0),
       body: DefaultTextStyle(
         style: TextStyle(
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).colorScheme.background,
         ),
         child: Stack(
           children: [

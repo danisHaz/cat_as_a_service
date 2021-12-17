@@ -7,7 +7,7 @@ import 'package:flutter_basics_2/shared/widgets/custom_appbar.dart';
 import 'package:flutter_basics_2/utils/hero_tags.dart';
 import 'package:photo_view/photo_view.dart';
 
-class SingleCatViewPage extends StatelessWidget {
+class SingleCatViewPage extends StatefulWidget {
   final Cat cat;
   final bool showActions;
   final String? heroTag;
@@ -16,6 +16,11 @@ class SingleCatViewPage extends StatelessWidget {
       {Key? key, required this.cat, this.showActions = true, this.heroTag})
       : super(key: key);
 
+  @override
+  SingleCatViewPageState createState() => SingleCatViewPageState();
+}
+
+class SingleCatViewPageState extends State<SingleCatViewPage> {
   @override
   Widget build(BuildContext context) {
     return HidingAppBarPage(
@@ -36,6 +41,7 @@ class SingleCatViewPage extends StatelessWidget {
         heroAttributes:
             PhotoViewHeroAttributes(tag: heroTag ?? catHeroTag(cat: cat)),
         imageProvider: CachedNetworkImageProvider(cat.url),
+
         minScale: PhotoViewComputedScale.contained,
         maxScale: 10.0,
       ),

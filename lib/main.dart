@@ -9,7 +9,6 @@ import 'package:flutter_basics_2/pages/search_cat/cat_search_bloc.dart';
 import 'package:flutter_basics_2/pages/settings/settings_bloc.dart';
 import 'package:flutter_basics_2/repositories/cat_repository.dart';
 import 'package:flutter_basics_2/shared/transitions_builder.dart';
-import 'package:flutter_basics_2/utils/system_chrome.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'firebase_options.dart';
@@ -23,11 +22,6 @@ void main() async {
   );
 
   await CatRepository().initialize();
-
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-      statusBarColor: Colors.white,
-      systemNavigationBarColor: Colors.white.withOpacity(0.75),
-      systemNavigationBarIconBrightness: Brightness.dark));
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -64,26 +58,16 @@ class MainApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             home: const MainPage(),
-            builder: (context, child){
-              // TODO: remove it from build because it is wrong
-              setSystemChrome(Theme.of(context));
-              return child!;
-            },
             localizationsDelegates: context.localizationDelegates,
             locale: context.locale,
             supportedLocales: context.supportedLocales,
-            theme: ThemeData.from(
-              colorScheme: const ColorScheme.light(
-                primary: Colors.lightBlue,
-                primaryVariant: Colors.blue,
-              ),
-            ).copyWith(pageTransitionsTheme: pageTransitionTheme),
-            darkTheme: ThemeData.from(
-              colorScheme: const ColorScheme.dark(
-                primary: Colors.lightBlue,
-                primaryVariant: Colors.blue,
-              ),
-            ).copyWith(
+            theme: ThemeData.light().copyWith(
+              pageTransitionsTheme: pageTransitionTheme,
+              colorScheme: ColorScheme.light(
+                  primary: Colors.lightBlue, primaryVariant: Colors.blue),
+              scaffoldBackgroundColor: Colors.white,
+            ),
+            darkTheme: ThemeData.dark().copyWith(
               pageTransitionsTheme: pageTransitionTheme,
             ),
             themeMode: state.theme,

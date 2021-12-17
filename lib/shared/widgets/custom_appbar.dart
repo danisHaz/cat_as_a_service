@@ -8,6 +8,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.backgroundColor,
     this.textColor,
+    this.mainNavButton,
+    this.onMainNavButtonPressed,
   }) : super(key: key);
 
   final String name;
@@ -15,6 +17,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final Color? textColor;
   final Color? backgroundColor;
+  final Icon? mainNavButton;
+  final void Function()? onMainNavButtonPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -22,24 +26,37 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       children: [
         Container(
           height: MediaQuery.of(context).viewPadding.top,
-          color: backgroundColor ?? Theme.of(context).backgroundColor,
+          color: backgroundColor ?? Theme.of(context).colorScheme.background,
         ),
         Container(
+          decoration: BoxDecoration(
+            color: backgroundColor ?? Theme.of(context).colorScheme.background,
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: Theme.of(context).shadowColor.withOpacity(0.4),
+            //     offset: Offset(0, 2),
+            //     spreadRadius: 0,
+            //     blurRadius: 1,
+            //   ),
+            // ],
+          ),
           height: 50,
-          color: backgroundColor ?? Theme.of(context).backgroundColor,
           child: Material(
             type: MaterialType.transparency,
             child: Row(
               children: [
                 IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                      color: textColor,
-                      size: 30,
-                    )),
+                  onPressed: onMainNavButtonPressed == null
+                      ? () {
+                          Navigator.of(context).pop();
+                        }
+                      : onMainNavButtonPressed,
+                  icon: mainNavButton ??
+                      const Icon(
+                        Icons.arrow_back_ios,
+                        size: 30,
+                      ),
+                ),
                 Expanded(
                   child: Text(
                     name,

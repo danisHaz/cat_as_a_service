@@ -7,6 +7,7 @@ import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_item.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_popup.dart';
 import 'package:gallery_saver/gallery_saver.dart';
+import 'package:logger/logger.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,6 +49,8 @@ class SaveCatButton extends StatelessWidget {
                 ),
               ),
               value: () async {
+                Logger().d(cat.width);
+                Logger().d(cat.height);
                 final album = await showDialog(
                     context: context,
                     builder: (context) => CatSaveDialog(cat: cat));

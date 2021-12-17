@@ -20,6 +20,7 @@ class SettingsPage extends StatelessWidget {
                   Icon(Icons.wb_sunny_outlined),
                   Switch(
                     value: state.theme == ThemeMode.dark,
+                    activeColor: Theme.of(context).colorScheme.primary,
                     onChanged: (value) {
                       context
                           .read<SettingsCubit>()

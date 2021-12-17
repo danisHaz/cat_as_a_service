@@ -25,11 +25,14 @@
     },
     "view_album": {
         "dead_album": "DEAD ALBUM",
-        "remove_album": "Remove album",
+        "remove_album": "Remove album ",
         "are_you_sure": "Are you sure?",
         "cancel": "Cancel",
         "delete": "Delete",
-        "emtpy_album": "Empty album"
+        "empty_album": "Empty album",
+        "remove_many_pictures": "Remove selected pictures",
+        "selected": "Selected: ",
+        "nothing_to_delete": "Nothing to delete"
     },
     "add_album": {
         "name": "Add album",
