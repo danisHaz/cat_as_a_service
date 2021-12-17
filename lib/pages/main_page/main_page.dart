@@ -91,21 +91,23 @@ class MainPageState extends State<MainPage> {
               Icons.settings,
               color: null,
             ),
-            onPressed: () async {
-              showModalBottomSheet(
-                shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(10))),
-                // expand: false,
-                context: context,
-                builder: (context) {
-                  return SettingsPage();
-                },
-              );
-            },
+            onPressed: _onSomethingPressed,
           )
         ],
       ),
+    );
+  }
+
+  void _onSomethingPressed () async {
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+          borderRadius:
+          BorderRadius.vertical(top: Radius.circular(10))),
+      // expand: false,
+      context: context,
+      builder: (context) {
+        return SettingsPage();
+      },
     );
   }
 

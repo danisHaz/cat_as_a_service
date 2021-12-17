@@ -28,25 +28,22 @@ class _DropdownPopupState extends State<DropdownPopup> {
 
   @override
   void didChangeDependencies() {
-    setState(() {
-      bottomOffset = widget.screenHeight -
-          widget.parentOffset.dy -
-          widget.parentSize.height;
-      rightOffset = MediaQuery.of(context).size.width -
-          widget.parentOffset.dx -
-          widget.parentSize.width;
-
-      toBottom = widget.parentOffset.dy <= bottomOffset;
-      toRight = rightOffset >= widget.parentOffset.dx;
-    });
-
     super.didChangeDependencies();
+
+    bottomOffset =
+        widget.screenHeight - widget.parentOffset.dy - widget.parentSize.height;
+    rightOffset = MediaQuery.of(context).size.width -
+        widget.parentOffset.dx -
+        widget.parentSize.width;
+
+    toBottom = widget.parentOffset.dy <= bottomOffset;
+    toRight = rightOffset >= widget.parentOffset.dx;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white.withOpacity(0),
+      backgroundColor: Colors.transparent,
       body: DefaultTextStyle(
         style: TextStyle(
           color: Theme.of(context).colorScheme.background,
@@ -112,13 +109,16 @@ class _DropdownPopupState extends State<DropdownPopup> {
 }
 
 Future<T?> openDropdown<T>(
-    BuildContext context, GlobalKey parentKey, List<DropdownItem<T>> items) {
+  BuildContext context,
+  GlobalKey parentKey,
+  List<DropdownItem<T>> items,
+) {
   final renderBox = parentKey.currentContext!.findRenderObject()! as RenderBox;
 
   return showDialog(
     barrierColor: Colors.transparent,
     context: context,
-    builder: (c) {
+    builder: (context) {
       return DropdownPopup<T>(
           screenHeight: MediaQuery.of(context).size.height -
               MediaQuery.of(context).viewPadding.top -
