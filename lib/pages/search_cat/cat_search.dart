@@ -83,52 +83,9 @@ class CatSearchPageState extends State<CatSearchPage> {
                     ),
                     Container(height: 8),
                     Flexible(
-                      child: CustomScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        controller: _scrollController,
-                        key: const PageStorageKey(2),
-                        slivers: [
-                          SliverGrid(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              childAspectRatio: 0.8,
-                              crossAxisCount:
-                                  MediaQuery.of(context).size.width ~/ 150,
-                            ),
-                            delegate: SliverChildBuilderDelegate(
-                              (context, index) {
-                                if (index == state.cats.length - 1) {
-                                  context
-                                      .read<CatSearchBloc>()
-                                      .loadMoreCats(10);
-                                }
-                                return CatPreview(
-                                  heroTag: catHeroTag(cat: state.cats[index]),
-                                  cat: state.cats[index],
-                                  onTap: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) => CatEditorPage(
-                                                heroTag: catHeroTag(
-                                                    cat: state.cats[index]),
-                                                cat: state.cats[index])));
-                                  },
-                                );
-                              },
-                              childCount: state.cats.length,
-                            ),
-                          ),
-                          if (state.canLoadMore)
-                            const SliverToBoxAdapter(
-                              child: Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                            ),
-                          // const SliverFillRemaining(),
-                        ],
-                      ),
+                      child: !state.isError
+                          ? _buildGrid(context, state)
+                          : _buildErrorButton(context, state),
                     ),
                   ],
                 ),
@@ -165,6 +122,69 @@ class CatSearchPageState extends State<CatSearchPage> {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildErrorButton(BuildContext context, CatSearchState state) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'network_error'.tr(),
+            style: TextStyle(color: Theme.of(context).errorColor),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              context.read<CatSearchBloc>().refresh();
+            },
+            child: Text('refresh'.tr()),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGrid(BuildContext context, CatSearchState state) {
+    return CustomScrollView(
+      physics: const BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      controller: _scrollController,
+      key: const PageStorageKey(2),
+      slivers: [
+        SliverGrid(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: 0.8,
+            crossAxisCount: MediaQuery.of(context).size.width ~/ 150,
+          ),
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              if (index == state.cats.length - 1) {
+                context.read<CatSearchBloc>().loadMoreCats(10);
+              }
+              return CatPreview(
+                heroTag: catHeroTag(cat: state.cats[index]),
+                cat: state.cats[index],
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => CatEditorPage(
+                          heroTag: catHeroTag(cat: state.cats[index]),
+                          cat: state.cats[index])));
+                },
+              );
+            },
+            childCount: state.cats.length,
+          ),
+        ),
+        if (state.canLoadMore)
+          const SliverToBoxAdapter(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        // const SliverFillRemaining(),
+      ],
     );
   }
 

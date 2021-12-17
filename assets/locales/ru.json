@@ -68,5 +68,7 @@
     "settings" : {
         "theme": "Тема",
         "language": "Язык"
-    }
+    },
+    "network_error": "Ошибка сети",
+    "refresh": "Повторить"
 }

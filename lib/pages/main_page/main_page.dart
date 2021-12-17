@@ -36,7 +36,7 @@ class MainPageState extends State<MainPage> {
   Widget _buildNavbar(BuildContext context) {
     var activeColor = Theme.of(context).colorScheme.primary;
     return Material(
-      elevation: 6,
+      elevation: 10,
       color: Theme.of(context).bottomAppBarColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

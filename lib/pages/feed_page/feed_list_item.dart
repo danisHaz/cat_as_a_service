@@ -34,7 +34,6 @@ class FeedListItemState extends State<FeedListItem> {
     context.read<AlbumsCubit>().addCatToAlbum(id, widget.cat);
   }
 
-
   void _onTapOnCat() {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => SingleCatViewPage(
@@ -48,38 +47,45 @@ class FeedListItemState extends State<FeedListItem> {
       return Column(
         children: [
           // _buildTags(),
-          GestureDetector(
-              onDoubleTap: _onDoubleTapOnCat,
-              onTap: _onTapOnCat,
-              child: Stack(
-                alignment: AlignmentDirectional.center,
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    child: Hero(
-                      tag: catHeroTag(cat: widget.cat),
-                      child: CachedNetworkImage(
-                        imageUrl: widget.cat.url,
-                        placeholder: (context, url) {
-                          return const ProgressBar();
-                        },
-                        fadeOutDuration: const Duration(microseconds: 0),
-                        fadeInDuration: const Duration(microseconds: 0),
-                        placeholderFadeInDuration: const Duration(microseconds: 0),
-                      ),
-                    ),
+          Stack(
+            alignment: AlignmentDirectional.center,
+            children: [
+              SizedBox(
+                width: double.infinity,
+                child: Hero(
+                  tag: catHeroTag(cat: widget.cat),
+                  child: CachedNetworkImage(
+                    imageUrl: widget.cat.url,
+                    placeholder: (context, url) {
+                      return const ProgressBar();
+                    },
+                    fadeOutDuration: const Duration(microseconds: 0),
+                    fadeInDuration: const Duration(microseconds: 0),
+                    placeholderFadeInDuration:
+                        const Duration(microseconds: 0),
                   ),
-                  SizedBox(
-                    width: 250,
-                    height: 220.0,
-                    child: FlareActor(
-                      'assets/animations/instagram_like.flr',
-                      controller: flareControls,
-                      animation: 'idle',
-                    ),
+                ),
+              ),
+              Positioned.fill(
+                // width: 250,
+                // height: 220.0,
+                child: FlareActor(
+                  'assets/animations/instagram_like.flr',
+                  controller: flareControls,
+                  animation: 'idle',
+                ),
+              ),
+              Positioned.fill(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: InkWell(
+                    onTap: _onTapOnCat,
+                    onDoubleTap: _onDoubleTapOnCat,
                   ),
-                ],
-              )),
+                ),
+              ),
+            ],
+          ),
           // Container(height: 30),
         ],
       );

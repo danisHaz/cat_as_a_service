@@ -69,5 +69,7 @@
     "settings" : {
         "theme": "Theme",
         "language": "Language"
-    }
+    },
+    "network_error": "Network error",
+    "refresh": "Retry"
 }
