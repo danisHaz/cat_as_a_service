@@ -164,33 +164,33 @@ class _CatEditorPageState extends State<CatEditorPage> {
                 'cat_editor.text'.tr(),
                 style: const TextStyle(fontSize: 24),
               ),
-              const SizedBox(height: 2),
+              Container(height: 2),
+              TextField(
+                minLines: 1,
+                maxLines: 3,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  filled: true,
+                  hintText: 'cat_editor.enter_text'.tr(),
+                  contentPadding: const EdgeInsets.all(15),
+                  isCollapsed: true,
+                ),
+                controller: _textController,
+                style: const TextStyle(fontSize: 18),
+                onChanged: (value) {
+                  _updateDecoration();
+                },
+              ),
+              const SizedBox(height: 5),
+
               Row(
                 children: [
                   Expanded(
                     child: TextField(
                       decoration: InputDecoration(
-                        border: const OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10)),),
-                        filled: true,
-                        hintText: 'cat_editor.enter_text'.tr(),
-                        contentPadding: const EdgeInsets.all(15),
-                        isCollapsed: true,
-                      ),
-                      controller: _textController,
-                      style: const TextStyle(fontSize: 18),
-                      onChanged: (value) {
-                        _updateDecoration();
-                      },
-                    ),
-                  ),
-                  Container(width: 5),
-                  SizedBox(
-                    width: 65,
-                    child: TextField(
-                      decoration: InputDecoration(
+
                         border: const OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius:
@@ -209,8 +209,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
                     ),
                   ),
                   const SizedBox(width: 5),
-                  SizedBox(
-                    width: 110,
+                  Expanded(
                     child: TextField(
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(
