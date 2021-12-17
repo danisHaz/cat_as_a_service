@@ -8,7 +8,7 @@ part of 'api_service.dart';
 
 class _ApiService implements ApiService {
   _ApiService(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://cataas.com';
+    baseUrl ??= 'https://cataas-wbah.herokuapp.com';
   }
 
   final Dio _dio;
@@ -67,55 +67,6 @@ class _ApiService implements ApiService {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!.cast<String>();
-    return value;
-  }
-
-  @override
-  Future<Cat> getFilteredRandomCat(
-      {required filter,
-      required textColor,
-      required fontSize,
-      required type}) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'filter': filter,
-      r'color': textColor,
-      r'size': fontSize,
-      r'type': type
-    };
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<Cat>(
-        Options(method: 'GET', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/cat/says/{words}',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = Cat.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<Cat> getFilteredSpecifiedCat(
-      {required filter,
-      required textColor,
-      required fontSize,
-      required type,
-      required id}) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'filter': filter,
-      r'color': textColor,
-      r'size': fontSize,
-      r'type': type
-    };
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<Cat>(
-        Options(method: 'GET', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/cat/{url}',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = Cat.fromJson(_result.data!);
     return value;
   }
 
