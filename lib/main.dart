@@ -63,7 +63,7 @@ class MainApp extends StatelessWidget {
             supportedLocales: context.supportedLocales,
             theme: ThemeData.light().copyWith(
               pageTransitionsTheme: pageTransitionTheme,
-              colorScheme: ColorScheme.light(
+              colorScheme: const ColorScheme.light(
                   primary: Colors.lightBlue, primaryVariant: Colors.blue),
               scaffoldBackgroundColor: Colors.white,
             ),
