@@ -68,7 +68,7 @@ class CatSearchBloc extends Cubit<CatSearchState>{
     final oldState = state;
     try{
       final cats = await GetIt.I<CatRepository>().getAllCatsByTag(tags: state.searchTags, limitNumberOfCats: count, numberOfCatsToSkip: state.cats.length);
-      if(state == oldState) {
+      if(state.cats == oldState.cats) {
         emit(state.copyWith(cats: state.cats + cats, canLoadMore: cats.isNotEmpty));
       } else {
         Logger().i("load more cats finished after update");
