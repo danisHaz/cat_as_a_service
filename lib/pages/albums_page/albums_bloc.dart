@@ -31,7 +31,7 @@ class AlbumsCubit extends Cubit<AlbumsState> {
 
   AlbumsCubit([AlbumsState initialState = const AlbumsState()])
       : super(initialState) {
-    _albumsSubscription = CatRepository().albumsStream().listen((event) {
+    _albumsSubscription = CatRepository().albumsStream.listen((event) {
       if (event.isEmpty) {
         addAlbum("favourite_album".tr());
       }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppbar({
     Key? key,
-    required this.name,
+    this.name = '',
     this.noBackButton = false,
     this.actions,
     this.backgroundColor,
@@ -18,7 +18,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   final Color? textColor;
   final Color? backgroundColor;
   final Icon? mainNavButton;
-  final void Function()? onMainNavButtonPressed;
+  final VoidCallback? onMainNavButtonPressed;
 
   @override
   Widget build(BuildContext context) {

@@ -31,12 +31,13 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
         padding: const EdgeInsets.all(15),
         children: [
           Container(
-            margin: const EdgeInsets.symmetric(vertical: 0),
+            margin: EdgeInsets.zero,
             child: TextField(
               decoration: InputDecoration(
                 border: const OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
                 // fillColor: backgroundGrey,
                 helperText: ' ',
                 errorText: isError ? "add_album.must_not_be_empty".tr() : null,

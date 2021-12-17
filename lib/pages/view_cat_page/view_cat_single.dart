@@ -21,7 +21,6 @@ class SingleCatViewPageState extends State<SingleCatViewPage> {
   Widget build(BuildContext context) {
     return HidingAppBarPage(
       appBar: CustomAppbar(
-        name: '',
         actions: [
           EditCatButton(
             cat: widget.cat,
