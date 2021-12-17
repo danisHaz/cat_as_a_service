@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/add_cat/cat_editor.dart';
 import 'package:flutter_basics_2/pages/add_cat/cat_save_dialog.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
+import 'package:flutter_basics_2/shared/widgets/delete_dialog.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_item.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_popup.dart';
 import 'package:gallery_saver/gallery_saver.dart';
@@ -14,10 +16,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../album.dart';
 import '../cat.dart';
 
-
 class SaveCatButton extends StatelessWidget {
   final Cat cat;
-  const SaveCatButton({Key? key, required this.cat}): super(key: key);
+  const SaveCatButton({Key? key, required this.cat}) : super(key: key);
 
   Future<String> _getImagePath() async {
     final cache = DefaultCacheManager();
@@ -39,7 +40,7 @@ class SaveCatButton extends StatelessWidget {
               child: Container(
                 width: 250,
                 padding: const EdgeInsets.all(5),
-                child:Text(
+                child: Text(
                   'action_buttons.save_to_album'.tr(),
                   style: const TextStyle(
                     fontSize: 20,
@@ -102,7 +103,7 @@ class SaveCatButton extends StatelessWidget {
             ),
           ],
         );
-        if (func != null)func();
+        if (func != null) func();
       },
       icon: const Icon(
         Icons.arrow_downward,
@@ -156,7 +157,8 @@ class DeleteCatButton extends StatelessWidget {
   final int index;
   final Function? onDelete;
 
-  const DeleteCatButton({Key? key, required this.albumId, required this.index, this.onDelete})
+  const DeleteCatButton(
+      {Key? key, required this.albumId, required this.index, this.onDelete})
       : super(key: key);
 
   @override
@@ -166,9 +168,8 @@ class DeleteCatButton extends StatelessWidget {
         final result = await showDialog<bool>(
           context: context,
           builder: (context) {
-            return AlertDialog(
-              title: Text('action_buttons.remove_cat'.tr()),
-              content: Text("action_buttons.are_you_sure".tr()),
+            return DeleteDialog(
+              title: 'action_buttons.remove_cat'.tr()+"?",
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(false),
@@ -176,14 +177,34 @@ class DeleteCatButton extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(true),
-                  child: Text('action_buttons.delete'.tr()),
+                  child: Text('action_buttons.delete'.tr(),
+                      style: TextStyle(
+                        color: Theme.of(context).errorColor,
+                      )),
                 ),
               ],
             );
+            // return CupertinoAlertDialog(
+            //   title: Text('action_buttons.remove_cat'.tr()),
+            //   content: Text("action_buttons.are_you_sure".tr()),
+            //   actions: [
+            //     TextButton(
+            //       onPressed: () => Navigator.of(context).pop(false),
+            //       child: Text('action_buttons.cancel'.tr()),
+            //     ),
+            //     TextButton(
+            //       onPressed: () => Navigator.of(context).pop(true),
+            //       child: Text('action_buttons.delete'.tr(),
+            //           style: TextStyle(
+            //             color: Theme.of(context).errorColor,
+            //           )),
+            //     ),
+            //   ],
+            // );
           },
         );
         if (result == true) {
-          if(onDelete!= null)onDelete!();
+          if (onDelete != null) onDelete!();
           context.read<AlbumsCubit>().removeCatFromAlbum(albumId, index);
         }
       },

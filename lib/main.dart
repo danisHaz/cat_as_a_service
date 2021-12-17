@@ -83,13 +83,16 @@ class MainApp extends StatelessWidget {
                   primary: Colors.lightBlue, primaryVariant: Colors.blue),
               scaffoldBackgroundColor: Colors.white,
               backgroundColor: const Color.fromRGBO(230, 230, 230, 1),
+              dialogBackgroundColor: Colors.black,
             ),
             darkTheme: ThemeData.dark().copyWith(
+              primaryColor: Colors.lightBlue,
               pageTransitionsTheme: pageTransitionTheme,
               toggleableActiveColor: Colors.lightBlue,
               backgroundColor:
                   const Color(0x1AFFFFFF), // colorScheme: ColorScheme.dark(
-              //     primary: Colors.lightBlue, primaryVariant: Colors.blue),
+              //     primary: Colors.lightBlue, primaryVariant: Colors.blue),,
+              dialogBackgroundColor: Colors.white,
             ),
             themeMode: state.theme,
           );
