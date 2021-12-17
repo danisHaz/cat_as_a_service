@@ -65,5 +65,9 @@
         "complete_text": "Refreshed",
         "refreshing_text": "Refreshing...",
         "idle_text": "Pull down"
+    },
+    "settings" : {
+        "theme": "Theme",
+        "language": "Language"
     }
 }

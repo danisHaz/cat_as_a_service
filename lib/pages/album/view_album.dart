@@ -73,7 +73,7 @@ class ViewAlbumPageState extends State<ViewAlbumPage> {
   }
 
   void _onMultiplePicturesDelete() async {
-    if (_catsIndices.length == 0) {
+    if (_catsIndices.isEmpty) {
       final snackBar = SnackBar(
             content: Text(
               "view_album.nothing_to_delete".tr(),
@@ -116,6 +116,8 @@ class ViewAlbumPageState extends State<ViewAlbumPage> {
 
   @override
   void initState() {
+    super.initState();
+
     _buildActions = (state, info) {
       final kek = [
         [
@@ -134,8 +136,9 @@ class ViewAlbumPageState extends State<ViewAlbumPage> {
         ],
       ];
 
-      if (_info == ViewAlbumPageInfo.observing)
+      if (_info == ViewAlbumPageInfo.observing) {
         return kek[0];
+      }
       
       return kek[1];
     };

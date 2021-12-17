@@ -41,9 +41,7 @@ class CatPreview extends StatelessWidget {
             child: Material(
               type: MaterialType.transparency,
               child: InkWell(
-                onTap: () {
-                  if (onTap != null) onTap!();
-                },
+                onTap: onTap,
                 onLongPress:() {
                   if (onLongPressed != null) onLongPressed!();
                 },

@@ -9,6 +9,7 @@ class Album{
   final String id;
   final String name;
   final List<Cat> cats;
+
   Album(
     this.id,
     this.name,

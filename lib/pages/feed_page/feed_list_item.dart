@@ -32,7 +32,7 @@ class FeedListItemState extends State<FeedListItem> {
     if (id == null) {
       return;
     }
-    CatRepository().addCatToAlbum(id, widget.cat);
+    context.read<AlbumsCubit>().addCatToAlbum(id, widget.cat);
   }
 
 

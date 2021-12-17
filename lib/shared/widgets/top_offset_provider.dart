@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 
 class TopOffsetProvider extends InheritedWidget {
-  TopOffsetProvider(
-      {Key? key, required Widget child, required BuildContext context})
-      : super(key: key, child: child) {
+  TopOffsetProvider({
+    Key? key,
+    required Widget child,
+    required BuildContext context,
+  }) : super(key: key, child: child) {
     offset = PageOffset(top: MediaQuery.of(context).viewPadding.top);
   }
 
@@ -24,6 +26,7 @@ class TopOffsetProvider extends InheritedWidget {
 
 class PageOffset {
   double top;
+
   PageOffset({
     required this.top,
   });
