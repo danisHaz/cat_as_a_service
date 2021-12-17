@@ -1,4 +1,4 @@
-import 'package:easy_localization/src/public_ext.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/add_cat/cat_editor.dart';
 import 'package:flutter_basics_2/pages/search_cat/cat_search_bloc.dart';
@@ -61,15 +61,15 @@ class CatSearchPageState extends State<CatSearchPage> {
                       alignment: WrapAlignment.start,
                       children: tags
                           .map((e) => Chip(
-                                deleteIcon: Icon(Icons.close),
+                                deleteIcon: const Icon(Icons.close),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)),
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 backgroundColor:
                                     Theme.of(context).backgroundColor,
                                 label: Text(
                                   e,
-                                  style: TextStyle(fontSize: 18),
+                                  style: const TextStyle(fontSize: 18),
                                 ),
                                 onDeleted: () => setState(() {
                                   tags.removeWhere((element) => element == e);
@@ -156,7 +156,7 @@ class CatSearchPageState extends State<CatSearchPage> {
                     _textController.clear();
                   },
                   parentKey: searchbarKey,
-                  options: state.available_tags
+                  options: state.availableTags
                       .where((element) => !tags.contains(element))
                       .toList(),
                 ),
@@ -175,7 +175,7 @@ class CatSearchPageState extends State<CatSearchPage> {
         key: searchbarKey,
         enabled: true,
         decoration: InputDecoration(
-          border: OutlineInputBorder(
+          border: const OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.all(Radius.circular(10))),
           // fillColor: Theme.of(context).inputDecorationTheme.fillColor,

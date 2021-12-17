@@ -50,11 +50,9 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
               child: Row(
                 children: [
                   IconButton(
-                    onPressed: onMainNavButtonPressed == null
-                        ? () {
+                    onPressed: onMainNavButtonPressed ?? () {
                             Navigator.of(context).pop();
-                          }
-                        : onMainNavButtonPressed,
+                          },
                     icon: mainNavButton ??
                         const Icon(
                           Icons.arrow_back_ios,

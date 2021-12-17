@@ -7,10 +7,10 @@ import 'package:flutter_basics_2/widgets/sliding_appbar.dart';
 class HidingAppBarPage extends StatefulWidget {
   final PreferredSizeWidget appBar;
   final Widget body;
-  bool isVisible = true;
+  final bool isVisible = true;
   final ValueChanged<bool>? onChangeVisibility;
 
-  HidingAppBarPage({
+  const HidingAppBarPage({
     Key? key,
     required this.appBar,
     required this.body,

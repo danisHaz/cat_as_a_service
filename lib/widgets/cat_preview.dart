@@ -5,11 +5,11 @@ import 'package:logger/logger.dart';
 
 class CatPreview extends StatelessWidget {
   final Cat cat;
-  void Function()? onTap;
+  final void Function()? onTap;
   final String heroTag;
-  void Function()? onLongPressed;
+  final void Function()? onLongPressed;
 
-  CatPreview({
+  const CatPreview({
     Key? key,
     required this.cat,
     this.onTap,
