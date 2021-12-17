@@ -9,8 +9,12 @@ import 'package:photo_view/photo_view.dart';
 
 class SingleCatViewPage extends StatefulWidget {
   final Cat cat;
+  final bool showActions;
+  final String? heroTag;
 
-  const SingleCatViewPage({Key? key, required this.cat}) : super(key: key);
+  const SingleCatViewPage(
+      {Key? key, required this.cat, this.showActions = true, this.heroTag})
+      : super(key: key);
 
   @override
   SingleCatViewPageState createState() => SingleCatViewPageState();
@@ -22,18 +26,22 @@ class SingleCatViewPageState extends State<SingleCatViewPage> {
     return HidingAppBarPage(
       appBar: CustomAppbar(
         name: '',
-        actions: [
-          EditCatButton(
-            cat: widget.cat,
-            editorHeroTag: catHeroTag(cat: widget.cat),
-          ),
-          SaveCatButton(cat: widget.cat),
-          ShareCatButton(cat: widget.cat),
-        ],
+        actions: showActions
+            ? [
+                EditCatButton(
+                  cat: cat,
+                  editorHeroTag: catHeroTag(cat: cat),
+                ),
+                SaveCatButton(cat: cat),
+                ShareCatButton(cat: cat),
+              ]
+            : [],
       ),
       body: PhotoView(
-        heroAttributes: PhotoViewHeroAttributes(tag: catHeroTag(cat: widget.cat)),
-        imageProvider: CachedNetworkImageProvider(widget.cat.url),
+        heroAttributes:
+            PhotoViewHeroAttributes(tag: heroTag ?? catHeroTag(cat: cat)),
+        imageProvider: CachedNetworkImageProvider(cat.url),
+
         minScale: PhotoViewComputedScale.contained,
         maxScale: 10.0,
       ),
