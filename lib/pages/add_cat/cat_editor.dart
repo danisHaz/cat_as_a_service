@@ -162,35 +162,35 @@ class _CatEditorPageState extends State<CatEditorPage> {
               Container(height: 22),
               Text(
                 'cat_editor.text'.tr(),
-                style: TextStyle(fontSize: 24),
+                style: const TextStyle(fontSize: 24),
               ),
-              const SizedBox(height: 2),
+              Container(height: 2),
+              TextField(
+                minLines: 1,
+                maxLines: 3,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  filled: true,
+                  hintText: 'cat_editor.enter_text'.tr(),
+                  contentPadding: const EdgeInsets.all(15),
+                  isCollapsed: true,
+                ),
+                controller: _textController,
+                style: const TextStyle(fontSize: 18),
+                onChanged: (value) {
+                  _updateDecoration();
+                },
+              ),
+              const SizedBox(height: 5),
+
               Row(
                 children: [
                   Expanded(
                     child: TextField(
                       decoration: InputDecoration(
-                        border: const OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10)),),
-                        filled: true,
-                        hintText: 'cat_editor.enter_text'.tr(),
-                        contentPadding: EdgeInsets.all(15),
-                        isCollapsed: true,
-                      ),
-                      controller: _textController,
-                      style: const TextStyle(fontSize: 18),
-                      onChanged: (value) {
-                        _updateDecoration();
-                      },
-                    ),
-                  ),
-                  Container(width: 5),
-                  SizedBox(
-                    width: 65,
-                    child: TextField(
-                      decoration: InputDecoration(
+
                         border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius:
@@ -209,17 +209,16 @@ class _CatEditorPageState extends State<CatEditorPage> {
                     ),
                   ),
                   const SizedBox(width: 5),
-                  SizedBox(
-                    width: 110,
+                  Expanded(
                     child: TextField(
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         filled: true,
                         hintText: 'cat_editor.css_colour'.tr(),
-                        contentPadding: EdgeInsets.all(16),
+                        contentPadding: const EdgeInsets.all(16),
                         isCollapsed: true,
                       ),
                       keyboardType: TextInputType.text,
@@ -235,7 +234,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
               const SizedBox(height: 14),
               Text(
                 'cat_editor.filters'.tr(),
-                style: TextStyle(fontSize: 24),
+                style: const TextStyle(fontSize: 24),
               ),
               const SizedBox(height: 2),
               Row(
@@ -275,7 +274,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
               Container(height: 14),
               Text(
                 "cat_editor.sizes".tr(),
-                style: TextStyle(fontSize: 24),
+                style: const TextStyle(fontSize: 24),
               ),
               Container(height: 2),
               Row(
