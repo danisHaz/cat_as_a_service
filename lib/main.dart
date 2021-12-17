@@ -9,6 +9,7 @@ import 'package:flutter_basics_2/pages/search_cat/cat_search_bloc.dart';
 import 'package:flutter_basics_2/pages/settings/settings_bloc.dart';
 import 'package:flutter_basics_2/repositories/cat_repository.dart';
 import 'package:flutter_basics_2/shared/transitions_builder.dart';
+import 'package:flutter_basics_2/utils/system_chrome.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'firebase_options.dart';
@@ -59,6 +60,14 @@ class MainApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             home: const MainPage(),
+            builder: (context, child) {
+              return AnnotatedRegion<SystemUiOverlayStyle>(
+                child: child ?? Text('Something went wrong'),
+                value: getUiStyle(
+                  Theme.of(context),
+                ),
+              );
+            },
             localizationsDelegates: context.localizationDelegates,
             locale: context.locale,
             supportedLocales: context.supportedLocales,

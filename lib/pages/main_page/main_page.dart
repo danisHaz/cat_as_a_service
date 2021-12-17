@@ -24,17 +24,14 @@ class MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: getUiStyle(Theme.of(context)),
-      child: Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.background,
-          body: TopOffsetProvider(
-            child: SafeArea(child: _buildCurrentScreen()),
-            context: context,
-          ),
-          bottomNavigationBar: _buildNavbar(context),
-        extendBody: false,
-      ),
+    return Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: TopOffsetProvider(
+          child: SafeArea(child: _buildCurrentScreen()),
+          context: context,
+        ),
+        bottomNavigationBar: _buildNavbar(context),
+      extendBody: false,
     );
   }
 
