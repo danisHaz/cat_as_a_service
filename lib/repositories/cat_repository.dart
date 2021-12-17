@@ -12,18 +12,12 @@ import 'package:logger/logger.dart';
 // TODO: !IMPORTANT! rewrite albums as subcollections
 
 class CatRepository {
-  static final CatRepository _instance = CatRepository._create();
   late final Dio _dio;
   late final ApiService _apiService;
 
-
-  CatRepository._create() {
+  CatRepository() {
     _dio = Dio();
     _apiService = ApiService(_dio);
-  }
-
-  factory CatRepository() {
-    return _instance;
   }
 
   Future<Cat> getFilteredCat(Cat oldCat) =>

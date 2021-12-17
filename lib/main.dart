@@ -11,6 +11,7 @@ import 'package:flutter_basics_2/repositories/cat_repository.dart';
 import 'package:flutter_basics_2/shared/transitions_builder.dart';
 import 'package:flutter_basics_2/utils/system_chrome.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 import 'firebase_options.dart';
 
@@ -22,7 +23,9 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  await CatRepository().initialize();
+
+  GetIt.I.registerSingleton<CatRepository>(await CatRepository()..initialize());
+
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
