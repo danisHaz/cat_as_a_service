@@ -31,14 +31,14 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
         Container(
           decoration: BoxDecoration(
             color: backgroundColor ?? Theme.of(context).colorScheme.background,
-            boxShadow: [
-              BoxShadow(
-                color: Theme.of(context).shadowColor.withOpacity(0.4),
-                offset: Offset(0, 2),
-                spreadRadius: 0,
-                blurRadius: 1,
-              ),
-            ],
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: Theme.of(context).shadowColor.withOpacity(0.4),
+            //     offset: Offset(0, 2),
+            //     spreadRadius: 0,
+            //     blurRadius: 1,
+            //   ),
+            // ],
           ),
           height: 50,
           child: Material(

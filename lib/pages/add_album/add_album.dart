@@ -60,6 +60,10 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
             ),
           ),
           ElevatedButton(
+            style: ButtonStyle(
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10))),
+                padding: MaterialStateProperty.all(const EdgeInsets.all(15))),
             onPressed: () {
               if (_textController.value.text.isEmpty) {
                 setState(() {
@@ -72,7 +76,7 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
             },
             child: Text(
               "add_album.add".tr(),
-              style: const TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
             ),
           ),
         ],
