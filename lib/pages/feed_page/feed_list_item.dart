@@ -78,7 +78,7 @@ class FeedListItemState extends State<FeedListItem> {
               Positioned.fill(
                 child: Material(
                   type: MaterialType.transparency,
-                  child: InkWell(
+                  child: GestureDetector(
                     onTap: _onTapOnCat,
                     onDoubleTap: _onDoubleTapOnCat,
                   ),
