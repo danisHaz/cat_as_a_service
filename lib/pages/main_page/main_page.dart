@@ -98,14 +98,12 @@ class MainPageState extends State<MainPage> {
 
   void _onSomethingPressed() async {
     showModalBottomSheet(
-
       shape: const RoundedRectangleBorder(
-          borderRadius:
-          BorderRadius.vertical(top: Radius.circular(10))),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
       // expand: false,
       context: context,
       builder: (context) {
-        return const SettingsPage();
+        return SettingsPage();
       },
     );
   }

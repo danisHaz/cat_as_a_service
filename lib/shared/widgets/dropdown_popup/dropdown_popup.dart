@@ -2,48 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_item.dart';
 import 'package:flutter_basics_2/shared/widgets/offset_provider.dart';
 
-class DropdownPopup<T> extends StatefulWidget {
+class DropdownPopup<T> extends StatelessWidget {
   const DropdownPopup({
-    Key? key,
+    required this.toBottom,
+    required this.toRight,
+    required this.rightOffset,
+    required this.bottomOffset,
+    required this.items,
+    required this.offset,
     required this.parentOffset,
     required this.parentSize,
-    required this.items,
-    required this.screenHeight,
-    required this.offset,
+    Key? key,
   }) : super(key: key);
+
+  final List<DropdownItem<T>> items;
+
+  final bool toBottom;
+  final bool toRight;
+  final double rightOffset;
+  final double bottomOffset;
+
   final Offset parentOffset;
   final Size parentSize;
   final int offset;
-  final List<DropdownItem<T>> items;
-  final double screenHeight;
-
-  @override
-  _DropdownPopupState createState() => _DropdownPopupState();
-}
-
-class _DropdownPopupState extends State<DropdownPopup> {
-  bool visible = false;
-  late bool toBottom;
-  late bool toRight;
-  late double rightOffset;
-  late double bottomOffset;
-
-  late bool contrastColors;
-  final listKey = GlobalKey();
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    bottomOffset =
-        widget.screenHeight - widget.parentOffset.dy - widget.parentSize.height;
-    rightOffset = MediaQuery.of(context).size.width -
-        widget.parentOffset.dx -
-        widget.parentSize.width;
-
-    toBottom = widget.parentOffset.dy <= bottomOffset;
-    toRight = rightOffset >= widget.parentOffset.dx;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,18 +45,13 @@ class _DropdownPopupState extends State<DropdownPopup> {
               ),
             ),
             Positioned(
-              top: toBottom
-                  ? widget.parentOffset.dy +
-                      widget.parentSize.height +
-                      widget.offset
-                  : 0,
-              left: toRight ? widget.parentOffset.dx : 0,
-              height: toBottom
-                  ? bottomOffset - widget.offset
-                  : widget.parentOffset.dy - widget.offset,
+              top: toBottom ? parentOffset.dy + parentSize.height + offset : 0,
+              left: toRight ? parentOffset.dx : 0,
+              height:
+                  toBottom ? bottomOffset - offset : parentOffset.dy - offset,
               width: toRight
-                  ? rightOffset + widget.parentSize.width
-                  : widget.parentOffset.dx + widget.parentSize.width,
+                  ? rightOffset + parentSize.width
+                  : parentOffset.dx + parentSize.width,
               child: Container(
                 alignment: (() {
                   if (toBottom) {
@@ -94,10 +70,10 @@ class _DropdownPopupState extends State<DropdownPopup> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
-                        key: listKey,
+                        // key: listKey,
                         children: [
-                          if (widget.items.isNotEmpty)
-                            ...widget.items.map((e) => GestureDetector(
+                          if (items.isNotEmpty)
+                            ...items.map((e) => GestureDetector(
                                   child: Container(
                                       padding: const EdgeInsets.all(5),
                                       child: e.child),
@@ -122,19 +98,33 @@ Future<T?> openDropdown<T>(
     [int? offset]) {
   final renderBox = parentKey.currentContext!.findRenderObject()! as RenderBox;
 
+  double screenHeight = MediaQuery.of(context).size.height -
+      OffsetProvider.of(context).offset.top -
+      OffsetProvider.of(context).offset.bottom;
+  Offset parentOffset = renderBox.localToGlobal(Offset.zero) -
+      Offset(0, OffsetProvider.of(context).offset.top);
+  Size parentSize = renderBox.size;
+
+  double bottomOffset = screenHeight - parentOffset.dy - parentSize.height;
+  double rightOffset =
+      MediaQuery.of(context).size.width - parentOffset.dx - parentSize.width;
+
+  bool toBottom = parentOffset.dy <= bottomOffset;
+  bool toRight = rightOffset >= parentOffset.dx;
+
   return showDialog(
     barrierColor: Colors.transparent,
     context: context,
     builder: (context) {
       return DropdownPopup<T>(
+          toBottom: toBottom,
+          toRight: toRight,
+          rightOffset: rightOffset,
+          bottomOffset: bottomOffset,
+          items: items,
           offset: offset ?? 0,
-          screenHeight: MediaQuery.of(context).size.height -
-              OffsetProvider.of(context).offset.top -
-              OffsetProvider.of(context).offset.bottom,
-          parentOffset: renderBox.localToGlobal(Offset.zero) -
-              Offset(0, OffsetProvider.of(context).offset.top),
-          parentSize: renderBox.size,
-          items: items);
+          parentOffset: parentOffset,
+          parentSize: parentSize);
     },
   );
 }

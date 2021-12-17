@@ -24,23 +24,23 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-
   final catRepo = CatRepository();
   await catRepo.initialize();
   GetIt.I.registerSingleton<CatRepository>(catRepo);
-
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
 
   runApp(
-    EasyLocalization(
-      supportedLocales: const [Locale('en'), Locale('ru')],
-      path: 'assets/locales',
-      fallbackLocale: const Locale('en'),
-      useOnlyLangCode: true,
-      child: const MainApp(),
+    OffsetProvider(
+      child: EasyLocalization(
+        supportedLocales: const [Locale('en'), Locale('ru')],
+        path: 'assets/locales',
+        fallbackLocale: const Locale('en'),
+        useOnlyLangCode: true,
+        child: const MainApp(),
+      ),
     ),
   );
 }
@@ -63,38 +63,35 @@ class MainApp extends StatelessWidget {
       ],
       child: BlocBuilder<SettingsCubit, SettingsState>(
         builder: (context, state) {
-          return OffsetProvider(
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              home: const MainPage(),
-              builder: (context, child) {
-                return AnnotatedRegion<SystemUiOverlayStyle>(
-                  child: child ?? Text('Something went wrong'),
-                  value: getUiStyle(
-                    Theme.of(context),
-                  ),
-                );
-              },
-              localizationsDelegates: context.localizationDelegates,
-              locale: context.locale,
-              supportedLocales: context.supportedLocales,
-              theme: ThemeData.light().copyWith(
-                pageTransitionsTheme: pageTransitionTheme,
-                colorScheme: const ColorScheme.light(
-                    primary: Colors.lightBlue, primaryVariant: Colors.blue),
-                scaffoldBackgroundColor: Colors.white,
-                backgroundColor: const Color.fromRGBO(230, 230, 230, 1),
-              ),
-              darkTheme: ThemeData.dark().copyWith(
-                pageTransitionsTheme: pageTransitionTheme,
-                toggleableActiveColor: Colors.lightBlue,
-                backgroundColor:
-                    const Color(0x1AFFFFFF), // colorScheme: ColorScheme.dark(
-                //     primary: Colors.lightBlue, primaryVariant: Colors.blue),
-              ),
-              themeMode: state.theme,
-
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: const MainPage(),
+            builder: (context, child) {
+              return AnnotatedRegion<SystemUiOverlayStyle>(
+                child: child ?? Text('Something went wrong'),
+                value: getUiStyle(
+                  Theme.of(context),
+                ),
+              );
+            },
+            localizationsDelegates: context.localizationDelegates,
+            locale: context.locale,
+            supportedLocales: context.supportedLocales,
+            theme: ThemeData.light().copyWith(
+              pageTransitionsTheme: pageTransitionTheme,
+              colorScheme: const ColorScheme.light(
+                  primary: Colors.lightBlue, primaryVariant: Colors.blue),
+              scaffoldBackgroundColor: Colors.white,
+              backgroundColor: const Color.fromRGBO(230, 230, 230, 1),
             ),
+            darkTheme: ThemeData.dark().copyWith(
+              pageTransitionsTheme: pageTransitionTheme,
+              toggleableActiveColor: Colors.lightBlue,
+              backgroundColor:
+                  const Color(0x1AFFFFFF), // colorScheme: ColorScheme.dark(
+              //     primary: Colors.lightBlue, primaryVariant: Colors.blue),
+            ),
+            themeMode: state.theme,
           );
         },
       ),
