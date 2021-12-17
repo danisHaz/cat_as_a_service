@@ -19,6 +19,7 @@ class SettingsPage extends StatelessWidget {
                 children: [
                   Icon(Icons.wb_sunny_outlined),
                   Switch(
+                    inactiveTrackColor: Theme.of(context).backgroundColor,
                     value: state.theme == ThemeMode.dark,
                     // activeColor: Theme.of(context).colorScheme.primary,
                     onChanged: (value) {

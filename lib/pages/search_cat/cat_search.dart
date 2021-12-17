@@ -65,6 +65,8 @@ class CatSearchPageState extends State<CatSearchPage> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)),
                                 padding: EdgeInsets.all(10),
+                                backgroundColor:
+                                    Theme.of(context).backgroundColor,
                                 label: Text(
                                   e,
                                   style: TextStyle(fontSize: 18),
@@ -176,7 +178,7 @@ class CatSearchPageState extends State<CatSearchPage> {
           border: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.all(Radius.circular(10))),
-          fillColor: Theme.of(context).inputDecorationTheme.fillColor,
+          // fillColor: Theme.of(context).inputDecorationTheme.fillColor,
           filled: true,
           hintText: 'cat_search.enter_tag'.tr(),
           contentPadding: const EdgeInsets.all(15),
