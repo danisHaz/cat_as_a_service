@@ -24,14 +24,14 @@ class CatRepository {
     _wasCreated = true;
   }
 
-  Future<Cat> getFilteredCat(Cat oldCat) =>
-    _apiService.getFilteredSpecifiedCat(
-      filter: oldCat.filter.emptyIfNull(),
-      fontSize: oldCat.fontSize?.toString() ?? "",
-      textColor: oldCat.textColor?.toString() ?? "",
-      type: oldCat.type ?? "",
-      id: oldCat.id,
-    );
+  // Future<Cat> getFilteredCat(Cat oldCat) =>
+  //   _apiService.getFilteredSpecifiedCat(
+  //     filter: oldCat.filter.emptyIfNull(),
+  //     fontSize: oldCat.fontSize?.toString() ?? "",
+  //     textColor: oldCat.textColor?.toString() ?? "",
+  //     type: oldCat.type ?? "",
+  //     id: oldCat.id,
+  //   );
 
   Future<Cat> getRandomCat() => _apiService.getCatJsonData(getJson: true);
 

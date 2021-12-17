@@ -24,20 +24,20 @@ abstract class ApiService {
   @GET("/api/tags")
   Future<List<String>> getAllTags();
 
-  @GET("/cat/says/{words}")
-  Future<Cat> getFilteredRandomCat({
-    @Query("filter") required String filter,
-    @Query("color") required String textColor,
-    @Query("size") required String fontSize,
-    @Query("type") required String type,
-  });
-
-  @GET("/cat/{url}")
-  Future<Cat> getFilteredSpecifiedCat({
-    @Query("filter") required String filter,
-    @Query("color") required String textColor,
-    @Query("size") required String fontSize,
-    @Query("type") required String type,
-    @Path("id") required String id,
-  });
+  // @GET("/cat/says/{words}")
+  // Future<Cat> getFilteredRandomCat({
+  //   @Query("filter") required String filter,
+  //   @Query("color") required String textColor,
+  //   @Query("size") required String fontSize,
+  //   @Query("type") required String type,
+  // });
+  //
+  // @GET("/cat/{url}")
+  // Future<Cat> getFilteredSpecifiedCat({
+  //   @Query("filter") required String filter,
+  //   @Query("color") required String textColor,
+  //   @Query("size") required String fontSize,
+  //   @Query("type") required String type,
+  //   @Path("id") required String id,
+  // });
 }
