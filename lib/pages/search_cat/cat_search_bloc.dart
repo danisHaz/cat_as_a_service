@@ -9,12 +9,14 @@ class CatSearchState {
   final List<Cat> cats;
   final List<String> searchTags;
   final bool canLoadMore;
+  final bool isError;
 
   const CatSearchState({
     this.availableTags = const [],
     this.cats = const [],
     this.searchTags = const [],
     this.canLoadMore = true,
+    this.isError = false,
   });
 
   CatSearchState copyWith({
@@ -22,40 +24,59 @@ class CatSearchState {
     List<Cat>? cats,
     List<String>? searchTags,
     bool? canLoadMore,
+    bool? isError,
   }) {
     return CatSearchState(
       availableTags: availableTags ?? this.availableTags,
       cats: cats ?? this.cats,
       searchTags: searchTags ?? this.searchTags,
       canLoadMore: canLoadMore ?? this.canLoadMore,
+      isError: isError ?? this.isError,
     );
   }
 }
 
 class CatSearchBloc extends Cubit<CatSearchState>{
   CatSearchBloc([CatSearchState initialState = const CatSearchState()]) : super(initialState){
-    GetIt.I<CatRepository>().getAllTags().then((tags) {
-      emit(state.copyWith(availableTags: tags));
-      loadMoreCats(10);
-    });
+    updateAvailableTags();
+    loadMoreCats(10);
   }
 
-  
+  Future<void> updateAvailableTags() async {
+    try{
+      final tags = await GetIt.I<CatRepository>().getAllTags();
+      emit(state.copyWith(availableTags: tags));
+    }catch(_){
+      emit(state.copyWith(isError: true));
+    }
+
+  }
+
+  void refresh(){
+    emit(state.copyWith(isError: false));
+    updateAvailableTags();
+    setSearchTags(state.searchTags);
+  }
 
   void setSearchTags(List<String> tags){
-    emit(state.copyWith(searchTags: tags, cats: [], canLoadMore: true));
+    emit(state.copyWith(searchTags: tags, cats: [], canLoadMore: true, isError: false));
     loadMoreCats(10);
   }
 
   void loadMoreCats(int count) async{
     if(!state.canLoadMore) return;
     final oldState = state;
-    final cats = await GetIt.I<CatRepository>().getAllCatsByTag(tags: state.searchTags, limitNumberOfCats: count, numberOfCatsToSkip: state.cats.length);
-    if(state == oldState) {
-      emit(state.copyWith(cats: state.cats + cats, canLoadMore: cats.isNotEmpty));
-    } else {
-      Logger().i("load more cats finished after update");
+    try{
+      final cats = await GetIt.I<CatRepository>().getAllCatsByTag(tags: state.searchTags, limitNumberOfCats: count, numberOfCatsToSkip: state.cats.length);
+      if(state == oldState) {
+        emit(state.copyWith(cats: state.cats + cats, canLoadMore: cats.isNotEmpty));
+      } else {
+        Logger().i("load more cats finished after update");
+      }
+    }catch(_){
+      emit(state.copyWith(isError: true));
     }
+
   }
 
 }
