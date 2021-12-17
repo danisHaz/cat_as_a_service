@@ -64,5 +64,9 @@
         "complete_text": "Обновлено",
         "refreshing_text": "Обновление...",
         "idle_text": "Потяните вниз"
+    },
+    "settings" : {
+        "theme": "Тема",
+        "language": "Язык"
     }
 }

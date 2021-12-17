@@ -45,8 +45,10 @@ class SelectIndicatorState extends State<SelectIndicator> {
   late SelectIndicatorInfo _info;
 
   void onTap() {
-    if (widget.onPressed != null)
+    if (widget.onPressed != null) {
       widget.onPressed!();
+    }
+
     setState(() {
       _info = (_info == SelectIndicatorInfo.enabled) ? SelectIndicatorInfo.disabled : SelectIndicatorInfo.enabled;
     });

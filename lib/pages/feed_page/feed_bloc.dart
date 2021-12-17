@@ -4,6 +4,7 @@ import 'package:flutter_basics_2/pages/feed_page/feed_data_state.dart';
 import 'package:flutter_basics_2/repositories/cat_repository.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
 class FeedCubit extends Cubit<FeedDataState<dynamic>> {
@@ -46,7 +47,7 @@ class FeedCubit extends Cubit<FeedDataState<dynamic>> {
     try {
       for (int i = 0; i < numberOfCatsInPage; i++) {
         _data.cats.add(
-          await CatRepository().getRandomCat()
+          await GetIt.I<CatRepository>().getRandomCat()
         );
       }
       emit(FeedDataState<List<Cat>>(isLoading: false, data: _data.cats));

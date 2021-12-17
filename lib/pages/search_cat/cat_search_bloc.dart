@@ -1,6 +1,7 @@
 import 'package:flutter_basics_2/repositories/cat_repository.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
 class CatSearchState {
@@ -33,7 +34,7 @@ class CatSearchState {
 
 class CatSearchBloc extends Cubit<CatSearchState>{
   CatSearchBloc([CatSearchState initialState = const CatSearchState()]) : super(initialState){
-    CatRepository().getAllTags().then((tags) {
+    GetIt.I<CatRepository>().getAllTags().then((tags) {
       emit(state.copyWith(available_tags: tags));
       loadMoreCats(10);
     });
@@ -49,7 +50,7 @@ class CatSearchBloc extends Cubit<CatSearchState>{
   void loadMoreCats(int count) async{
     if(!state.canLoadMore) return;
     final oldState = state;
-    final cats = await CatRepository().getAllCatsByTag(tags: state.search_tags, limitNumberOfCats: count, numberOfCatsToSkip: state.cats.length);
+    final cats = await GetIt.I<CatRepository>().getAllCatsByTag(tags: state.search_tags, limitNumberOfCats: count, numberOfCatsToSkip: state.cats.length);
     if(state == oldState) {
       emit(state.copyWith(cats: state.cats + cats, canLoadMore: cats.isNotEmpty));
     } else {

@@ -24,17 +24,14 @@ class MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: getUiStyle(Theme.of(context)),
-      child: Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.background,
-          body: TopOffsetProvider(
-            child: SafeArea(child: _buildCurrentScreen()),
-            context: context,
-          ),
-          bottomNavigationBar: _buildNavbar(context),
-        extendBody: false,
-      ),
+    return Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: TopOffsetProvider(
+          child: SafeArea(child: _buildCurrentScreen()),
+          context: context,
+        ),
+        bottomNavigationBar: _buildNavbar(context),
+      extendBody: false,
     );
   }
 
@@ -94,21 +91,23 @@ class MainPageState extends State<MainPage> {
               Icons.settings,
               color: null,
             ),
-            onPressed: () async {
-              showModalBottomSheet(
-                shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(10))),
-                // expand: false,
-                context: context,
-                builder: (context) {
-                  return SettingsPage();
-                },
-              );
-            },
+            onPressed: _onSomethingPressed,
           )
         ],
       ),
+    );
+  }
+
+  void _onSomethingPressed () async {
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+          borderRadius:
+          BorderRadius.vertical(top: Radius.circular(10))),
+      // expand: false,
+      context: context,
+      builder: (context) {
+        return SettingsPage();
+      },
     );
   }
 

@@ -8,7 +8,7 @@ class HidingAppBarPage extends StatefulWidget {
   final PreferredSizeWidget appBar;
   final Widget body;
   bool isVisible = true;
-  final void Function(bool isVisible)? onChangeVisibility;
+  final ValueChanged<bool>? onChangeVisibility;
 
   HidingAppBarPage({
     Key? key,
@@ -50,6 +50,13 @@ class _HidingAppBarPageState extends State<HidingAppBarPage>
     // _updateSystemUI();
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    theme = Theme.of(context);
+  }
+
   // void _updateSystemUI() {
   //   if (_showAppBar) {
   //     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
@@ -66,7 +73,6 @@ class _HidingAppBarPageState extends State<HidingAppBarPage>
 
   @override
   Widget build(BuildContext context) {
-    theme = Theme.of(context);
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: _showAppBar ? getUiStyle(theme) : SystemUiOverlayStyle.light.copyWith(
         statusBarColor: Colors.transparent,
@@ -82,9 +88,7 @@ class _HidingAppBarPageState extends State<HidingAppBarPage>
         ),
         body: GestureDetector(
           child: widget.body,
-          onTap: () {
-            _flipAppbar();
-          },
+          onTap: _flipAppbar,
         ),
       ),
     );

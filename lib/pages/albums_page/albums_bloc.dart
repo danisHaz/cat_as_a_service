@@ -7,6 +7,7 @@ import 'package:flutter_basics_2/shared/album.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
 class AlbumsState {
@@ -28,10 +29,11 @@ class AlbumsState {
 
 class AlbumsCubit extends Cubit<AlbumsState> {
   late final StreamSubscription<dynamic> _albumsSubscription;
+  final catRepo = GetIt.I<CatRepository>();
 
   AlbumsCubit([AlbumsState initialState = const AlbumsState()])
       : super(initialState) {
-    _albumsSubscription = CatRepository().albumsStream().listen((event) {
+    _albumsSubscription = catRepo.albumsStream.listen((event) {
       if (event.isEmpty) {
         addAlbum("favourite_album".tr());
       }
@@ -45,7 +47,7 @@ class AlbumsCubit extends Cubit<AlbumsState> {
     return super.close();
   }
 
-  Future<String> addAlbum(String name) => CatRepository().addAlbum(name);
+  Future<String> addAlbum(String name) => catRepo.addAlbum(name);
 
   String? getAlbumIdByName(String albumName) {
     for (var albumEntry in state.albums.entries) {
@@ -58,18 +60,18 @@ class AlbumsCubit extends Cubit<AlbumsState> {
   }
 
   Future<void> addCatToAlbum(String albumId, Cat cat) async {
-    await CatRepository().addCatToAlbum(albumId, cat);
+    await catRepo.addCatToAlbum(albumId, cat);
   }
 
   Future<void> removeCatFromAlbum(String albumId, int index) async {
-    await CatRepository().removeCatFromAlbum(albumId, index);
+    await catRepo.removeCatFromAlbum(albumId, index);
   }
 
   Future<void> removeAlbum(String albumId) async{
-    await CatRepository().removeAlbum(albumId);
+    await catRepo.removeAlbum(albumId);
   }
 
   Future<void> removeMultipleCatsFromAlbum(String albumId, List<int> catsIndices) async {
-    await CatRepository().removeMultipleCatsFromAlbum(albumId, catsIndices);
+    await catRepo.removeMultipleCatsFromAlbum(albumId, catsIndices);
   }
 }

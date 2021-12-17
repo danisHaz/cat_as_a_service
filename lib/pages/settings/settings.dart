@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/settings/settings_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +15,7 @@ class SettingsPage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             SettingsRow(
-              title: Text('Theme'),
+              title: Text('settings.theme'.tr()),
               control: Row(
                 children: [
                   Icon(Icons.wb_sunny_outlined),
@@ -30,6 +31,23 @@ class SettingsPage extends StatelessWidget {
                   ),
                   Icon(Icons.nightlight_round),
                 ],
+              ),
+            ),
+            SettingsRow(
+              title: Text('settings.language'.tr()),
+              control: DropdownButton<Locale>(
+                value: EasyLocalization.of(context)!.currentLocale,
+                onChanged: (value){
+                  if(value != null){
+                    EasyLocalization.of(context)?.setLocale(Locale(value.languageCode));
+                  }
+                },
+                items: EasyLocalization.of(context)!.supportedLocales.map((e){
+                  return DropdownMenuItem(
+                    child: Text(e.languageCode),
+                    value: e,
+                  );
+                }).toList(),
               ),
             ),
           ],

@@ -79,19 +79,20 @@ class _CatEditorPageState extends State<CatEditorPage> {
   _showFilters() async {
     final filters = _selectedFilter.customMap((e) {
       return DropdownItem(
-          child: Container(
-            width: 250,
-            padding: const EdgeInsets.all(5),
-            child: Text(
-              e.emptyIfNull(),
-              style: const TextStyle(
-                // color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.w300,
-              ),
+        child: Container(
+          width: 250,
+          padding: const EdgeInsets.all(5),
+          child: Text(
+            e.emptyIfNull(),
+            style: const TextStyle(
+              // color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.w300,
             ),
           ),
-          value: e);
+        ),
+        value: e,
+      );
     }).toList();
 
     final rez = await openDropdown(context, filterKey, filters);
@@ -183,11 +184,13 @@ class _CatEditorPageState extends State<CatEditorPage> {
                 },
               ),
               const SizedBox(height: 5),
+
               Row(
                 children: [
                   Expanded(
                     child: TextField(
                       decoration: InputDecoration(
+
                         border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius:
@@ -200,7 +203,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
                       keyboardType: TextInputType.number,
                       controller: _fontSizeController,
                       style: const TextStyle(fontSize: 18),
-                      onChanged: (value) {
+                      onChanged: (_) {
                         _updateDecoration();
                       },
                     ),
@@ -238,9 +241,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
                 children: [
                   GestureDetector(
                     key: filterKey,
-                    onTap: () {
-                      _showFilters();
-                    },
+                    onTap: _showFilters,
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
@@ -294,7 +295,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
                       keyboardType: TextInputType.number,
                       controller: _widthController,
                       style: const TextStyle(fontSize: 18),
-                      onChanged: (value) {
+                      onChanged: (_) {
                         _updateDecoration();
                       },
                     ),
