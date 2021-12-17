@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums.dart';
 import 'package:flutter_basics_2/pages/search_cat/cat_search.dart';
 import 'package:flutter_basics_2/pages/settings/settings.dart';
-import 'package:flutter_basics_2/shared/widgets/top_offset_provider.dart';
+import 'package:flutter_basics_2/shared/widgets/offset_provider.dart';
 import 'package:flutter_basics_2/utils/system_chrome.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -24,13 +24,11 @@ class MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    OffsetProvider.of(context).setOffset(context);
     return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: TopOffsetProvider(
-          child: SafeArea(child: _buildCurrentScreen()),
-          context: context,
-        ),
-        bottomNavigationBar: _buildNavbar(context),
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: SafeArea(child: _buildCurrentScreen()),
+      bottomNavigationBar: _buildNavbar(context),
       extendBody: false,
     );
   }
@@ -98,11 +96,10 @@ class MainPageState extends State<MainPage> {
     );
   }
 
-  void _onSomethingPressed () async {
+  void _onSomethingPressed() async {
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
-          borderRadius:
-          BorderRadius.vertical(top: Radius.circular(10))),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
       // expand: false,
       context: context,
       builder: (context) {
