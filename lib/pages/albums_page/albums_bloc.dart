@@ -1,14 +1,11 @@
 import 'dart:async';
-import 'dart:math';
 
-import 'package:flutter/widgets.dart';
 import 'package:flutter_basics_2/repositories/cat_repository.dart';
 import 'package:flutter_basics_2/shared/album.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:get_it/get_it.dart';
-import 'package:logger/logger.dart';
 
 class AlbumsState {
   final Map<String, Album> albums;

@@ -24,8 +24,11 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  GetIt.I.registerSingleton<CatRepository>(await CatRepository()
-    ..initialize());
+
+  final catRepo = CatRepository();
+  await catRepo.initialize();
+  GetIt.I.registerSingleton<CatRepository>(catRepo);
+
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -33,9 +36,9 @@ void main() async {
 
   runApp(
     EasyLocalization(
-      supportedLocales: [Locale('en'), Locale('ru')],
+      supportedLocales: const [Locale('en'), Locale('ru')],
       path: 'assets/locales',
-      fallbackLocale: Locale('en'),
+      fallbackLocale: const Locale('en'),
       useOnlyLangCode: true,
       child: const MainApp(),
     ),
@@ -90,6 +93,7 @@ class MainApp extends StatelessWidget {
                 //     primary: Colors.lightBlue, primaryVariant: Colors.blue),
               ),
               themeMode: state.theme,
+
             ),
           );
         },

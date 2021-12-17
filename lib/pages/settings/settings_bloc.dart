@@ -19,7 +19,7 @@ class SettingsState {
 }
 
 class SettingsCubit extends Cubit<SettingsState> {
-  SettingsCubit() : super(SettingsState(theme: ThemeMode.light)) {
+  SettingsCubit() : super(const SettingsState(theme: ThemeMode.light)) {
     _setup();
   }
 

@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_localization/src/public_ext.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_basics_2/pages/view_cat_page/view_cat_single.dart';
@@ -189,13 +189,14 @@ class _CatEditorPageState extends State<CatEditorPage> {
                   Expanded(
                     child: TextField(
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(
+
+                        border: const OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         filled: true,
                         hintText: 'cat_editor.size'.tr(),
-                        contentPadding: EdgeInsets.all(15),
+                        contentPadding: const EdgeInsets.all(15),
                         isCollapsed: true,
                       ),
                       keyboardType: TextInputType.number,

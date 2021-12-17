@@ -10,7 +10,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SettingsCubit, SettingsState>(builder: (context, state) {
       return Container(
-        padding: EdgeInsets.all(18),
+        padding: const EdgeInsets.all(18),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -18,18 +18,17 @@ class SettingsPage extends StatelessWidget {
               title: Text('settings.theme'.tr()),
               control: Row(
                 children: [
-                  Icon(Icons.wb_sunny_outlined),
+                  const Icon(Icons.wb_sunny_outlined),
                   Switch(
                     inactiveTrackColor: Theme.of(context).backgroundColor,
                     value: state.theme == ThemeMode.dark,
-                    // activeColor: Theme.of(context).colorScheme.primary,
                     onChanged: (value) {
                       context
                           .read<SettingsCubit>()
                           .setTheme(!value ? ThemeMode.light : ThemeMode.dark);
                     },
                   ),
-                  Icon(Icons.nightlight_round),
+                  const Icon(Icons.nightlight_round),
                 ],
               ),
             ),

@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_localization/src/public_ext.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
@@ -7,12 +7,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
 import 'package:flutter_basics_2/pages/base_error_page.dart';
 import 'package:flutter_basics_2/pages/view_cat_page/view_cat_single.dart';
-import 'package:flutter_basics_2/repositories/cat_repository.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/utils/hero_tags.dart';
 import 'package:flutter_basics_2/widgets/progress_bar.dart';
 import 'package:logger/logger.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 
 class FeedListItem extends StatefulWidget {
   final Cat cat;
@@ -64,9 +63,9 @@ class FeedListItemState extends State<FeedListItem> {
                         placeholder: (context, url) {
                           return const ProgressBar();
                         },
-                        fadeOutDuration: Duration(microseconds: 0),
-                        fadeInDuration: Duration(microseconds: 0),
-                        placeholderFadeInDuration: Duration(microseconds: 0),
+                        fadeOutDuration: const Duration(microseconds: 0),
+                        fadeInDuration: const Duration(microseconds: 0),
+                        placeholderFadeInDuration: const Duration(microseconds: 0),
                       ),
                     ),
                   ),

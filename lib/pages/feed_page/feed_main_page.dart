@@ -1,10 +1,10 @@
-import 'package:easy_localization/src/public_ext.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_basics_2/pages/feed_page/feed_bloc.dart';
 import 'package:flutter_basics_2/pages/feed_page/feed_list_item.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
 import 'package:flutter_basics_2/widgets/progress_bar.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class FeedMainPage extends StatefulWidget {

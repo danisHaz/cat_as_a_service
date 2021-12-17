@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums.dart';
 import 'package:flutter_basics_2/pages/search_cat/cat_search.dart';
 import 'package:flutter_basics_2/pages/settings/settings.dart';
 import 'package:flutter_basics_2/shared/widgets/offset_provider.dart';
 import 'package:flutter_basics_2/utils/system_chrome.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../feed_page/feed_screen.dart';
@@ -85,7 +85,7 @@ class MainPageState extends State<MainPage> {
             },
           ),
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.settings,
               color: null,
             ),
@@ -98,12 +98,14 @@ class MainPageState extends State<MainPage> {
 
   void _onSomethingPressed() async {
     showModalBottomSheet(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
+
+      shape: const RoundedRectangleBorder(
+          borderRadius:
+          BorderRadius.vertical(top: Radius.circular(10))),
       // expand: false,
       context: context,
       builder: (context) {
-        return SettingsPage();
+        return const SettingsPage();
       },
     );
   }

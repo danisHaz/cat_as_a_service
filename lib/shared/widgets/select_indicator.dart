@@ -7,7 +7,7 @@ enum SelectIndicatorInfo {
 }
 
 class StatelessSelectIndicator extends StatelessWidget {
-  final defaultState;
+  final SelectIndicatorInfo defaultState;
   const StatelessSelectIndicator({
     Key? key,
     this.defaultState = SelectIndicatorInfo.disabled,
@@ -16,7 +16,7 @@ class StatelessSelectIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IgnorePointer(
-      child: Container(
+      child: SizedBox(
         width: 40,
         height: 40,
         child: CustomPaint(
@@ -28,7 +28,7 @@ class StatelessSelectIndicator extends StatelessWidget {
 }
 
 class SelectIndicator extends StatefulWidget {
-  final defaultState;
+  final SelectIndicatorInfo defaultState;
   final void Function()? onPressed;
   const SelectIndicator({
     Key? key,
@@ -63,13 +63,14 @@ class SelectIndicatorState extends State<SelectIndicator> {
   Widget _buildDetector() {
     return GestureDetector(
       onTap: () {
-        if (widget.onPressed != null)
+        if (widget.onPressed != null) {
           widget.onPressed!();
+        }
         setState(() {
           _info = (_info == SelectIndicatorInfo.enabled) ? SelectIndicatorInfo.disabled : SelectIndicatorInfo.enabled;
         });
       },
-      child: Container(
+      child: SizedBox(
         width: 40,
         height: 40,
         child: CustomPaint(
@@ -81,7 +82,7 @@ class SelectIndicatorState extends State<SelectIndicator> {
 
   Widget _buildSimple() {
     return IgnorePointer(
-      child: Container(
+      child: SizedBox(
         width: 40,
         height: 40,
         child: CustomPaint(
@@ -113,7 +114,7 @@ class OpenPainter extends CustomPainter {
       ..style = PaintingStyle.fill
       ..strokeWidth = 2;
     
-    canvas.drawCircle(Offset(20, 20), 15,
+    canvas.drawCircle(const Offset(20, 20), 15,
       info == SelectIndicatorInfo.enabled ? paint1 : paint2);
   }
  
