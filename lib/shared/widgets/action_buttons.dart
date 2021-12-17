@@ -51,9 +51,7 @@ class SaveCatButton extends StatelessWidget {
               value: () async {
                 Logger().d(cat.width);
                 Logger().d(cat.height);
-                final album = await showDialog(
-                    context: context,
-                    builder: (context) => CatSaveDialog(cat: cat));
+                final album = await Navigator.push(context, MaterialPageRoute(builder: (context) => CatSaveDialog(cat: cat)));
                 if (album != null && album is Album) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(
