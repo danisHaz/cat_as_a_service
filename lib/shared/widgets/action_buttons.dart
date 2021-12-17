@@ -1,5 +1,4 @@
-import 'package:easy_localization/src/public_ext.dart';
-import 'package:easy_localization/src/public_ext.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/add_cat/cat_editor.dart';
 import 'package:flutter_basics_2/pages/add_cat/cat_save_dialog.dart';
@@ -42,7 +41,7 @@ class SaveCatButton extends StatelessWidget {
                 padding: const EdgeInsets.all(5),
                 child:Text(
                   'action_buttons.save_to_album'.tr(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w300,
                   ),
@@ -103,7 +102,7 @@ class SaveCatButton extends StatelessWidget {
             ),
           ],
         );
-        if (func != null) (func as Function())();
+        if (func != null)func();
       },
       icon: const Icon(
         Icons.arrow_downward,

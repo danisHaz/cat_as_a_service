@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_basics_2/repositories/cat_repository.dart';
 import 'package:flutter_basics_2/utils/consts.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -50,7 +49,7 @@ class Cat {
   final String? type;
   final double? height;
   final double? width;
-  String get url => "$BASE_URL/cat/$id"
+  String get url => "$baseUrl/cat/$id"
         + (text.emptyIfNull().isEmpty == true ? "" : "/says/$text")
         + "?filter=${filter.emptyIfNull()}"
         + "&color=${textColor.emptyIfNull()}&type=${type.emptyIfNull()}"

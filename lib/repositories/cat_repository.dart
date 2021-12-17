@@ -13,7 +13,7 @@ import 'package:logger/logger.dart';
 class CatRepository {
   late final Dio _dio;
   late final ApiService _apiService;
-  bool _wasCreated = false;
+  static bool _wasCreated = false;
 
   CatRepository() {
     if(_wasCreated){

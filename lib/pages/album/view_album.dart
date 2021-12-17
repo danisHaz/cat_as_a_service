@@ -1,4 +1,4 @@
-import 'package:easy_localization/src/public_ext.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/pages/albums_page/albums_bloc.dart';
@@ -152,10 +152,11 @@ class ViewAlbumPageState extends State<ViewAlbumPage> {
       onTap: () {
         if (_info == ViewAlbumPageInfo.deletion) {
           setState(() {
-            if (_catsIndices.contains(i))
+            if (_catsIndices.contains(i)) {
               _catsIndices.remove(i);
-            else
+            } else {
               _catsIndices.add(i);
+            }
           });
           return;
         }
@@ -208,8 +209,9 @@ class ViewAlbumPageState extends State<ViewAlbumPage> {
                       _buildCatPreview(album, i),
                       StatelessSelectIndicator(
                         defaultState: ((){
-                            if (_catsIndices.contains(i))
+                            if (_catsIndices.contains(i)) {
                               return SelectIndicatorInfo.enabled;
+                            }
                             return SelectIndicatorInfo.disabled;
                           }()),
                       ),

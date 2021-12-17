@@ -104,7 +104,7 @@ class AlbumPreview extends StatelessWidget {
               ? CachedNetworkImageProvider(
                   album.cats[0].url,
                   errorListener: () {
-                    Logger().e("Failed download image in ${_name}");
+                    Logger().e("Failed download image in $_name");
                   },
                 )
               : const AssetImage('assets/images/cat_placeholder.png')
@@ -115,7 +115,7 @@ class AlbumPreview extends StatelessWidget {
       child: Material(
         type: MaterialType.transparency,
         child: InkWell(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
           onTap: () => onTap(album),
         ),
       ),
@@ -129,7 +129,7 @@ class AlbumPreview extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(top: 8),
+          padding: const EdgeInsets.only(top: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
