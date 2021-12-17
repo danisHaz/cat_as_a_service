@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_basics_2/shared/widgets/top_offset_provider.dart';
+import 'package:flutter_basics_2/shared/widgets/offset_provider.dart';
 
 class Suggestions extends StatelessWidget {
   const Suggestions(
@@ -27,7 +27,7 @@ class Suggestions extends StatelessWidget {
     final renderBox =
         parentKey.currentContext!.findRenderObject()! as RenderBox;
     final parenOffset = renderBox.localToGlobal(Offset.zero) -
-        Offset(0, TopOffsetProvider.of(context).offset.top);
+        Offset(0, OffsetProvider.of(context).offset.top);
     final parenSize = renderBox.size;
     return Positioned(
         top: parenOffset.dy + parenSize.height + 5,

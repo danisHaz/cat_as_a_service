@@ -95,7 +95,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
       );
     }).toList();
 
-    final rez = await openDropdown(context, filterKey, filters);
+    final rez = await openDropdown(context, filterKey, filters, 5);
     if (rez != null) {
       _selectedFilter = rez;
       _updateDecoration();
@@ -184,7 +184,6 @@ class _CatEditorPageState extends State<CatEditorPage> {
                 },
               ),
               const SizedBox(height: 5),
-
               Row(
                 children: [
                   Expanded(

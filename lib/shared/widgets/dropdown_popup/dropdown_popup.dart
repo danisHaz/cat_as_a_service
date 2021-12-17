@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basics_2/shared/widgets/dropdown_popup/dropdown_item.dart';
+import 'package:flutter_basics_2/shared/widgets/offset_provider.dart';
 
 class DropdownPopup<T> extends StatefulWidget {
-  const DropdownPopup(
-      {Key? key,
-      required this.parentOffset,
-      required this.parentSize,
-      required this.items,
-      required this.screenHeight})
-      : super(key: key);
+  const DropdownPopup({
+    Key? key,
+    required this.parentOffset,
+    required this.parentSize,
+    required this.items,
+    required this.screenHeight,
+    required this.offset,
+  }) : super(key: key);
   final Offset parentOffset;
   final Size parentSize;
+  final int offset;
   final List<DropdownItem<T>> items;
   final double screenHeight;
 
@@ -24,6 +27,8 @@ class _DropdownPopupState extends State<DropdownPopup> {
   late bool toRight;
   late double rightOffset;
   late double bottomOffset;
+
+  late bool contrastColors;
   final listKey = GlobalKey();
 
   @override
@@ -60,10 +65,14 @@ class _DropdownPopupState extends State<DropdownPopup> {
             ),
             Positioned(
               top: toBottom
-                  ? widget.parentOffset.dy + widget.parentSize.height
+                  ? widget.parentOffset.dy +
+                      widget.parentSize.height +
+                      widget.offset
                   : 0,
               left: toRight ? widget.parentOffset.dx : 0,
-              height: toBottom ? bottomOffset : widget.parentOffset.dy,
+              height: toBottom
+                  ? bottomOffset - widget.offset
+                  : widget.parentOffset.dy - widget.offset,
               width: toRight
                   ? rightOffset + widget.parentSize.width
                   : widget.parentOffset.dx + widget.parentSize.width,
@@ -109,10 +118,8 @@ class _DropdownPopupState extends State<DropdownPopup> {
 }
 
 Future<T?> openDropdown<T>(
-  BuildContext context,
-  GlobalKey parentKey,
-  List<DropdownItem<T>> items,
-) {
+    BuildContext context, GlobalKey parentKey, List<DropdownItem<T>> items,
+    [int? offset]) {
   final renderBox = parentKey.currentContext!.findRenderObject()! as RenderBox;
 
   return showDialog(
@@ -120,11 +127,12 @@ Future<T?> openDropdown<T>(
     context: context,
     builder: (context) {
       return DropdownPopup<T>(
+          offset: offset ?? 0,
           screenHeight: MediaQuery.of(context).size.height -
-              MediaQuery.of(context).viewPadding.top -
-              MediaQuery.of(context).viewPadding.bottom,
+              OffsetProvider.of(context).offset.top -
+              OffsetProvider.of(context).offset.bottom,
           parentOffset: renderBox.localToGlobal(Offset.zero) -
-              Offset(0, MediaQuery.of(context).viewPadding.top),
+              Offset(0, OffsetProvider.of(context).offset.top),
           parentSize: renderBox.size,
           items: items);
     },
