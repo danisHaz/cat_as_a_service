@@ -26,22 +26,21 @@ class SingleCatViewPageState extends State<SingleCatViewPage> {
     return HidingAppBarPage(
       appBar: CustomAppbar(
         name: '',
-        actions: showActions
+        actions: widget.showActions
             ? [
                 EditCatButton(
-                  cat: cat,
-                  editorHeroTag: catHeroTag(cat: cat),
+                  cat: widget.cat,
+                  editorHeroTag: catHeroTag(cat: widget.cat),
                 ),
-                SaveCatButton(cat: cat),
-                ShareCatButton(cat: cat),
+                SaveCatButton(cat: widget.cat),
+                ShareCatButton(cat: widget.cat),
               ]
             : [],
       ),
       body: PhotoView(
-        heroAttributes:
-            PhotoViewHeroAttributes(tag: heroTag ?? catHeroTag(cat: cat)),
-        imageProvider: CachedNetworkImageProvider(cat.url),
-
+        heroAttributes: PhotoViewHeroAttributes(
+            tag: widget.heroTag ?? catHeroTag(cat: widget.cat)),
+        imageProvider: CachedNetworkImageProvider(widget.cat.url),
         minScale: PhotoViewComputedScale.contained,
         maxScale: 10.0,
       ),

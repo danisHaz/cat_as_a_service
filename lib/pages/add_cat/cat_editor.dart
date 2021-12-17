@@ -144,8 +144,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
   Widget build(BuildContext context) {
     final backgroundGrey = Theme.of(context).inputDecorationTheme.fillColor;
     return Scaffold(
-
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         appBar: CustomAppbar(
           name: 'cat_editor.name'.tr(),
           actions: [
@@ -155,14 +154,14 @@ class _CatEditorPageState extends State<CatEditorPage> {
         ),
         body: KeyboardDismissOnTap(
           child: ListView(
+            physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.all(16),
             children: [
               _buildPicture(),
               Container(height: 22),
               Text(
                 'cat_editor.text'.tr(),
-                style: const TextStyle(fontSize: 24),
-
+                style: TextStyle(fontSize: 24),
               ),
               Container(height: 2),
               Row(
@@ -170,15 +169,13 @@ class _CatEditorPageState extends State<CatEditorPage> {
                   Expanded(
                     child: TextField(
                       decoration: InputDecoration(
-                        border: const OutlineInputBorder(
+                        border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        fillColor: backgroundGrey,
                         filled: true,
                         hintText: 'cat_editor.enter_text'.tr(),
-                        contentPadding: const EdgeInsets.all(15),
-
+                        contentPadding: EdgeInsets.all(15),
                         isCollapsed: true,
                       ),
                       controller: _textController,
@@ -193,15 +190,13 @@ class _CatEditorPageState extends State<CatEditorPage> {
                     width: 65,
                     child: TextField(
                       decoration: InputDecoration(
-                        border: const OutlineInputBorder(
+                        border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        fillColor: backgroundGrey,
                         filled: true,
                         hintText: 'cat_editor.size'.tr(),
-                        contentPadding: const EdgeInsets.all(15),
-
+                        contentPadding: EdgeInsets.all(15),
                         isCollapsed: true,
                       ),
                       keyboardType: TextInputType.number,
@@ -217,15 +212,13 @@ class _CatEditorPageState extends State<CatEditorPage> {
                     width: 110,
                     child: TextField(
                       decoration: InputDecoration(
-                        border: const OutlineInputBorder(
+                        border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        fillColor: backgroundGrey,
                         filled: true,
                         hintText: 'cat_editor.css_colour'.tr(),
-                        contentPadding: const EdgeInsets.all(16),
-
+                        contentPadding: EdgeInsets.all(16),
                         isCollapsed: true,
                       ),
                       keyboardType: TextInputType.text,
@@ -241,8 +234,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
               const SizedBox(height: 14),
               Text(
                 'cat_editor.filters'.tr(),
-                style: const TextStyle(fontSize: 24),
-
+                style: TextStyle(fontSize: 24),
               ),
               const SizedBox(height: 2),
               Row(
@@ -255,7 +247,10 @@ class _CatEditorPageState extends State<CatEditorPage> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: backgroundGrey,
+                        color: backgroundGrey ??
+                            (Theme.of(context).brightness == Brightness.light
+                                ? const Color(0x0A000000)
+                                : const Color(0x1AFFFFFF)),
                       ),
                       padding: const EdgeInsets.all(15),
                       child: Row(
@@ -281,7 +276,7 @@ class _CatEditorPageState extends State<CatEditorPage> {
               Container(height: 14),
               Text(
                 "cat_editor.sizes".tr(),
-                style: const TextStyle(fontSize: 24),
+                style: TextStyle(fontSize: 24),
               ),
               Container(height: 2),
               Row(
@@ -318,8 +313,6 @@ class _CatEditorPageState extends State<CatEditorPage> {
                             borderSide: BorderSide.none,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-
-                        fillColor: backgroundGrey,
                         filled: true,
                         hintText: '-',
                         contentPadding: EdgeInsets.all(15),

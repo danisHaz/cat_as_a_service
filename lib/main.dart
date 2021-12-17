@@ -69,6 +69,10 @@ class MainApp extends StatelessWidget {
             ),
             darkTheme: ThemeData.dark().copyWith(
               pageTransitionsTheme: pageTransitionTheme,
+              toggleableActiveColor: Colors.lightBlue,
+
+              // colorScheme: ColorScheme.dark(
+              //     primary: Colors.lightBlue, primaryVariant: Colors.blue),
             ),
             themeMode: state.theme,
           );
