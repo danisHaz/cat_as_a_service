@@ -69,10 +69,12 @@ class SettingsPage extends StatelessWidget {
   }
 
   _showLanguages(BuildContext context) async {
+    int i = 0;
     final filters = EasyLocalization.of(context)!.supportedLocales.map((e) {
+          ++i;
           return DropdownItem(
             child: Container(
-              padding: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(15).copyWith(top: i == 1 ? 15 : 0),
               child: Text(
                 e.languageCode,
                 style: const TextStyle(
