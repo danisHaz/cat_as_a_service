@@ -6,16 +6,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_basics_2/repositories/api_service.dart';
 import 'package:flutter_basics_2/shared/album.dart';
 import 'package:flutter_basics_2/shared/cat.dart';
+import 'package:logger/logger.dart';
 
 // TODO: !IMPORTANT! rewrite albums as subcollections
 
 class CatRepository {
   late final Dio _dio;
   late final ApiService _apiService;
+  bool _wasCreated = false;
 
   CatRepository() {
+    if(_wasCreated){
+      Logger().e('Cat repository created multiple times');
+    }
     _dio = Dio();
     _apiService = ApiService(_dio);
+    _wasCreated = true;
   }
 
   Future<Cat> getFilteredCat(Cat oldCat) =>
