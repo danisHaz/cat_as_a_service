@@ -53,7 +53,6 @@ class _CatEditorPageState extends State<CatEditorPage> {
   void initState() {
     super.initState();
     cat = widget.cat;
-    Logger().d(cat.width);
     _selectedFilter = cat.filter ?? CatDecorationFilter.none;
     _textController.text = cat.text.emptyIfNull();
     _fontSizeController.text = cat.fontSize?.toString() ?? "";
